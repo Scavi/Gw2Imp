@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">GW2Imp</string>
+
+    <string name="api_account_key_title">API-Key</string>
+    <string name="api_account_key_text">Für den Zugriff auf den Account wird ein GW2-API Key benötigt.</string>
+    <string name="api_account_key_skip">Überspringen</string>
+    <string name="api_account_key_next">Weiter</string>
+
+    <string name="api_account_key_validating">Der Account-Zugriff wird validiert</string>
+    <string name="api_account_key_error">Dein Account-key ist ungültig. Bitte überprüfe Deine Eingabe.</string>
+    <string name="api_account_key_error_format">XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXXXXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</string>
+    <string name="api_account_key_error_token_count" formatted="false">Du unwürdiger Wurm! Ungültige Anzahl der Api-Key Token, separiert durch \'-\'. (Erhalten=\'%s\' Erwartet=\'%s\')</string>
+    <string name="api_account_key_error_token_format" formatted="false">Du unwürdiger Wurm! Das Token an der %s Stelle weißt ein falsches Format auf! (Erhalten=\'%s\' Erwartet=\'%s\')</string>
+    <string name="api_account_key_error_token_length" formatted="false">Du unwürdiger Wurm! Die Länge des Api-Keys ist fehlerhaft. (Erhalten=\'%s\' Erwartet=\'%s\')</string>
+    <string name="api_account_key_error_unknown">Bitte überprüfe das Format des Api-Keys.</string>
+
+    <string name="connection_exception">Es konnte keine Verbindung zum GuildWars2 Server hergestellt werden. Überprüfe Deine Internetverbindung.</string>
+
+    <string name="http_400_bad_request">Es ist ein technischer Fehler beim prozessieren der Anfrage aufgetreten (http:400)</string>
+    <string name="http_401_unauthorized">Die Authorisierung ist fehlgeschlagen (http:401)</string>
+    <string name="http_403_forbidden">Der Zugriff auf die URL ist nicht gestattet (http:403)</string>
+    <string name="http_404_not_found">Die URL kann nicht aufgerufen werden (http:404)</string>
+    <string name="http_405_method_not_allowed">Die Zugriffsmethode existiert nicht (http:405)</string>
+    <string name="http_code_unknown">Es ist ein unbekannter Fehler bei der Anfrage aufgetreten (http:%s)</string>
+
+    <string name="empty"></string>
+</resources>
