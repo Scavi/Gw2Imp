@@ -14,6 +14,17 @@
     <string name="api_account_key_error_token_length" formatted="false">Du unwürdiger Wurm! Die Länge des Api-Keys ist fehlerhaft. (Erhalten=\'%s\' Erwartet=\'%s\')</string>
     <string name="api_account_key_error_unknown">Bitte überprüfe das Format des Api-Keys.</string>
 
+    <string name="core_navigation_account">Account</string>
+    <string name="core_navigation_account_overview">Übersicht</string>
+    <string name="core_navigation_account_character">Charaktere</string>
+    <string name="core_navigation_account_raid">Raid</string>
+    <string name="core_navigation_account_buy">Kaufen</string>
+    <string name="core_navigation_account_sell">Verkaufen</string>
+    <string name="core_navigation_account_trading_market">Handelsmarkt</string>
+    <string name="core_navigation_account_trading_up">Anstieg</string>
+    <string name="core_navigation_account_trading_down">Abstieg</string>
+
+
     <string name="connection_exception">Es konnte keine Verbindung zum GuildWars2 Server hergestellt werden. Überprüfe Deine Internetverbindung.</string>
 
     <string name="http_400_bad_request">Es ist ein technischer Fehler beim prozessieren der Anfrage aufgetreten (http:400)</string>
@@ -25,3 +36,6 @@
 
     <string name="empty"></string>
 </resources>
+
+
+

@@ -1,6 +1,9 @@
 package com.scavi.de.gw2imp.ui.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -24,11 +27,14 @@ import com.scavi.de.gw2imp.dagger2.component.DaggerSplashComponent;
 import com.scavi.de.gw2imp.dagger2.module.OverviewModule;
 import com.scavi.de.gw2imp.dagger2.module.SplashModule;
 import com.scavi.de.gw2imp.presenter.OverviewPresenter;
+import com.scavi.de.gw2imp.ui.listener.NavigationClickListener;
 import com.scavi.de.gw2imp.ui.view.IOverviewView;
 
 import javax.inject.Inject;
 
-public class OverviewActivity extends AppCompatActivity implements IOverviewView {
+import static com.scavi.de.gw2imp.ui.listener.NavigationClickListener.*;
+
+public class OverviewActivity extends AbstractMainActivity implements IOverviewView {
 
     @Inject
     OverviewPresenter mPresenter;
@@ -41,12 +47,21 @@ public class OverviewActivity extends AppCompatActivity implements IOverviewView
      *                           in this method. Note: Otherwise it is null.
      */
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
         injectComponent(((IApplication) getApplication()).getComponent());
-        createDrawerMenu();
+        setupUiComponents();
         mPresenter.onCreate();
+    }
+
+
+    /**
+     * Setups the UI component. Create the navigation drawer and set the selection for the overview
+     */
+    private void setupUiComponents() {
+        Drawer drawer = createDrawerMenu();
+        drawer.setSelection(NavigationClickListener.OVERVIEW_ID);
     }
 
     /**
@@ -61,93 +76,5 @@ public class OverviewActivity extends AppCompatActivity implements IOverviewView
                 .overviewModule(module)
                 .build()
                 .inject(this);
-    }
-
-
-    // TODO
-    private void createDrawerMenu() {
-        setupActionBar(getSupportActionBar());
-
-
-        //if you want to update the items at a later time it is recommended to keep it in a variable
-
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.logo_main)
-//                .addProfiles(
-//                        new ProfileDrawerItem().withName("Cookie Monster")/*.withIcon
-//                        (getResources().getDrawable(R.drawable.profile))*/
-//                )
-//                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-//                    @Override
-//                    public boolean onProfileChanged(View view,
-//                                                    IProfile profile,
-//                                                    boolean currentProfile) {
-//                        return false;
-//                    }
-//                })
-                .build();
-
-
-//create the drawer and remember the `Drawer` result object
-        Drawer result = new DrawerBuilder()
-                .withActivity(this)
-                .withAccountHeader(headerResult)
-                .withTranslucentStatusBar(false)
-                .withActionBarDrawerToggle(false)
-                //.withRootView(R.id.drawer_layout)
-                .addDrawerItems(
-                        new SecondaryDrawerItem().withName("Übersicht"),
-                        new SectionDrawerItem().withDivider(true)
-                                .withIdentifier(1).withName("Account"),
-                        new SecondaryDrawerItem().withName("Charaktere"),
-                        new SecondaryDrawerItem().withName("Raid"),
-
-                        new PrimaryDrawerItem().withName("Irgendwas"),
-                        new PrimaryDrawerItem().withName("Anderes"),
-
-                        new SectionDrawerItem().withDivider(true)
-                                .withIdentifier(1).withName("Handelsmarkt"),
-                        new SecondaryDrawerItem().withName("Transaktionen")
-
-                        )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view,
-                                               int position,
-                                               IDrawerItem drawerItem) {
-                        // do something with the clicked item :D
-                        return true;
-                    }
-                })
-                .build();
-
-//
-//        new DrawerBuilder()
-//                .withActivity(this)
-//                .addDrawerItems(
-//                        item2,
-//                        new SecondaryDrawerItem().withName("cookies")
-//                )
-//                .withDrawerGravity(Gravity.END)
-//                .append(result);
-    }
-
-
-    /**
-     * Setups the actionbar for the activity
-     *
-     * @param actionBar the actionbar to setup
-     */
-    protected void setupActionBar(final ActionBar actionBar) {
-        if (actionBar != null) {
-            if (true) { // TODO
-                actionBar.setDisplayShowTitleEnabled(true);
-                actionBar.setDisplayHomeAsUpEnabled(false);
-                actionBar.setHomeButtonEnabled(true);
-            } else {
-                actionBar.hide();
-            }
-        }
     }
 }
