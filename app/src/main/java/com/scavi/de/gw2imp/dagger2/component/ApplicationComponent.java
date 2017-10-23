@@ -17,14 +17,12 @@ import android.content.Context;
 
 import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
-import com.scavi.de.gw2imp.communication.access.impl.AccountAccess;
 import com.scavi.de.gw2imp.dagger2.module.ApplicationModule;
-import com.scavi.de.gw2imp.data.preferences.IPreferenceAccess;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
-import dagger.Provides;
 import retrofit2.Retrofit;
 
 @Singleton

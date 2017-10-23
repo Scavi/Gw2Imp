@@ -15,7 +15,7 @@ package com.scavi.de.gw2imp.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.scavi.de.gw2imp.data.preferences.qr.QrResult;
+import com.scavi.de.gw2imp.preferences.qr.QrResult;
 import com.scavi.de.gw2imp.model.ApiKeyQrCaptureModel;
 import com.scavi.de.gw2imp.ui.view.IApiKeyQrCaptureView;
 

@@ -19,25 +19,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.SparseArray;
 
 import com.google.android.gms.samples.vision.barcodereader.BarcodeCapture;
-import com.google.android.gms.samples.vision.barcodereader.BarcodeGraphic;
-import com.google.android.gms.vision.barcode.Barcode;
 import com.scavi.de.gw2imp.R;
 import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
-import com.scavi.de.gw2imp.dagger2.component.DaggerApiAccountKeyComponent;
 import com.scavi.de.gw2imp.dagger2.component.DaggerApiKeyQrCaptureComponent;
-import com.scavi.de.gw2imp.dagger2.module.ApiAccountKeyModule;
 import com.scavi.de.gw2imp.dagger2.module.ApiKeyQrCaptureModule;
-import com.scavi.de.gw2imp.data.preferences.qr.QrResult;
+import com.scavi.de.gw2imp.preferences.qr.QrResult;
 import com.scavi.de.gw2imp.model.ApiKeyQrCaptureModel;
-import com.scavi.de.gw2imp.presenter.ApiAccountKeyPresenter;
 import com.scavi.de.gw2imp.presenter.ApiKeyQrCapturePresenter;
 import com.scavi.de.gw2imp.ui.view.IApiKeyQrCaptureView;
-
-import java.util.List;
 
 import javax.inject.Inject;
 

@@ -22,8 +22,8 @@ import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
 import com.scavi.de.gw2imp.communication.access.impl.AccountAccess;
 import com.scavi.de.gw2imp.communication.interceptor.ApiKeyInterceptor;
-import com.scavi.de.gw2imp.data.preferences.IPreferenceAccess;
-import com.scavi.de.gw2imp.data.preferences.PreferenceManager;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
+import com.scavi.de.gw2imp.preferences.PreferenceManager;
 import com.scavi.de.gw2imp.util.Const;
 
 import java.util.concurrent.TimeUnit;

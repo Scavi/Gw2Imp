@@ -16,7 +16,7 @@ package com.scavi.de.gw2imp.dagger2.module;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.scavi.de.gw2imp.data.preferences.IPreferenceAccess;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.model.SplashModel;
 import com.scavi.de.gw2imp.presenter.SplashPresenter;
 import com.scavi.de.gw2imp.ui.view.ISplashView;

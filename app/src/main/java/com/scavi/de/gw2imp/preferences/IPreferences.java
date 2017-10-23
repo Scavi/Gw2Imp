@@ -11,16 +11,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.scavi.de.gw2imp.ui.view;
+package com.scavi.de.gw2imp.preferences;
 
-import com.scavi.de.gw2imp.preferences.qr.QrResult;
-
-public interface IApiKeyQrCaptureView {
-    /**
-     * Closes the activity
-     *
-     * @param qrResult the qr result containing the return code and the qr code
-     *                 (in case of success)
-     */
-    void onClose(final QrResult qrResult);
+public interface IPreferences {
+    String API_KEY = "ApiKey";
+    String ROUTING_STATE = "RoutingState";
 }

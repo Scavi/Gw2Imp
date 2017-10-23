@@ -19,7 +19,7 @@ import com.scavi.de.gw2imp.R;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
 import com.scavi.de.gw2imp.communication.response.account.Account;
 import com.scavi.de.gw2imp.communication.util.HttpErrorMapping;
-import com.scavi.de.gw2imp.data.preferences.IPreferenceAccess;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 
 import java.net.HttpURLConnection;
 import java.util.StringTokenizer;

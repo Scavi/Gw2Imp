@@ -16,7 +16,7 @@ package com.scavi.de.gw2imp.model;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.scavi.de.gw2imp.data.preferences.IPreferenceAccess;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.ui.activity.ApiAccountKeyActivity;
 import com.scavi.de.gw2imp.ui.activity.OverviewActivity;
 import com.scavi.de.gw2imp.ui.util.ActivityHelper;

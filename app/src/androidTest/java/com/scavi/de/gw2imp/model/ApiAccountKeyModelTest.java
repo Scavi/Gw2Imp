@@ -21,7 +21,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.scavi.de.gw2imp.R;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
-import com.scavi.de.gw2imp.data.preferences.IPreferenceAccess;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 
 import junit.framework.Assert;
 

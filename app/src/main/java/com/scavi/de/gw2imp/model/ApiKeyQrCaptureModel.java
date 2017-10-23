@@ -17,7 +17,7 @@ import android.util.SparseArray;
 
 import com.google.android.gms.samples.vision.barcodereader.BarcodeGraphic;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.scavi.de.gw2imp.data.preferences.qr.QrResult;
+import com.scavi.de.gw2imp.preferences.qr.QrResult;
 
 import java.util.List;
 import java.util.Observable;

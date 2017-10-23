@@ -14,10 +14,8 @@
 package com.scavi.de.gw2imp.communication.interceptor;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.scavi.de.gw2imp.data.preferences.IPreferenceAccess;
-import com.scavi.de.gw2imp.data.preferences.IPreferences;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 
 import java.io.IOException;
 

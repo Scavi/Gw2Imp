@@ -17,7 +17,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
-import com.scavi.de.gw2imp.data.preferences.IPreferenceAccess;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.model.ApiAccountKeyModel;
 import com.scavi.de.gw2imp.presenter.ApiAccountKeyPresenter;
 import com.scavi.de.gw2imp.ui.view.IApiAccountKeyView;

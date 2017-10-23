@@ -15,7 +15,7 @@ package com.scavi.de.gw2imp.model;
 
 import android.content.Context;
 
-import com.scavi.de.gw2imp.data.preferences.IPreferenceAccess;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.util.RoutingState;
 
 public class OverviewModel {

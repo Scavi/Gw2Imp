@@ -32,8 +32,10 @@ import com.scavi.de.gw2imp.communication.response.account.Skins;
 import com.scavi.de.gw2imp.communication.response.account.Titles;
 import com.scavi.de.gw2imp.communication.response.account.TokenInfo;
 import com.scavi.de.gw2imp.communication.response.account.Wallet;
+import com.scavi.de.gw2imp.communication.response.achievement.Category;
 import com.scavi.de.gw2imp.communication.response.commerce.Transaction;
 import com.scavi.de.gw2imp.communication.response.items.Finisher;
+import com.scavi.de.gw2imp.data.entity.Group;
 
 import java.util.List;
 
@@ -42,6 +44,32 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface Gw2ApiV2Plugin {
+
+    /**
+     * @return All the top-level groups for achievements.
+     */
+    @GET("v2/achievements/groups")
+    Call<List<Group>> getAchievementGroups();
+
+    /**
+     * @param groupId the id of the group
+     * @return the top-level group for achievements to the requested groupid
+     */
+    @GET("v2/achievements/groups/{groupId}")
+    Call<Group> getAchievementGroup(@Path("groupId") final String groupId);
+
+    /**
+     * @return all the ids of the categories for achievements.
+     */
+    @GET("v2/achievements/categories")
+    Call<List<Category>> getAchievementCategories();
+
+    /**
+     * @param id the id of the category
+     * @return all the categories for achievements.
+     */
+    @GET("v2/achievements/categories/{id}")
+    Call<Category> getAchievementCategory(@Path("id") final int id);
 
     /**
      * @return Returns information about an account associated with an API key.
@@ -62,7 +90,8 @@ public interface Gw2ApiV2Plugin {
     Call<List<Bank>> getAccountBank();
 
     /**
-     * @return Returns information about the current daily cleared dungeons associated with an API key.
+     * @return Returns information about the current daily cleared dungeons associated with an
+     * API key.
      */
     @GET("v2/account/dungeons")
     Call<Dungeons> getAccountDungeons();
@@ -80,19 +109,22 @@ public interface Gw2ApiV2Plugin {
     Call<List<Finisher>> getAccountFinishers();
 
     /**
-     * @return Returns information about unlocked cats in the home instance associated with an API key.
+     * @return Returns information about unlocked cats in the home instance associated with an
+     * API key.
      */
     @GET("v2/account/home/cats")
     Call<Cats> getAccountCats();
 
     /**
-     * @return This endpoint returns an array of strings. Each string represents the name of a particular node.
+     * @return This endpoint returns an array of strings. Each string represents the name of a
+     * particular node.
      */
     @GET("v2/account/home/nodes")
     Call<Nodes> getAccountNodes();
 
     /**
-     * @return This resource returns the shared inventory slots in an account. This endpoint is only accessible with a valid API key.
+     * @return This resource returns the shared inventory slots in an account. This endpoint is
+     * only accessible with a valid API key.
      */
     @GET("v2/account/inventory")
     Call<List<Inventory>> getAccountInventory();
@@ -110,7 +142,8 @@ public interface Gw2ApiV2Plugin {
     Call<Materials> getAccountMaterials();
 
     /**
-     * @return This resource returns the unlocked miniatures of the account. This endpoint is only accessible with a valid API key.
+     * @return This resource returns the unlocked miniatures of the account. This endpoint is
+     * only accessible with a valid API key.
      */
     @GET("v2/account/minis")
     Call<Minis> getAccountMinis();
@@ -122,7 +155,8 @@ public interface Gw2ApiV2Plugin {
     Call<Outfits> getAccountOutfits();
 
     /**
-     * @return Returns information about completed raid events between weekly resets associated with an API key.
+     * @return Returns information about completed raid events between weekly resets associated
+     * with an API key.
      */
     @GET("v2/account/raids")
     Call<Raids> getAccountRaids();
@@ -134,7 +168,8 @@ public interface Gw2ApiV2Plugin {
     Call<Recipts> getAccountRecipes();
 
     /**
-     * @return returns the unlocked skins of the account. This endpoint is only accessible with a valid API key.
+     * @return returns the unlocked skins of the account. This endpoint is only accessible with a
+     * valid API key.
      */
     @GET("v2/account/skins")
     Call<Skins> getAccountSkins();
@@ -146,19 +181,22 @@ public interface Gw2ApiV2Plugin {
     Call<Titles> getAccountTitles();
 
     /**
-     * @return This resource returns the currencies of the account. This endpoint is only accessible with a valid API key.
+     * @return This resource returns the currencies of the account. This endpoint is only
+     * accessible with a valid API key.
      */
     @GET("v2/account/wallet")
     Call<Wallet> getAccountWallet();
 
     /**
-     * @return If the endpoint is accessed without any parameters (/v2/characters), it will return an array of characters by name.
+     * @return If the endpoint is accessed without any parameters (/v2/characters), it will
+     * return an array of characters by name.
      */
     @GET("v2/account/characters")
     Call<Characters> getAccountCharacters();
 
     /**
-     * Characters can be requested specifically via the ids parameter, or by specifying them percent-encoded in the next URI component. (e.g. /v2/characters/My%20Character)
+     * Characters can be requested specifically via the ids parameter, or by specifying them
+     * percent-encoded in the next URI component. (e.g. /v2/characters/My%20Character)
      *
      * @param name the name of the character
      * @return the character by name
@@ -212,6 +250,7 @@ public interface Gw2ApiV2Plugin {
 
     @GET("v2/finishers/{id}")
     Call<Finisher> getFinisher(@Path("id") final int id);
+
 
     @GET("v2/finishers/{ids}")
     Call<List<Finisher>> getFinishers(@Path("ids") final String ids);
