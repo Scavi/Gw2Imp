@@ -43,33 +43,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface Gw2ApiV2Plugin {
-
-    /**
-     * @return All the top-level groups for achievements.
-     */
-    @GET("v2/achievements/groups")
-    Call<List<Group>> getAchievementGroups();
-
-    /**
-     * @param groupId the id of the group
-     * @return the top-level group for achievements to the requested groupid
-     */
-    @GET("v2/achievements/groups/{groupId}")
-    Call<Group> getAchievementGroup(@Path("groupId") final String groupId);
-
-    /**
-     * @return all the ids of the categories for achievements.
-     */
-    @GET("v2/achievements/categories")
-    Call<List<Category>> getAchievementCategories();
-
-    /**
-     * @param id the id of the category
-     * @return all the categories for achievements.
-     */
-    @GET("v2/achievements/categories/{id}")
-    Call<Category> getAchievementCategory(@Path("id") final int id);
+public interface Gw2ApiV2AccountPlugin {
 
     /**
      * @return Returns information about an account associated with an API key.
@@ -81,118 +55,118 @@ public interface Gw2ApiV2Plugin {
      * @return Returns information about an account associated with an API key.
      */
     @GET("v2/account/achievements")
-    Call<List<Achievement>> getAccountAchievements();
+    Call<List<Achievement>> getAchievements();
 
     /**
      * @return Returns information about a bank associated with an API key.
      */
     @GET("v2/account/bank")
-    Call<List<Bank>> getAccountBank();
+    Call<List<Bank>> getBank();
 
     /**
      * @return Returns information about the current daily cleared dungeons associated with an
      * API key.
      */
     @GET("v2/account/dungeons")
-    Call<Dungeons> getAccountDungeons();
+    Call<Dungeons> getDungeons();
 
     /**
      * @return Returns information about unlocked dyes associated with an API key.
      */
     @GET("v2/account/dyes")
-    Call<Dyes> getAccountDyes();
+    Call<Dyes> getDyes();
 
     /**
      * @return Returns information about unlocked finishers associated with an API key.
      */
     @GET("v2/account/finishers")
-    Call<List<Finisher>> getAccountFinishers();
+    Call<List<Finisher>> getFinishers();
 
     /**
      * @return Returns information about unlocked cats in the home instance associated with an
      * API key.
      */
     @GET("v2/account/home/cats")
-    Call<Cats> getAccountCats();
+    Call<Cats> getCats();
 
     /**
      * @return This endpoint returns an array of strings. Each string represents the name of a
      * particular node.
      */
     @GET("v2/account/home/nodes")
-    Call<Nodes> getAccountNodes();
+    Call<Nodes> getNodes();
 
     /**
      * @return This resource returns the shared inventory slots in an account. This endpoint is
      * only accessible with a valid API key.
      */
     @GET("v2/account/inventory")
-    Call<List<Inventory>> getAccountInventory();
+    Call<List<Inventory>> getInventory();
 
     /**
      * @return This resource returns information about masteries that are unlocked for an account.
      */
     @GET("v2/account/masteries")
-    Call<Masteries> getAccountMasteries();
+    Call<Masteries> getMasteries();
 
     /**
      * @return This resource returns the materials stored in a player's vault.
      */
     @GET("v2/account/materials")
-    Call<Materials> getAccountMaterials();
+    Call<Materials> getMaterials();
 
     /**
      * @return This resource returns the unlocked miniatures of the account. This endpoint is
      * only accessible with a valid API key.
      */
     @GET("v2/account/minis")
-    Call<Minis> getAccountMinis();
+    Call<Minis> getMinis();
 
     /**
      * @return This resource returns information about outfits that are unlocked for an account.
      */
     @GET("v2/account/outfits")
-    Call<Outfits> getAccountOutfits();
+    Call<Outfits> getOutfits();
 
     /**
      * @return Returns information about completed raid events between weekly resets associated
      * with an API key.
      */
     @GET("v2/account/raids")
-    Call<Raids> getAccountRaids();
+    Call<Raids> getRaids();
 
     /**
      * @return This resource returns information about recipes that are unlocked for an account.
      */
     @GET("v2/account/recipes")
-    Call<Recipts> getAccountRecipes();
+    Call<Recipts> getRecipes();
 
     /**
      * @return returns the unlocked skins of the account. This endpoint is only accessible with a
      * valid API key.
      */
     @GET("v2/account/skins")
-    Call<Skins> getAccountSkins();
+    Call<Skins> getSkins();
 
     /**
      * @return This resource returns information about titles that are unlocked for an account.
      */
     @GET("v2/account/titles")
-    Call<Titles> getAccountTitles();
+    Call<Titles> getTitles();
 
     /**
      * @return This resource returns the currencies of the account. This endpoint is only
      * accessible with a valid API key.
      */
     @GET("v2/account/wallet")
-    Call<Wallet> getAccountWallet();
+    Call<Wallet> getWallet();
 
     /**
      * @return If the endpoint is accessed without any parameters (/v2/characters), it will
      * return an array of characters by name.
      */
     @GET("v2/account/characters")
-    Call<Characters> getAccountCharacters();
+    Call<Characters> getCharacters();
 
     /**
      * Characters can be requested specifically via the ids parameter, or by specifying them
@@ -202,7 +176,7 @@ public interface Gw2ApiV2Plugin {
      * @return the character by name
      */
     @GET("v2/characters/{name}")
-    Call<Character> getAccountCharacter(@Path("name") final String name);
+    Call<Character> getCharacter(@Path("name") final String name);
 
 
     /**
@@ -212,32 +186,32 @@ public interface Gw2ApiV2Plugin {
      * @return the character by page
      */
     @GET("v2/characters?page={page}")
-    Call<Character> getAccountCharacter(@Path("page") final int page);
+    Call<Character> getCharacter(@Path("page") final int page);
 
     /**
      * @return This resource provides access to the current buy-transactions of a player.
      */
     @GET("v2/account/commerce/transactions")
-    Call<List<Transaction>> getAccountCurrentBuyTransactions();
+    Call<List<Transaction>> getCurrentBuyTransactions();
 
     /**
      * @return This resource provides access to the current sell-transactions of a player.
      */
     @GET("v2/account/commerce/transactions")
-    Call<List<Transaction>> getAccountCurrentSellTransactions();
+    Call<List<Transaction>> getCurrentSellTransactions();
 
 
     /**
      * @return This resource provides access to the history buy-transactions of a player.
      */
     @GET("v2/account/commerce/transactions")
-    Call<List<Transaction>> getAccountHistoryBuyTransactions();
+    Call<List<Transaction>> getHistoryBuyTransactions();
 
     /**
      * @return This resource provides access to the history sell-transactions of a player.
      */
     @GET("v2/account/commerce/transactions")
-    Call<List<Transaction>> getAccountHistorySellTransactions();
+    Call<List<Transaction>> getHistorySellTransactions();
 
     // TODO account -> pvp
 
@@ -245,13 +219,5 @@ public interface Gw2ApiV2Plugin {
      * @return This resource returns information about the supplied API key.
      */
     @GET("v2/tokeninfo")
-    Call<TokenInfo> getAccountTokenInfo();
-
-
-    @GET("v2/finishers/{id}")
-    Call<Finisher> getFinisher(@Path("id") final int id);
-
-
-    @GET("v2/finishers/{ids}")
-    Call<List<Finisher>> getFinishers(@Path("ids") final String ids);
+    Call<TokenInfo> getTokenInfo();
 }

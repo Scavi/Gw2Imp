@@ -36,7 +36,7 @@ import com.scavi.de.gw2imp.communication.response.account.TokenInfo;
 import com.scavi.de.gw2imp.communication.response.account.Wallet;
 import com.scavi.de.gw2imp.communication.response.commerce.Transaction;
 import com.scavi.de.gw2imp.communication.response.items.Finisher;
-import com.scavi.de.gw2imp.communication.rest.Gw2ApiV2Plugin;
+import com.scavi.de.gw2imp.communication.rest.Gw2ApiV2AccountPlugin;
 
 import java.io.IOException;
 import java.util.List;
@@ -50,7 +50,7 @@ import retrofit2.Retrofit;
 
 @ParametersAreNonnullByDefault
 public class AccountAccess implements IAccountAccess {
-    private final Gw2ApiV2Plugin mGw2Plugin;
+    private final Gw2ApiV2AccountPlugin mGw2Plugin;
 
     /**
      * Constructor
@@ -58,7 +58,7 @@ public class AccountAccess implements IAccountAccess {
      * @param retrofit the retrofit adapter
      */
     public AccountAccess(final Retrofit retrofit) {
-        this.mGw2Plugin = retrofit.create(Gw2ApiV2Plugin.class);
+        this.mGw2Plugin = retrofit.create(Gw2ApiV2AccountPlugin.class);
     }
 
     /**
@@ -93,8 +93,8 @@ public class AccountAccess implements IAccountAccess {
      * @return Returns information about an account associated
      */
     @Override
-    public void getAccountAchievements(Callback<List<Achievement>> callback) {
-        Call<List<Achievement>> call = mGw2Plugin.getAccountAchievements();
+    public void getAchievements(Callback<List<Achievement>> callback) {
+        Call<List<Achievement>> call = mGw2Plugin.getAchievements();
         call.enqueue(callback);
     }
 
@@ -106,8 +106,8 @@ public class AccountAccess implements IAccountAccess {
      * @return Returns information about a bank associated
      */
     @Override
-    public void getAccountBank(Callback<List<Bank>> callback) {
-        Call<List<Bank>> call = mGw2Plugin.getAccountBank();
+    public void getBank(Callback<List<Bank>> callback) {
+        Call<List<Bank>> call = mGw2Plugin.getBank();
         call.enqueue(callback);
     }
 
@@ -119,8 +119,8 @@ public class AccountAccess implements IAccountAccess {
      * @return Returns information about the current daily cleared dungeons associated
      */
     @Override
-    public void getAccountDungeons(Callback<Dungeons> callback) {
-        Call<Dungeons> call = mGw2Plugin.getAccountDungeons();
+    public void getDungeons(Callback<Dungeons> callback) {
+        Call<Dungeons> call = mGw2Plugin.getDungeons();
         call.enqueue(callback);
     }
 
@@ -132,8 +132,8 @@ public class AccountAccess implements IAccountAccess {
      * @return Returns information about unlocked dyes associated
      */
     @Override
-    public void getAccountDyes(Callback<Dyes> callback) {
-        Call<Dyes> call = mGw2Plugin.getAccountDyes();
+    public void getDyes(Callback<Dyes> callback) {
+        Call<Dyes> call = mGw2Plugin.getDyes();
         call.enqueue(callback);
     }
 
@@ -146,8 +146,8 @@ public class AccountAccess implements IAccountAccess {
      * @return Returns information about unlocked finishers associated
      */
     @Override
-    public void getAccountFinishers(Callback<List<Finisher>> callback) {
-        Call<List<Finisher>> call = mGw2Plugin.getAccountFinishers();
+    public void getFinishers(Callback<List<Finisher>> callback) {
+        Call<List<Finisher>> call = mGw2Plugin.getFinishers();
         call.enqueue(callback);
     }
 
@@ -159,8 +159,8 @@ public class AccountAccess implements IAccountAccess {
      * @return Returns information about unlocked cats in the home instance associated
      */
     @Override
-    public void getAccountCats(Callback<Cats> callback) {
-        Call<Cats> call = mGw2Plugin.getAccountCats();
+    public void getCats(Callback<Cats> callback) {
+        Call<Cats> call = mGw2Plugin.getCats();
         call.enqueue(callback);
     }
 
@@ -174,8 +174,8 @@ public class AccountAccess implements IAccountAccess {
      * particular node.
      */
     @Override
-    public void getAccountNodes(Callback<Nodes> callback) {
-        Call<Nodes> call = mGw2Plugin.getAccountNodes();
+    public void getNodes(Callback<Nodes> callback) {
+        Call<Nodes> call = mGw2Plugin.getNodes();
         call.enqueue(callback);
     }
 
@@ -188,8 +188,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource returns the shared inventory slots in an account.
      */
     @Override
-    public void getAccountInventory(Callback<List<Inventory>> callback) {
-        Call<List<Inventory>> call = mGw2Plugin.getAccountInventory();
+    public void getInventory(Callback<List<Inventory>> callback) {
+        Call<List<Inventory>> call = mGw2Plugin.getInventory();
         call.enqueue(callback);
     }
 
@@ -202,8 +202,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource returns information about masteries that are unlocked for an account.
      */
     @Override
-    public void getAccountMasteries(Callback<Masteries> callback) {
-        Call<Masteries> call = mGw2Plugin.getAccountMasteries();
+    public void getMasteries(Callback<Masteries> callback) {
+        Call<Masteries> call = mGw2Plugin.getMasteries();
         call.enqueue(callback);
     }
 
@@ -216,8 +216,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource returns the materials stored in a player's vault.
      */
     @Override
-    public void getAccountMaterials(Callback<Materials> callback) {
-        Call<Materials> call = mGw2Plugin.getAccountMaterials();
+    public void getMaterials(Callback<Materials> callback) {
+        Call<Materials> call = mGw2Plugin.getMaterials();
         call.enqueue(callback);
     }
 
@@ -230,8 +230,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource returns the unlocked miniatures of the account.
      */
     @Override
-    public void getAccountMinis(Callback<Minis> callback) {
-        Call<Minis> call = mGw2Plugin.getAccountMinis();
+    public void getMinis(Callback<Minis> callback) {
+        Call<Minis> call = mGw2Plugin.getMinis();
         call.enqueue(callback);
     }
 
@@ -243,8 +243,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource returns information about outfits that are unlocked for an account.
      */
     @Override
-    public void getAccountOutfits(Callback<Outfits> callback) {
-        Call<Outfits> call = mGw2Plugin.getAccountOutfits();
+    public void getOutfits(Callback<Outfits> callback) {
+        Call<Outfits> call = mGw2Plugin.getOutfits();
         call.enqueue(callback);
     }
 
@@ -257,8 +257,8 @@ public class AccountAccess implements IAccountAccess {
      * @return Returns information about completed raid events between weekly resets associated
      */
     @Override
-    public void getAccountRaids(Callback<Raids> callback) {
-        Call<Raids> call = mGw2Plugin.getAccountRaids();
+    public void getRaids(Callback<Raids> callback) {
+        Call<Raids> call = mGw2Plugin.getRaids();
         call.enqueue(callback);
     }
 
@@ -270,8 +270,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource returns information about recipes that are unlocked for an account.
      */
     @Override
-    public void getAccountRecipes(Callback<Recipts> callback) {
-        Call<Recipts> call = mGw2Plugin.getAccountRecipes();
+    public void getRecipes(Callback<Recipts> callback) {
+        Call<Recipts> call = mGw2Plugin.getRecipes();
         call.enqueue(callback);
     }
 
@@ -284,8 +284,8 @@ public class AccountAccess implements IAccountAccess {
      * @return the unlocked skins of the account.
      */
     @Override
-    public void getAccountSkins(Callback<Skins> callback) {
-        Call<Skins> call = mGw2Plugin.getAccountSkins();
+    public void getSkins(Callback<Skins> callback) {
+        Call<Skins> call = mGw2Plugin.getSkins();
         call.enqueue(callback);
     }
 
@@ -298,8 +298,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource returns information about titles that are unlocked for an account.
      */
     @Override
-    public void getAccountTitles(Callback<Titles> callback) {
-        Call<Titles> call = mGw2Plugin.getAccountTitles();
+    public void getTitles(Callback<Titles> callback) {
+        Call<Titles> call = mGw2Plugin.getTitles();
         call.enqueue(callback);
     }
 
@@ -312,8 +312,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource returns the currencies of the account.
      */
     @Override
-    public void getAccountWallet(Callback<Wallet> callback) {
-        Call<Wallet> call = mGw2Plugin.getAccountWallet();
+    public void getWallet(Callback<Wallet> callback) {
+        Call<Wallet> call = mGw2Plugin.getWallet();
         call.enqueue(callback);
     }
 
@@ -326,8 +326,8 @@ public class AccountAccess implements IAccountAccess {
      * @return an array of characters by name.
      */
     @Override
-    public void getAccountCharacters(Callback<Characters> callback) {
-        Call<Characters> call = mGw2Plugin.getAccountCharacters();
+    public void getCharacters(Callback<Characters> callback) {
+        Call<Characters> call = mGw2Plugin.getCharacters();
         call.enqueue(callback);
     }
 
@@ -341,9 +341,9 @@ public class AccountAccess implements IAccountAccess {
      * @return an array of characters by name.
      */
     @Override
-    public void getAccountCharacter(Callback<Character> callback,
+    public void getCharacter(Callback<Character> callback,
                                     final String name) {
-        Call<Character> call = mGw2Plugin.getAccountCharacter(name);
+        Call<Character> call = mGw2Plugin.getCharacter(name);
         call.enqueue(callback);
     }
 
@@ -357,9 +357,9 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource provides access to the history buy-transactions of a player.
      */
     @Override
-    public void getAccountCharacter(Callback<Character> callback,
+    public void getCharacter(Callback<Character> callback,
                                     final int page) {
-        Call<Character> call = mGw2Plugin.getAccountCharacter(page);
+        Call<Character> call = mGw2Plugin.getCharacter(page);
         call.enqueue(callback);
     }
 
@@ -372,8 +372,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource provides access to the history buy-transactions of a player.
      */
     @Override
-    public void getAccountCurrentBuyTransactions(Callback<List<Transaction>> callback) {
-        Call<List<Transaction>> call = mGw2Plugin.getAccountCurrentBuyTransactions();
+    public void getCurrentBuyTransactions(Callback<List<Transaction>> callback) {
+        Call<List<Transaction>> call = mGw2Plugin.getCurrentBuyTransactions();
         call.enqueue(callback);
     }
 
@@ -386,8 +386,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource provides access to the history sell-transactions of a player.
      */
     @Override
-    public void getAccountCurrentSellTransactions(Callback<List<Transaction>> callback) {
-        Call<List<Transaction>> call = mGw2Plugin.getAccountCurrentSellTransactions();
+    public void getCurrentSellTransactions(Callback<List<Transaction>> callback) {
+        Call<List<Transaction>> call = mGw2Plugin.getCurrentSellTransactions();
         call.enqueue(callback);
     }
 
@@ -400,8 +400,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource provides access to the history buy-transactions of a player.
      */
     @Override
-    public void getAccountHistoryBuyTransactions(Callback<List<Transaction>> callback) {
-        Call<List<Transaction>> call = mGw2Plugin.getAccountHistoryBuyTransactions();
+    public void getHistoryBuyTransactions(Callback<List<Transaction>> callback) {
+        Call<List<Transaction>> call = mGw2Plugin.getHistoryBuyTransactions();
         call.enqueue(callback);
     }
 
@@ -414,8 +414,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource provides access to the history sell-transactions of a player.
      */
     @Override
-    public void getAccountHistorySellTransactions(Callback<List<Transaction>> callback) {
-        Call<List<Transaction>> call = mGw2Plugin.getAccountHistorySellTransactions();
+    public void getHistorySellTransactions(Callback<List<Transaction>> callback) {
+        Call<List<Transaction>> call = mGw2Plugin.getHistorySellTransactions();
         call.enqueue(callback);
     }
 
@@ -427,8 +427,8 @@ public class AccountAccess implements IAccountAccess {
      * @return This resource returns information about the supplied API key.
      */
     @Override
-    public void getAccountTokenInfo(Callback<TokenInfo> callback) {
-        Call<TokenInfo> call = mGw2Plugin.getAccountTokenInfo();
+    public void getTokenInfo(Callback<TokenInfo> callback) {
+        Call<TokenInfo> call = mGw2Plugin.getTokenInfo();
         call.enqueue(callback);
     }
 }
