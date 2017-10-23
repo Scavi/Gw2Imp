@@ -61,7 +61,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getAchievements(Callback<List<Achievement>> callback);
+    void getAchievements(final Callback<List<Achievement>> callback);
 
 
     /**
@@ -69,7 +69,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getBank(Callback<List<Bank>> callback);
+    void getBank(final Callback<List<Bank>> callback);
 
 
     /**
@@ -77,7 +77,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getDungeons(Callback<Dungeons> callback);
+    void getDungeons(final Callback<Dungeons> callback);
 
 
     /**
@@ -85,7 +85,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getDyes(Callback<Dyes> callback);
+    void getDyes(final Callback<Dyes> callback);
 
 
     /**
@@ -93,7 +93,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getFinishers(Callback<List<Finisher>> callback);
+    void getFinishers(final Callback<List<Finisher>> callback);
 
 
     /**
@@ -102,7 +102,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getCats(Callback<Cats> callback);
+    void getCats(final Callback<Cats> callback);
 
 
     /**
@@ -110,7 +110,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getNodes(Callback<Nodes> callback);
+    void getNodes(final Callback<Nodes> callback);
 
 
     /**
@@ -119,7 +119,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getInventory(Callback<List<Inventory>> callback);
+    void getInventory(final Callback<List<Inventory>> callback);
 
 
     /**
@@ -128,7 +128,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getMasteries(Callback<Masteries> callback);
+    void getMasteries(final Callback<Masteries> callback);
 
 
     /**
@@ -137,7 +137,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getMaterials(Callback<Materials> callback);
+    void getMaterials(final Callback<Materials> callback);
 
 
     /**
@@ -146,7 +146,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getMinis(Callback<Minis> callback);
+    void getMinis(final Callback<Minis> callback);
 
     /**
      * The interface to receive information about outfits that are unlocked for an account
@@ -154,7 +154,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getOutfits(Callback<Outfits> callback);
+    void getOutfits(final Callback<Outfits> callback);
 
 
     /**
@@ -163,7 +163,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getRaids(Callback<Raids> callback);
+    void getRaids(final Callback<Raids> callback);
 
     /**
      * CThe interface to receive information about recipes that are unlocked for an account
@@ -171,7 +171,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getRecipes(Callback<Recipts> callback);
+    void getRecipes(final Callback<Recipts> callback);
 
 
     /**
@@ -179,7 +179,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getSkins(Callback<Skins> callback);
+    void getSkins(final Callback<Skins> callback);
 
 
     /**
@@ -188,7 +188,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getTitles(Callback<Titles> callback);
+    void getTitles(final Callback<Titles> callback);
 
 
     /**
@@ -196,7 +196,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    public void getWallet(Callback<Wallet> callback);
+    public void getWallet(final Callback<Wallet> callback);
 
 
     /**
@@ -204,7 +204,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    public void getCharacters(Callback<Characters> callback);
+    public void getCharacters(final Callback<Characters> callback);
 
 
     /**
@@ -213,7 +213,7 @@ public interface IAccountAccess {
      * @param callback the callback to process the asynchronous result
      * @param name     the name of the character
      */
-    public void getCharacter(Callback<Character> callback,
+    public void getCharacter(final Callback<Character> callback,
                                     final String name);
 
 
@@ -224,7 +224,7 @@ public interface IAccountAccess {
      * @param callback the callback to process the asynchronous result
      * @param page     the page number
      */
-    void getCharacter(Callback<Character> callback,
+    void getCharacter(final Callback<Character> callback,
                              final int page);
 
 
@@ -234,7 +234,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getCurrentBuyTransactions(Callback<List<Transaction>> callback);
+    void getCurrentBuyTransactions(final Callback<List<Transaction>> callback);
 
 
     /**
@@ -243,7 +243,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getCurrentSellTransactions(Callback<List<Transaction>> callback);
+    void getCurrentSellTransactions(final Callback<List<Transaction>> callback);
 
 
     /**
@@ -252,7 +252,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getHistoryBuyTransactions(Callback<List<Transaction>> callback);
+    void getHistoryBuyTransactions(final Callback<List<Transaction>> callback);
 
 
     /**
@@ -261,7 +261,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getHistorySellTransactions(Callback<List<Transaction>> callback);
+    void getHistorySellTransactions(final Callback<List<Transaction>> callback);
 
 
     /**
@@ -269,5 +269,5 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getTokenInfo(Callback<TokenInfo> callback);
+    void getTokenInfo(final Callback<TokenInfo> callback);
 }

@@ -32,10 +32,8 @@ import com.scavi.de.gw2imp.communication.response.account.Skins;
 import com.scavi.de.gw2imp.communication.response.account.Titles;
 import com.scavi.de.gw2imp.communication.response.account.TokenInfo;
 import com.scavi.de.gw2imp.communication.response.account.Wallet;
-import com.scavi.de.gw2imp.communication.response.achievement.Category;
 import com.scavi.de.gw2imp.communication.response.commerce.Transaction;
 import com.scavi.de.gw2imp.communication.response.items.Finisher;
-import com.scavi.de.gw2imp.data.entity.Group;
 
 import java.util.List;
 
@@ -178,7 +176,6 @@ public interface Gw2ApiV2AccountPlugin {
     @GET("v2/characters/{name}")
     Call<Character> getCharacter(@Path("name") final String name);
 
-
     /**
      * To retrieve all the characters on an account, pagination can be used. (/v2/characters?page=0)
      *
@@ -199,7 +196,6 @@ public interface Gw2ApiV2AccountPlugin {
      */
     @GET("v2/account/commerce/transactions")
     Call<List<Transaction>> getCurrentSellTransactions();
-
 
     /**
      * @return This resource provides access to the history buy-transactions of a player.
