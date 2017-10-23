@@ -43,11 +43,7 @@ public class ApiKeyQrCapturePresenter implements Observer {
                                     final ApiKeyQrCaptureModel model) {
         mView = view;
         mModel = model;
-
-        int p1 = mModel.countObservers();
-
         mModel.addObserver(this);
-        int p2 = mModel.countObservers();
     }
 
     /**
