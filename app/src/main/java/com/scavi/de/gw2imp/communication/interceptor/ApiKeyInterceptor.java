@@ -52,9 +52,8 @@ public class ApiKeyInterceptor extends AbstractTokenInterceptor implements Inter
         Request request = chain.request();
         Request.Builder requestBuilder = request.newBuilder();
         String apiKey = mPreferenceAccess.readApiKey(mContext);
-
         if (!apiKey.isEmpty()) {
-            setAuthenticationHeader(requestBuilder, "B59688D3-CC1C-5343-B0CC-1CFB7A23F51FE912970F-83FD-4C51-9B71-D2F3DFC27F72");
+            setAuthenticationHeader(requestBuilder, apiKey);
         }
         return chain.proceed(requestBuilder.build());
     }
