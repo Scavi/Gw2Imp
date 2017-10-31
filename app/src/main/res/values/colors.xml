@@ -3,13 +3,18 @@
     <!-- gw2 imp application core -->
     <color name="core_background_color">#FFFFFFFF</color>
     <color name="core_title_text_color">#FF212629</color>
-    <color name="core_default_text_color">#FF212629</color>
+    <color name="core_highlight_text_color">#FF777777</color>
+    <color name="core_default_text_color">#FF000000</color>
     <color name="core_floating_button_color">#FFDA2622</color>
     <color name="core_progressbar_color">#FFDA2622</color>
     <color name="core_bottom_button_text_color">#FFDA2622</color>
     <color name="core_edit_text_line_color">#FF000000</color>
     <color name="core_edit_text_hint_color">#FF8C1211</color>
     <color name="core_edit_text_text_color">#FF555555</color>
+
+    <color name="core_highlight_1">#FFDA2622</color>
+    <color name="core_highlight_2">#FF51014E</color>
+
 
     <!-- material drawer -->
     <color name="material_drawer_primary">#FF51014E</color>
