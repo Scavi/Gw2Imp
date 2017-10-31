@@ -17,10 +17,12 @@ package com.scavi.de.gw2imp.communication.response.account;
  * This resource returns an account's progress towards all their achievements.
  */
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Achievement {
+public class Achievement implements Comparable<Achievement> {
 
     @SerializedName("id")
     @Expose
@@ -39,6 +41,18 @@ public class Achievement {
     private Integer repeated;
 
     // TODO bits
+
+    public Achievement() {
+
+    }
+
+    /**
+     * @param id The achievement id.
+     */
+    public Achievement(final int id) {
+        this.id = id;
+    }
+
 
     /**
      * @return The achievement id.
@@ -69,14 +83,16 @@ public class Achievement {
     }
 
     /**
-     * @return The amount needed to complete the achievement. Most WvW achievements have this set to -1.
+     * @return The amount needed to complete the achievement. Most WvW achievements have this set
+     * to -1.
      */
     public Integer getMax() {
         return max;
     }
 
     /**
-     * @param max The amount needed to complete the achievement. Most WvW achievements have this set to -1.
+     * @param max The amount needed to complete the achievement. Most WvW achievements have this
+     *            set to -1.
      */
     public void setMax(Integer max) {
         this.max = max;
@@ -97,16 +113,29 @@ public class Achievement {
     }
 
     /**
-     * @return The number of times the achievement has been completed if the achievement is repeatable.
+     * @return The number of times the achievement has been completed if the achievement is
+     * repeatable.
      */
     public Integer getRepeated() {
         return repeated;
     }
 
     /**
-     * @param repeated The number of times the achievement has been completed if the achievement is repeatable.
+     * @param repeated The number of times the achievement has been completed if the achievement
+     *                 is repeatable.
      */
     public void setRepeated(Integer repeated) {
         this.repeated = repeated;
+    }
+
+    /**
+     * Compares the current achievement by id with passed achievement
+     *
+     * @param toCompare the given id to compare
+     * @return the result of the comparison of both ids
+     */
+    @Override
+    public int compareTo(@NonNull final Achievement toCompare) {
+        return id.compareTo(toCompare.getId());
     }
 }
