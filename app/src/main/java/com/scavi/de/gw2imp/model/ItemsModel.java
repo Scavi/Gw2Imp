@@ -15,17 +15,4 @@ package com.scavi.de.gw2imp.model;
 
 public class ItemsModel {
 
-//    Retrofit retrofitAdapter = createRetrofitAdapter(getApplicationContext());
-//    ItemAccess test = new ItemAccess(retrofitAdapter);
-//        test.callGetFinisher(1, new Callback<Finisher>() {
-//        @Override
-//        public void onResponse(Call<Finisher> call, Response<Finisher> response) {
-//            System.out.print("");
-//        }
-//
-//        @Override
-//        public void onFailure(Call<Finisher> call, Throwable t) {
-//            System.out.print("");
-//        }
-//    });
 }
