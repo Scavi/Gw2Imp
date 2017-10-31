@@ -13,5 +13,14 @@
  */
 package com.scavi.de.gw2imp.ui.view;
 
-public interface IAccountAchievements {
+import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
+
+import java.util.List;
+
+public interface IAccountRaidView extends IStatusView {
+
+    /**
+     * @param raids the objects containing the raid for the view
+     */
+    void setupRaidView(final List<RaidEntity> raids);
 }
