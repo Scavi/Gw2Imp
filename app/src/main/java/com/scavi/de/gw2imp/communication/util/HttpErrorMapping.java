@@ -49,9 +49,18 @@ public class HttpErrorMapping {
             case HttpURLConnection.HTTP_BAD_METHOD:
                 message = context.getString(R.string.http_405_method_not_allowed);
                 break;
+            case HttpURLConnection.HTTP_INTERNAL_ERROR:
+                message = context.getString(R.string.http_500_internal_server_error);
+                break;
+            case HttpURLConnection.HTTP_UNAVAILABLE:
+                message = context.getString(R.string.http_503_service_unavailable);
+                break;
+            case HttpURLConnection.HTTP_GATEWAY_TIMEOUT:
+                message = context.getString(R.string.http_504_connection_gateway_timeout);
+                break;
             default:
                 message = String.format(context.getString(R.string.http_code_unknown),
-                        httpErrorCode);
+                        String.valueOf(httpErrorCode));
         }
         return message;
     }
