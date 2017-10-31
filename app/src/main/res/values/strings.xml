@@ -2,7 +2,7 @@
     <string name="app_name">GW2Imp</string>
 
     <string name="api_account_key_title">API-Key</string>
-    <string name="api_account_key_text">Für den Zugriff auf den Account wird ein GW2-API Key benötigt.</string>
+    <string name="api_account_key_text">Für den Zugriff auf den Account wird ein GW2-API Key benötigt.\nDieser kann auf der GuildWars 2 Seite nach einem erfolgreichen Account Login erstellt werden.</string>
     <string name="api_account_key_skip">Überspringen</string>
     <string name="api_account_key_next">Weiter</string>
 
@@ -17,22 +17,38 @@
     <string name="core_navigation_account">Account</string>
     <string name="core_navigation_account_overview">Übersicht</string>
     <string name="core_navigation_account_character">Charaktere</string>
-    <string name="core_navigation_account_raid">Raid</string>
+    <string name="core_navigation_account_dailies">Tägliche Events</string>
+    <string name="core_navigation_account_achievements">Erfolge</string>
+    <string name="core_navigation_account_raid">Raids</string>
     <string name="core_navigation_account_buy">Kaufen</string>
     <string name="core_navigation_account_sell">Verkaufen</string>
     <string name="core_navigation_account_trading_market">Handelsmarkt</string>
     <string name="core_navigation_account_trading_up">Anstieg</string>
     <string name="core_navigation_account_trading_down">Abstieg</string>
 
+    <string name="core_account_raid_uncompleted">UNVOLLSTÄNDIG</string>
+    <string name="core_account_raid_completed">VOLLSTÄNDIG</string>
+    <string name="core_account_raid_getting_raid_data">Deine aktuellen Raid-Informationen werden ermittelt</string>
+    <string name="core_account_raid_db_error">Es trat ein Fehler beim Datenbankzugriff auf: %s</string>
+    <string name="core_account_raid_general_info">Es trat ein Fehler beim Ermitteln der Raid-Informationen auf: %s</string>
+    <string name="core_account_raid_account_data">Es trat ein Fehler beim Ermitteln der Account Raid-Informationen auf: %s</string>
+
+    <string name="core_account_daily_getting_your_data">Deine aktuellen Event-Informationen werden ermittelt</string>
+    <string name="core_account_daily_in_progress" formatted="false">%s von %s erledigt</string>
+    <string name="core_account_daily_uncompleted">UNVOLLSTÄNDIG</string>
+    <string name="core_account_daily_completed">VOLLSTÄNDIG</string>
 
     <string name="connection_exception">Es konnte keine Verbindung zum GuildWars2 Server hergestellt werden. Überprüfe Deine Internetverbindung.</string>
 
-    <string name="http_400_bad_request">Es ist ein technischer Fehler beim prozessieren der Anfrage aufgetreten (http:400)</string>
-    <string name="http_401_unauthorized">Die Authorisierung ist fehlgeschlagen (http:401)</string>
-    <string name="http_403_forbidden">Der Zugriff auf die URL ist nicht gestattet (http:403)</string>
-    <string name="http_404_not_found">Die URL kann nicht aufgerufen werden (http:404)</string>
-    <string name="http_405_method_not_allowed">Die Zugriffsmethode existiert nicht (http:405)</string>
-    <string name="http_code_unknown">Es ist ein unbekannter Fehler bei der Anfrage aufgetreten (http:%s)</string>
+    <string name="http_400_bad_request">Es ist ein technischer Fehler beim prozessieren der Anfrage aufgetreten (http 400)</string>
+    <string name="http_401_unauthorized">Die Authorisierung ist fehlgeschlagen (http 401)</string>
+    <string name="http_403_forbidden">Der Zugriff auf die URL ist nicht gestattet. Ist der API-Key gültig? (http 403)</string>
+    <string name="http_404_not_found">Die URL kann nicht aufgerufen werden (http 404)</string>
+    <string name="http_405_method_not_allowed">Die Zugriffsmethode existiert nicht (http 405)</string>
+    <string name="http_500_internal_server_error">Es ist ein interner Serverfehler aufgetreten. Versuche es zu einem späteren Zeitpunkt erneut. (http 500)</string>
+    <string name="http_503_service_unavailable">Der GuildWars2 Dienst steht momentan nicht zur Verfügung. Versuche es zu einem späteren Zeitpunkt erneut. (http 503)</string>
+    <string name="http_504_connection_gateway_timeout">Es ist eine Zeitüberschreitung beim Gatewayzugriff aufgetreten. Versuche es zu einem späteren Zeitpunkt erneut. (http 504)</string>
+    <string name="http_code_unknown">Es ist ein unbekannter Fehler bei der Anfrage aufgetreten (http %s)</string>
 
     <string name="empty"></string>
 </resources>
