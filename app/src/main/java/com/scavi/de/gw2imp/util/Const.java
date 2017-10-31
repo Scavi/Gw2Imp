@@ -15,8 +15,8 @@ package com.scavi.de.gw2imp.util;
 
 public class Const {
     public static final String GW2_BASE_URL = "https://api.guildwars2.com/";
-    public static final int SERVER_CONNECT_TIMEOUT = 30;
-    public static final int SERVER_READ_TIMEOUT = 30;
+    public static final int SERVER_CONNECT_TIMEOUT = 60;
+    public static final int SERVER_READ_TIMEOUT = 60;
 
     /**
      * Private constructor for the const class
