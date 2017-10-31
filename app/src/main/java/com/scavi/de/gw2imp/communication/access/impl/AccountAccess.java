@@ -15,6 +15,7 @@ package com.scavi.de.gw2imp.communication.access.impl;
 
 
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
+import com.scavi.de.gw2imp.communication.error.ResponseException;
 import com.scavi.de.gw2imp.communication.response.account.Account;
 import com.scavi.de.gw2imp.communication.response.account.Achievement;
 import com.scavi.de.gw2imp.communication.response.account.Bank;
@@ -28,7 +29,7 @@ import com.scavi.de.gw2imp.communication.response.account.Materials;
 import com.scavi.de.gw2imp.communication.response.account.Minis;
 import com.scavi.de.gw2imp.communication.response.account.Nodes;
 import com.scavi.de.gw2imp.communication.response.account.Outfits;
-import com.scavi.de.gw2imp.communication.response.account.Raids;
+import com.scavi.de.gw2imp.communication.response.account.AccountRaids;
 import com.scavi.de.gw2imp.communication.response.account.Recipts;
 import com.scavi.de.gw2imp.communication.response.account.Skins;
 import com.scavi.de.gw2imp.communication.response.account.Titles;
@@ -36,7 +37,7 @@ import com.scavi.de.gw2imp.communication.response.account.TokenInfo;
 import com.scavi.de.gw2imp.communication.response.account.Wallet;
 import com.scavi.de.gw2imp.communication.response.commerce.Transaction;
 import com.scavi.de.gw2imp.communication.response.items.Finisher;
-import com.scavi.de.gw2imp.communication.rest.Gw2ApiV2AccountPlugin;
+import com.scavi.de.gw2imp.communication.rest.Gw2ApiAccountPlugin;
 
 import java.io.IOException;
 import java.util.List;
@@ -50,7 +51,7 @@ import retrofit2.Retrofit;
 
 @ParametersAreNonnullByDefault
 public class AccountAccess implements IAccountAccess {
-    private final Gw2ApiV2AccountPlugin mGw2Plugin;
+    private final Gw2ApiAccountPlugin mGw2Plugin;
 
     /**
      * Constructor
@@ -58,11 +59,11 @@ public class AccountAccess implements IAccountAccess {
      * @param retrofit the retrofit adapter
      */
     public AccountAccess(final Retrofit retrofit) {
-        mGw2Plugin = retrofit.create(Gw2ApiV2AccountPlugin.class);
+        mGw2Plugin = retrofit.create(Gw2ApiAccountPlugin.class);
     }
 
     /**
-     * Calls the server side asynchronous to determine the account information asynchronous
+     * Calls the server side asynchronous to determine the account information
      *
      * @param callback the callback to process the asynchronous result
      * @return Returns information about an account associated
@@ -77,7 +78,7 @@ public class AccountAccess implements IAccountAccess {
     /**
      * The interface to receive the account data synchronous
      *
-     * @return the response
+     * @return the account response
      */
     @Override
     public Response<Account> getAccount() throws IOException {
@@ -85,12 +86,11 @@ public class AccountAccess implements IAccountAccess {
         return call.execute();
     }
 
+
     /**
      * Calls the server side asynchronous to determine the account achievements information
-     * asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return Returns information about an account associated
      */
     @Override
     public void getAchievements(final Callback<List<Achievement>> callback) {
@@ -100,10 +100,26 @@ public class AccountAccess implements IAccountAccess {
 
 
     /**
-     * Calls the server side asynchronous to determine the account bank information asynchronous
+     * Calls the server side synchronous to determine the account achievements information
+     * asynchronous
+     *
+     * @return the account achievement information
+     */
+    @Override
+    public List<Achievement> getAchievements() throws IOException, ResponseException {
+        Call<List<Achievement>> call = mGw2Plugin.getAchievements();
+        Response<List<Achievement>> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        } else {
+            throw new ResponseException(response.code(), response.errorBody());
+        }
+    }
+
+    /**
+     * Calls the server side asynchronous to determine the account bank information
      *
      * @param callback the callback to process the asynchronous result
-     * @return Returns information about a bank associated
      */
     @Override
     public void getBank(final Callback<List<Bank>> callback) {
@@ -113,10 +129,9 @@ public class AccountAccess implements IAccountAccess {
 
 
     /**
-     * Calls the server side asynchronous to determine the account weekly done dungeons asynchronous
+     * Calls the server side asynchronous to determine the account weekly done dungeons
      *
      * @param callback the callback to process the asynchronous result
-     * @return Returns information about the current daily cleared dungeons associated
      */
     @Override
     public void getDungeons(final Callback<Dungeons> callback) {
@@ -126,10 +141,9 @@ public class AccountAccess implements IAccountAccess {
 
 
     /**
-     * Calls the server side asynchronous to determine information about unlocked dyes asynchronous
+     * Calls the server side asynchronous to determine information about unlocked dyes
      *
      * @param callback the callback to process the asynchronous result
-     * @return Returns information about unlocked dyes associated
      */
     @Override
     public void getDyes(final Callback<Dyes> callback) {
@@ -143,7 +157,6 @@ public class AccountAccess implements IAccountAccess {
      * associated asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return Returns information about unlocked finishers associated
      */
     @Override
     public void getFinishers(final Callback<List<Finisher>> callback) {
@@ -156,7 +169,6 @@ public class AccountAccess implements IAccountAccess {
      * home instance associated asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return Returns information about unlocked cats in the home instance associated
      */
     @Override
     public void getCats(final Callback<Cats> callback) {
@@ -170,8 +182,6 @@ public class AccountAccess implements IAccountAccess {
      * asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This endpoint returns an array of strings. Each string represents the name of a
-     * particular node.
      */
     @Override
     public void getNodes(final Callback<Nodes> callback) {
@@ -185,7 +195,6 @@ public class AccountAccess implements IAccountAccess {
      * slots in an account asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource returns the shared inventory slots in an account.
      */
     @Override
     public void getInventory(final Callback<List<Inventory>> callback) {
@@ -199,7 +208,6 @@ public class AccountAccess implements IAccountAccess {
      * unlocked for an account asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource returns information about masteries that are unlocked for an account.
      */
     @Override
     public void getMasteries(final Callback<Masteries> callback) {
@@ -213,7 +221,6 @@ public class AccountAccess implements IAccountAccess {
      * a player's vault asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource returns the materials stored in a player's vault.
      */
     @Override
     public void getMaterials(final Callback<Materials> callback) {
@@ -227,7 +234,6 @@ public class AccountAccess implements IAccountAccess {
      * of the account asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource returns the unlocked miniatures of the account.
      */
     @Override
     public void getMinis(final Callback<Minis> callback) {
@@ -240,7 +246,6 @@ public class AccountAccess implements IAccountAccess {
      * unlocked for an account asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource returns information about outfits that are unlocked for an account.
      */
     @Override
     public void getOutfits(final Callback<Outfits> callback) {
@@ -250,24 +255,28 @@ public class AccountAccess implements IAccountAccess {
 
 
     /**
-     * Calls the server side asynchronous to determine information about completed raid events
-     * between weekly resets associated asynchronous
+     * The interface to receive information about completed raid events between weekly resets
+     * associated synchronous
      *
-     * @param callback the callback to process the asynchronous result
-     * @return Returns information about completed raid events between weekly resets associated
+     * @return the account raid data
      */
     @Override
-    public void getRaids(final Callback<Raids> callback) {
-        Call<Raids> call = mGw2Plugin.getRaids();
-        call.enqueue(callback);
+    public AccountRaids getRaids() throws IOException, ResponseException {
+        Call<List<String>> call = mGw2Plugin.getRaids();
+        Response<List<String>> response = call.execute();
+        if (response.isSuccessful()) {
+            return new AccountRaids(response.body());
+        } else {
+            throw new ResponseException(response.code(), response.errorBody());
+        }
     }
+
 
     /**
      * Calls the server side asynchronous to determine information about recipes that are
      * unlocked for an account asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource returns information about recipes that are unlocked for an account.
      */
     @Override
     public void getRecipes(final Callback<Recipts> callback) {
@@ -281,7 +290,6 @@ public class AccountAccess implements IAccountAccess {
      * the account asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return the unlocked skins of the account.
      */
     @Override
     public void getSkins(final Callback<Skins> callback) {
@@ -295,7 +303,6 @@ public class AccountAccess implements IAccountAccess {
      * for an account asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource returns information about titles that are unlocked for an account.
      */
     @Override
     public void getTitles(final Callback<Titles> callback) {
@@ -309,7 +316,6 @@ public class AccountAccess implements IAccountAccess {
      * account asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource returns the currencies of the account.
      */
     @Override
     public void getWallet(final Callback<Wallet> callback) {
@@ -323,7 +329,6 @@ public class AccountAccess implements IAccountAccess {
      * by name asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return an array of characters by name.
      */
     @Override
     public void getCharacters(Callback<Characters> callback) {
@@ -338,11 +343,10 @@ public class AccountAccess implements IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      * @param name     the name of the character
-     * @return an array of characters by name.
      */
     @Override
     public void getCharacter(final Callback<Character> callback,
-                                    final String name) {
+                             final String name) {
         Call<Character> call = mGw2Plugin.getCharacter(name);
         call.enqueue(callback);
     }
@@ -354,11 +358,10 @@ public class AccountAccess implements IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      * @param page     the page number
-     * @return This resource provides access to the history buy-transactions of a player.
      */
     @Override
     public void getCharacter(final Callback<Character> callback,
-                                    final int page) {
+                             final int page) {
         Call<Character> call = mGw2Plugin.getCharacter(page);
         call.enqueue(callback);
     }
@@ -369,7 +372,6 @@ public class AccountAccess implements IAccountAccess {
      * buy-transactions of a player asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource provides access to the history buy-transactions of a player.
      */
     @Override
     public void getCurrentBuyTransactions(final Callback<List<Transaction>> callback) {
@@ -383,7 +385,6 @@ public class AccountAccess implements IAccountAccess {
      * sell-transactions of a player asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource provides access to the history sell-transactions of a player.
      */
     @Override
     public void getCurrentSellTransactions(final Callback<List<Transaction>> callback) {
@@ -397,7 +398,6 @@ public class AccountAccess implements IAccountAccess {
      * buy-transactions of a player asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource provides access to the history buy-transactions of a player.
      */
     @Override
     public void getHistoryBuyTransactions(final Callback<List<Transaction>> callback) {
@@ -411,7 +411,6 @@ public class AccountAccess implements IAccountAccess {
      * sell-transactions of a player asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource provides access to the history sell-transactions of a player.
      */
     @Override
     public void getHistorySellTransactions(final Callback<List<Transaction>> callback) {
@@ -424,7 +423,6 @@ public class AccountAccess implements IAccountAccess {
      * Calls the server side asynchronous to determine information asynchronous
      *
      * @param callback the callback to process the asynchronous result
-     * @return This resource returns information about the supplied API key.
      */
     @Override
     public void getTokenInfo(final Callback<TokenInfo> callback) {

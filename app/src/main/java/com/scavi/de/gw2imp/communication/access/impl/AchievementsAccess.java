@@ -14,18 +14,23 @@
 package com.scavi.de.gw2imp.communication.access.impl;
 
 import com.scavi.de.gw2imp.communication.access.IAchievementAccess;
+import com.scavi.de.gw2imp.communication.error.ResponseException;
 import com.scavi.de.gw2imp.communication.response.achievement.Category;
-import com.scavi.de.gw2imp.communication.rest.Gw2ApiV2AchievementPlugin;
-import com.scavi.de.gw2imp.data.entity.Group;
+import com.scavi.de.gw2imp.communication.response.achievement.DailyAchievements;
+import com.scavi.de.gw2imp.communication.response.achievement.Group;
+import com.scavi.de.gw2imp.communication.response.misc.RaidData;
+import com.scavi.de.gw2imp.communication.rest.Gw2ApiAchievementPlugin;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class AchievementsAccess implements IAchievementAccess {
-    private final Gw2ApiV2AchievementPlugin mGw2Plugin;
+    private final Gw2ApiAchievementPlugin mGw2Plugin;
 
     /**
      * Constructor
@@ -33,7 +38,7 @@ public class AchievementsAccess implements IAchievementAccess {
      * @param retrofit the retrofit adapter
      */
     public AchievementsAccess(final Retrofit retrofit) {
-        mGw2Plugin = retrofit.create(Gw2ApiV2AchievementPlugin.class);
+        mGw2Plugin = retrofit.create(Gw2ApiAchievementPlugin.class);
     }
 
 
@@ -90,5 +95,63 @@ public class AchievementsAccess implements IAchievementAccess {
                                          final int id) {
         Call<List<Category>> call = mGw2Plugin.getAchievementCategories();
         call.enqueue(callback);
+    }
+
+
+    /**
+     * Calls the server side asynchronous to determine the dailies today
+     *
+     * @param callback the callback to process the asynchronous result
+     */
+    @Override
+    public void getDaily(final Callback<DailyAchievements> callback) {
+        Call<DailyAchievements> call = mGw2Plugin.getDaily();
+        call.enqueue(callback);
+    }
+
+
+    /**
+     * Calls the server side synchronous to determine the dailies today
+     *
+     * @return the dailies today
+     */
+    @Override
+    public DailyAchievements getDaily() throws IOException, ResponseException {
+        Call<DailyAchievements> call = mGw2Plugin.getDailyTomorrow();
+        Response<DailyAchievements> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        } else {
+            throw new ResponseException(response.code(), response.errorBody());
+        }
+    }
+
+
+    /**
+     * Calls the server side asynchronous to determine the dailies tomorrow
+     *
+     * @param callback the callback to process the asynchronous result
+     */
+    @Override
+    public void getDailyTomorrow(final Callback<DailyAchievements> callback) {
+        Call<DailyAchievements> call = mGw2Plugin.getDailyTomorrow();
+        call.enqueue(callback);
+    }
+
+
+    /**
+     * Calls the server side synchronous to determine the dailies today
+     *
+     * @return the dailies today
+     */
+    @Override
+    public DailyAchievements getDailyTomorrow() throws IOException, ResponseException {
+        Call<DailyAchievements> call = mGw2Plugin.getDailyTomorrow();
+        Response<DailyAchievements> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        } else {
+            throw new ResponseException(response.code(), response.errorBody());
+        }
     }
 }

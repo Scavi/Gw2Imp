@@ -15,8 +15,7 @@ package com.scavi.de.gw2imp.communication.access.impl;
 
 import com.scavi.de.gw2imp.communication.access.IItemAccess;
 import com.scavi.de.gw2imp.communication.response.items.Finisher;
-import com.scavi.de.gw2imp.communication.rest.Gw2ApiV2AccountPlugin;
-import com.scavi.de.gw2imp.communication.rest.Gw2ApiV2ItemPlugin;
+import com.scavi.de.gw2imp.communication.rest.Gw2ApiItemPlugin;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -26,7 +25,7 @@ import retrofit2.Retrofit;
 
 @ParametersAreNonnullByDefault
 public class ItemAccess implements IItemAccess {
-    private final Gw2ApiV2ItemPlugin mGw2Plugin;
+    private final Gw2ApiItemPlugin mGw2Plugin;
 
     /**
      * Constructor
@@ -34,8 +33,9 @@ public class ItemAccess implements IItemAccess {
      * @param retrofit the retrofit adapter
      */
     public ItemAccess(final Retrofit retrofit) {
-        this.mGw2Plugin = retrofit.create(Gw2ApiV2ItemPlugin.class);
+        this.mGw2Plugin = retrofit.create(Gw2ApiItemPlugin.class);
     }
+
 
     /**
      * Calls the server side asynchronous to determine the finisher to the given id.
@@ -44,7 +44,8 @@ public class ItemAccess implements IItemAccess {
      * @param callback the callback to process the response
      */
     @Override
-    public void callGetFinisher(final int id, final Callback<Finisher> callback) {
+    public void getFinisher(final int id,
+                            final Callback<Finisher> callback) {
         Call<Finisher> call = mGw2Plugin.getFinisher(id);
         call.enqueue(callback);
     }
