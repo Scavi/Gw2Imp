@@ -13,6 +13,7 @@
  */
 package com.scavi.de.gw2imp.communication.access;
 
+import com.scavi.de.gw2imp.communication.error.ResponseException;
 import com.scavi.de.gw2imp.communication.response.account.Account;
 import com.scavi.de.gw2imp.communication.response.account.Achievement;
 import com.scavi.de.gw2imp.communication.response.account.Bank;
@@ -26,7 +27,7 @@ import com.scavi.de.gw2imp.communication.response.account.Materials;
 import com.scavi.de.gw2imp.communication.response.account.Minis;
 import com.scavi.de.gw2imp.communication.response.account.Nodes;
 import com.scavi.de.gw2imp.communication.response.account.Outfits;
-import com.scavi.de.gw2imp.communication.response.account.Raids;
+import com.scavi.de.gw2imp.communication.response.account.AccountRaids;
 import com.scavi.de.gw2imp.communication.response.account.Recipts;
 import com.scavi.de.gw2imp.communication.response.account.Skins;
 import com.scavi.de.gw2imp.communication.response.account.Titles;
@@ -49,6 +50,7 @@ public interface IAccountAccess {
      */
     void getAccount(final Callback<Account> callback);
 
+
     /**
      * The interface to receive the account data synchronous
      *
@@ -56,12 +58,21 @@ public interface IAccountAccess {
      */
     Response<Account> getAccount() throws IOException;
 
+
     /**
      * The interface to receive the account achievements information asynchronous
      *
      * @param callback the callback to process the asynchronous result
      */
     void getAchievements(final Callback<List<Achievement>> callback);
+
+
+    /**
+     * The interface to receive the account achievements information asynchronous
+     *
+     * @return the account achievements
+     */
+    List<Achievement> getAchievements() throws IOException, ResponseException;
 
 
     /**
@@ -148,6 +159,7 @@ public interface IAccountAccess {
      */
     void getMinis(final Callback<Minis> callback);
 
+
     /**
      * The interface to receive information about outfits that are unlocked for an account
      * asynchronous
@@ -159,11 +171,12 @@ public interface IAccountAccess {
 
     /**
      * The interface to receive information about completed raid events between weekly resets
-     * associated asynchronous
+     * associated synchronous
      *
-     * @param callback the callback to process the asynchronous result
+     * @return the account raid data
      */
-    void getRaids(final Callback<Raids> callback);
+    AccountRaids getRaids() throws IOException, ResponseException;
+
 
     /**
      * CThe interface to receive information about recipes that are unlocked for an account
@@ -196,7 +209,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    public void getWallet(final Callback<Wallet> callback);
+    void getWallet(final Callback<Wallet> callback);
 
 
     /**
@@ -204,7 +217,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    public void getCharacters(final Callback<Characters> callback);
+    void getCharacters(final Callback<Characters> callback);
 
 
     /**
@@ -213,8 +226,8 @@ public interface IAccountAccess {
      * @param callback the callback to process the asynchronous result
      * @param name     the name of the character
      */
-    public void getCharacter(final Callback<Character> callback,
-                                    final String name);
+    void getCharacter(final Callback<Character> callback,
+                      final String name);
 
 
     /**
@@ -225,7 +238,7 @@ public interface IAccountAccess {
      * @param page     the page number
      */
     void getCharacter(final Callback<Character> callback,
-                             final int page);
+                      final int page);
 
 
     /**
