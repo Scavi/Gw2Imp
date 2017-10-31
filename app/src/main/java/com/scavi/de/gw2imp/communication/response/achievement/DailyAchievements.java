@@ -18,23 +18,22 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Daily {
-
+public class DailyAchievements {
     @SerializedName("pve")
     @Expose
-    private List<Pve> pve = null;
+    private List<Pve> pve;
     @SerializedName("pvp")
     @Expose
-    private List<Pvp> pvp = null;
+    private List<Pvp> pvp;
     @SerializedName("wvw")
     @Expose
-    private List<Wvw> wvw = null;
+    private List<Wvw> wvw;
     @SerializedName("fractals")
     @Expose
-    private List<Fractal> fractals = null;
+    private List<Fractal> fractals;
     @SerializedName("special")
     @Expose
-    private List<Object> special = null;
+    private List<Object> special;
 
     public List<Pve> getPve() {
         return pve;

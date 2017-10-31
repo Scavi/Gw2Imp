@@ -16,10 +16,12 @@ package com.scavi.de.gw2imp.communication.response.achievement;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.scavi.de.gw2imp.communication.helper.IDaily;
+import com.scavi.de.gw2imp.data.util.DailyType;
 
 import java.util.List;
 
-public class Pve {
+public class Pve implements IDaily {
 
     @SerializedName("id")
     @Expose
@@ -55,4 +57,8 @@ public class Pve {
         this.requiredAccess = requiredAccess;
     }
 
+    @Override
+    public String getType() {
+        return DailyType.Pve.toString();
+    }
 }
