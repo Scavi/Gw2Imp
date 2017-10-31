@@ -9,20 +9,83 @@
     <dimen name="account_api_key_field_margin_right">0dp</dimen>
     <dimen name="account_api_key_field_margin_left">32dp</dimen>
     <dimen name="account_api_key_field_margin_bottom">36dp</dimen>
-
     <dimen name="account_api_key_scan_code_margin_top">12dp</dimen>
     <dimen name="account_api_key_scan_code_margin_right">32dp</dimen>
     <dimen name="account_api_key_scan_code_margin_left">32dp</dimen>
     <dimen name="account_api_key_scan_code_margin_bottom">36dp</dimen>
-
     <dimen name="account_api_key_progress_bar_margin_top">8dp</dimen>
     <dimen name="account_api_key_progress_bar_margin_right">72dp</dimen>
     <dimen name="account_api_key_progress_bar_margin_left">72dp</dimen>
     <dimen name="account_api_key_progress_bar_margin_bottom">8dp</dimen>
+
+    <!-- account raid fragment -->
+    <dimen name="account_raid_progress_bar_margin_top">8dp</dimen>
+    <dimen name="account_raid_progress_bar_margin_right">72dp</dimen>
+    <dimen name="account_raid_progress_bar_margin_left">72dp</dimen>
+    <dimen name="account_raid_progress_bar_margin_bottom">8dp</dimen>
+    <dimen name="account_raid_list_view_row_height">96dp</dimen>
+    <dimen name="account_raid_list_view_row_divider_height">4dp</dimen>
+
+    <!-- account raid list view row -->
+    <dimen name="account_raid_list_view_margin_top">2dp</dimen>
+    <dimen name="account_raid_list_view_margin_right">8dp</dimen>
+    <dimen name="account_raid_list_view_margin_left">8dp</dimen>
+    <dimen name="account_raid_list_view_margin_bottom">2dp</dimen>
+    <dimen name="account_raid_row_header_margin_top">0dp</dimen>
+    <dimen name="account_raid_row_header_margin_right">12dp</dimen>
+    <dimen name="account_raid_row_header_margin_left">32dp</dimen>
+    <dimen name="account_raid_row_header_margin_bottom">6dp</dimen>
+    <dimen name="account_raid_row_text_margin_top">16dp</dimen>
+    <dimen name="account_raid_row_text_margin_right">12dp</dimen>
+    <dimen name="account_raid_row_text_margin_left">24dp</dimen>
+    <dimen name="account_raid_row_text_margin_bottom">0dp</dimen>
+    <dimen name="account_raid_row_state_text_margin_top">16dp</dimen>
+    <dimen name="account_raid_row_state_text_margin_right">12dp</dimen>
+    <dimen name="account_raid_row_state_text_margin_left">24dp</dimen>
+    <dimen name="account_raid_row_state_text_margin_bottom">12dp</dimen>
+    <dimen name="account_raid_row_picture_margin_top">0dp</dimen>
+    <dimen name="account_raid_row_picture_margin_right">12dp</dimen>
+    <dimen name="account_raid_row_picture_margin_left">32dp</dimen>
+    <dimen name="account_raid_row_picture_margin_bottom">0dp</dimen>
+
+
+
+    <!-- account raid fragment -->
+    <dimen name="account_daily_progress_bar_margin_top">8dp</dimen>
+    <dimen name="account_daily_progress_bar_margin_right">72dp</dimen>
+    <dimen name="account_daily_progress_bar_margin_left">72dp</dimen>
+    <dimen name="account_daily_progress_bar_margin_bottom">8dp</dimen>
+    <dimen name="account_daily_list_view_row_height">96dp</dimen>
+    <dimen name="account_daily_list_view_row_divider_height">4dp</dimen>
+
+    <!-- account raid list view row -->
+    <dimen name="account_daily_list_view_margin_top">2dp</dimen>
+    <dimen name="account_daily_list_view_margin_right">8dp</dimen>
+    <dimen name="account_daily_list_view_margin_left">8dp</dimen>
+    <dimen name="account_daily_list_view_margin_bottom">2dp</dimen>
+    <dimen name="account_daily_row_header_margin_top">0dp</dimen>
+    <dimen name="account_daily_row_header_margin_right">12dp</dimen>
+    <dimen name="account_daily_row_header_margin_left">32dp</dimen>
+    <dimen name="account_daily_row_header_margin_bottom">6dp</dimen>
+    <dimen name="account_daily_row_text_margin_top">16dp</dimen>
+    <dimen name="account_daily_row_text_margin_right">12dp</dimen>
+    <dimen name="account_daily_row_text_margin_left">24dp</dimen>
+    <dimen name="account_daily_row_text_margin_bottom">0dp</dimen>
+    <dimen name="account_daily_row_state_text_margin_top">16dp</dimen>
+    <dimen name="account_daily_row_state_text_margin_right">12dp</dimen>
+    <dimen name="account_daily_row_state_text_margin_left">24dp</dimen>
+    <dimen name="account_daily_row_state_text_margin_bottom">12dp</dimen>
+    <dimen name="account_daily_row_picture_margin_top">0dp</dimen>
+    <dimen name="account_daily_row_picture_margin_right">12dp</dimen>
+    <dimen name="account_daily_row_picture_margin_left">32dp</dimen>
+    <dimen name="account_daily_row_picture_margin_bottom">0dp</dimen>
+
+
     <!-- overall app dimensions -->
     <dimen name="button_bottom_height">72dp</dimen>
-
     <dimen name="button_floating_min_diameter">64dp</dimen>
+    <dimen name="adapter_elevation_header_item">9dp</dimen>
+    <dimen name="adapter_elevation_text_item">3dp</dimen>
 
     <!-- text dimen -->
     <dimen name="small_text_size">14sp</dimen>
