@@ -13,12 +13,18 @@
  */
 package com.scavi.de.gw2imp.communication.access;
 
+import com.scavi.de.gw2imp.communication.error.ResponseException;
+import com.scavi.de.gw2imp.communication.response.achievement.Achievement;
 import com.scavi.de.gw2imp.communication.response.achievement.Category;
-import com.scavi.de.gw2imp.data.entity.Group;
+import com.scavi.de.gw2imp.communication.response.achievement.DailyAchievements;
+import com.scavi.de.gw2imp.communication.response.achievement.Group;
 
+import java.io.IOException;
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.http.GET;
 
 public interface IAchievementAccess {
     /**
@@ -58,4 +64,36 @@ public interface IAchievementAccess {
      */
     void getAchievementCategories(final Callback<List<Category>> callback,
                                   final int id);
+
+
+    /**
+     * Calls the server side asynchronous to determine the dailies today
+     *
+     * @param callback the callback to process the asynchronous result
+     */
+    void getDaily(final Callback<DailyAchievements> callback);
+
+
+    /**
+     * Calls the server side synchronous to determine the dailies today
+     *
+     * @rreturn the dailies today
+     */
+    DailyAchievements getDaily() throws IOException, ResponseException;
+
+
+    /**
+     * Calls the server side asynchronous to determine the dailies tomorrow
+     *
+     * @param callback the callback to process the asynchronous result
+     */
+    void getDailyTomorrow(final Callback<DailyAchievements> callback);
+
+
+    /**
+     * Calls the server side synchronous to determine the dailies today
+     *
+     * @rreturn the dailies today
+     */
+    DailyAchievements getDailyTomorrow() throws IOException, ResponseException;
 }
