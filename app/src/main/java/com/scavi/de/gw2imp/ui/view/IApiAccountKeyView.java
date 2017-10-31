@@ -13,25 +13,12 @@
  */
 package com.scavi.de.gw2imp.ui.view;
 
-public interface IApiAccountKeyView {
-
+public interface IApiAccountKeyView extends IStatusView {
 
     /**
      * Opens the {@link android.app.Activity to scan the QR code}
      */
     void openScanQrCode();
-
-
-    /**
-     * Shows the progress of the registration request
-     */
-    void onShowProgress();
-
-
-    /**
-     * Hides the progress of the registration request
-     */
-    void onHideProgress();
 
 
     /**
@@ -45,14 +32,6 @@ public interface IApiAccountKeyView {
      * @param errorMessage the error message for the
      */
     void invalidateApiKeyField(final String errorMessage);
-
-    /**
-     * Notifies the user about the occurred error. The error can have different characteristics
-     * (e.g. an invalid api key format, no internet connection, technical errors)
-     *
-     * @param errorMessage the error message for the user
-     */
-    void showUserError(final String errorMessage);
 
     /**
      * Routes to the main application
