@@ -13,18 +13,11 @@
  */
 package com.scavi.de.gw2imp.presenter;
 
-import android.content.Context;
-import android.content.Intent;
-
 import com.scavi.de.gw2imp.model.SplashModel;
-import com.scavi.de.gw2imp.ui.activity.AccountActivity;
 import com.scavi.de.gw2imp.ui.view.ISplashView;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 @ParametersAreNonnullByDefault
 public class SplashPresenter {
