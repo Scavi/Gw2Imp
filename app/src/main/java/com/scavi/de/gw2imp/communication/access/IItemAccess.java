@@ -24,5 +24,5 @@ public interface IItemAccess {
      * @param id       the id of the finisher
      * @param callback the callback to process the response
      */
-    void callGetFinisher(final int id, final Callback<Finisher> callback);
+    void getFinisher(final int id, final Callback<Finisher> callback);
 }
