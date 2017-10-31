@@ -35,7 +35,5 @@ public class OverviewModel {
     }
 
 
-    public void persistRoutingState() {
-        mPreferenceAccess.writeRoutingState(mContext, RoutingState.MainApplication);
-    }
+
 }
