@@ -11,18 +11,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.scavi.de.gw2imp.data.db;
+package com.scavi.de.gw2imp.data.util;
 
-import android.arch.persistence.room.RoomDatabase;
-
-import com.scavi.de.gw2imp.data.dao.IGroupDAO;
-
-import javax.annotation.ParametersAreNonnullByDefault;
-
-//@Database(entities = {Group.class}, version = 1)
-@ParametersAreNonnullByDefault
-public abstract class Gw2ImpAchievements extends RoomDatabase {
-
-    public abstract IGroupDAO groupDAO();
-
+public enum DailyType {
+    Pve, Pvp, Wvw, Fractal,
 }
