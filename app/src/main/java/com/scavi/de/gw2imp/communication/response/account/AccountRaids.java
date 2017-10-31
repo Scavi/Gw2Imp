@@ -19,20 +19,38 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Raids {
-    @SerializedName("raids")
+public class AccountRaids {
     @Expose
     private List<String> raids;
 
     /**
-     * @return an array of strings representing raid encounters completed since weekly raid reset. The names can be resolved against v2/raids for more information.
+     * Constructor
+     */
+    public AccountRaids() {
+        this(null);
+    }
+
+    /**
+     * Constructor
+     *
+     * @param raids an array of strings representing raid encounters completed since weekly raid
+     *              reset. The names can be resolved against v2/raids for more information.
+     */
+    public AccountRaids(final List<String> raids) {
+        this.raids = raids;
+    }
+
+    /**
+     * @return an array of strings representing raid encounters completed since weekly raid reset
+     * . The names can be resolved against v2/raids for more information.
      */
     public List<String> getRaids() {
         return raids;
     }
 
     /**
-     * @param raids an array of strings representing raid encounters completed since weekly raid reset. The names can be resolved against v2/raids for more information.
+     * @param raids an array of strings representing raid encounters completed since weekly raid
+     *              reset. The names can be resolved against v2/raids for more information.
      */
     public void setRaids(List<String> raids) {
         this.raids = raids;
