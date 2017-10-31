@@ -18,7 +18,7 @@ import android.view.View;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.scavi.de.gw2imp.ui.view.IMainNavigation;
+import com.scavi.de.gw2imp.presenter.MainPresenter;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -26,20 +26,22 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class NavigationClickListener implements Drawer.OnDrawerItemClickListener {
     public static final int OVERVIEW_ID = 10;
     public static final int CHARACTER_ID = 11;
-    public static final int RAID_ID = 12;
-    public static final int TRANSACTION_BUY_ID = 15;
-    public static final int TRANSACTION_SELL_ID = 16;
-    public static final int TRADING_UP = 20;
-    public static final int TRADING_DOWN = 21;
-    private final IMainNavigation mMainNavigator;
+    public static final int ACCOUNT_DAILIES_ID = 12;
+    public static final int ACHIEVEMENTS_ID = 13;
+    public static final int RAID_ID = 14;
+    public static final int TRANSACTION_BUY_ID = 20;
+    public static final int TRANSACTION_SELL_ID = 21;
+    public static final int TRADING_UP = 30;
+    public static final int TRADING_DOWN = 31;
+    private final MainPresenter mMainNavigator;
 
     /**
      * Constructor
      *
-     * @param mainNavigator the interface of the main navigation to react to the navigation
-     *                      clicks of the listener
+     * @param mainNavigator the access of the main navigation to react to the navigation
+     *                      clicks of the listener (presenter)
      */
-    public NavigationClickListener(final IMainNavigation mainNavigator) {
+    public NavigationClickListener(final MainPresenter mainNavigator) {
         mMainNavigator = mainNavigator;
     }
 
@@ -47,22 +49,28 @@ public class NavigationClickListener implements Drawer.OnDrawerItemClickListener
      * Reacts to the item click of the main navigation
      */
     @Override
-    public boolean onItemClick(final View view,
+    public boolean onItemClick(@Nullable final View view,
                                final int position,
                                @Nullable final IDrawerItem drawerItem) {
-        if (drawerItem == null) {
+        if (view == null || drawerItem == null) {
             return false;
         }
 
         switch ((int) drawerItem.getIdentifier()) {
             case OVERVIEW_ID:
-                mMainNavigator.onClickAccountOverView();
+                mMainNavigator.onClickAccountOverview();
                 break;
             case CHARACTER_ID:
-                mMainNavigator.onClickAccountCharacterView();
+                mMainNavigator.onClickAccountCharacter();
+                break;
+            case ACCOUNT_DAILIES_ID:
+                mMainNavigator.onClickAccountDailies();
                 break;
             case RAID_ID:
-                mMainNavigator.onClickAccountRaidView();
+                mMainNavigator.onClickAccountRaid();
+                break;
+            case ACHIEVEMENTS_ID:
+                mMainNavigator.onClickAccountAchievements();
                 break;
             case TRANSACTION_BUY_ID:
                 mMainNavigator.onClickAccountTransactionBuy();
