@@ -61,12 +61,8 @@ public class ActivityHelper {
         AlertDialog.Builder dialogCreator = new AlertDialog.Builder(activity);
         dialogCreator.setMessage(message);
         dialogCreator.setPositiveButton(android.R.string.ok,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface paramDialogInterface,
-                                        int paramInt) {
-                        // nothing to do
-                    }
+                (paramDialogInterface, paramInt) -> {
+                    // nothing to do
                 });
         AlertDialog alertDialog = dialogCreator.create();
         if (alertDialog.getWindow() != null) {
