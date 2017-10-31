@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.ui.activity.ApiAccountKeyActivity;
-import com.scavi.de.gw2imp.ui.activity.OverviewActivity;
+import com.scavi.de.gw2imp.ui.activity.MainActivity;
 import com.scavi.de.gw2imp.ui.util.ActivityHelper;
 import com.scavi.de.gw2imp.util.RoutingState;
 
@@ -61,7 +61,7 @@ public class SplashModel extends AbstractModel {
      */
     public Class getRoutingTarget() {
         RoutingState state = mPreferenceAccess.readRoutingState(mContext);
-        return state == RoutingState.MainApplication ? OverviewActivity.class :
+        return state == RoutingState.MainApplication ? MainActivity.class :
                 ApiAccountKeyActivity.class;
     }
 }
