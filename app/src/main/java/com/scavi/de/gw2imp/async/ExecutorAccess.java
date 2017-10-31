@@ -13,9 +13,13 @@
  */
 package com.scavi.de.gw2imp.async;
 
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -40,5 +44,25 @@ public class ExecutorAccess implements IExecutorAccess {
     @Override
     public ListeningExecutorService getBackgroundThreadExecutor() {
         return mBackgroundExecutor;
+    }
+
+
+    /**
+     * Executes the given callable at some time in the future.  The command may execute in a new
+     * thread, in a pooled thread, or in the calling thread, at the discretion of the {@code
+     * Executor} implementation.
+     *
+     * @param callable the callable
+     * @param callback the callback
+     * @return the listenable future to the executed task
+     * @throws NullPointerException if command is null
+     */
+    @Override
+    public <T> ListenableFuture<T> executeBackgroundTask(final Callable<T> callable,
+                                                       final FutureCallback<T> callback) {
+
+        ListenableFuture<T> listenableFuture = mBackgroundExecutor.submit(callable);
+        Futures.addCallback(listenableFuture, callback);
+        return listenableFuture;
     }
 }
