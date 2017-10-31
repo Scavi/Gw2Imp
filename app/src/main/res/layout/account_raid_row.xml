@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/account_raid_list_view_row_height"
+              android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/raid_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/account_raid_list_view_margin_bottom"
+        android:layout_marginEnd="@dimen/account_raid_list_view_margin_right"
+        android:layout_marginStart="@dimen/account_raid_list_view_margin_left"
+        android:layout_marginTop="@dimen/account_raid_list_view_margin_top"
+        android:background="@drawable/rectangle_shadow"
+        android:elevation="@dimen/adapter_elevation_header_item"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/raid_realm"
+            style="@style/Gw2ImpTheme.Text.Highlight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/account_raid_row_header_margin_bottom"
+            android:layout_marginEnd="@dimen/account_raid_row_header_margin_right"
+            android:layout_marginStart="@dimen/account_raid_row_header_margin_left"
+            android:layout_marginTop="@dimen/account_raid_row_header_margin_top"
+            android:text="@string/empty"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/raid_context_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/account_raid_list_view_margin_bottom"
+        android:layout_marginEnd="@dimen/account_raid_list_view_margin_right"
+        android:layout_marginStart="@dimen/account_raid_list_view_margin_left"
+        android:layout_marginTop="@dimen/account_raid_list_view_margin_top"
+        android:background="@drawable/rectangle_shadow"
+        android:baselineAligned="false"
+        android:elevation="@dimen/adapter_elevation_text_item"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/raid_picture"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/account_raid_row_picture_margin_bottom"
+                android:layout_marginEnd="@dimen/account_raid_row_picture_margin_right"
+                android:layout_marginStart="@dimen/account_raid_row_picture_margin_left"
+                android:layout_marginTop="@dimen/account_raid_row_picture_margin_top"
+                android:src="@drawable/raid_gorseval"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/raid_boss"
+                style="@style/Gw2ImpTheme.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/account_raid_row_text_margin_bottom"
+                android:layout_marginEnd="@dimen/account_raid_row_text_margin_right"
+                android:layout_marginStart="@dimen/account_raid_row_text_margin_left"
+                android:layout_marginTop="@dimen/account_raid_row_text_margin_top" />
+
+            <TextView
+                android:id="@+id/raid_status"
+                style="@style/Gw2ImpTheme.Text.ErrorHighlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/raid_boss"
+                android:layout_marginBottom="@dimen/account_raid_row_state_text_margin_bottom"
+                android:layout_marginEnd="@dimen/account_raid_row_state_text_margin_right"
+                android:layout_marginStart="@dimen/account_raid_row_state_text_margin_left"
+                android:layout_marginTop="@dimen/account_raid_row_state_text_margin_top"
+                android:text="@string/empty" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>
