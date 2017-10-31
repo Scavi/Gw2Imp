@@ -13,10 +13,10 @@
  */
 package com.scavi.de.gw2imp.dagger2.component;
 
-import com.scavi.de.gw2imp.dagger2.module.AccountModule;
-import com.scavi.de.gw2imp.model.AccountModel;
-import com.scavi.de.gw2imp.presenter.AccountPresenter;
-import com.scavi.de.gw2imp.ui.activity.AccountActivity;
+import com.scavi.de.gw2imp.dagger2.module.AccountCharacterModule;
+import com.scavi.de.gw2imp.model.AccountCharacterModel;
+import com.scavi.de.gw2imp.presenter.AccountCharacterPresenter;
+import com.scavi.de.gw2imp.ui.fragment.AccountCharacterFragment;
 import com.scavi.de.gw2imp.util.ActivityScope;
 
 import dagger.Component;
@@ -24,24 +24,24 @@ import dagger.Component;
 @ActivityScope
 @Component(
         dependencies = ApplicationComponent.class,
-        modules = AccountModule.class)
-public interface AccountComponent {
+        modules = AccountCharacterModule.class)
+public interface AccountCharacterComponent {
     /**
-     * The inject method of the activity for the dagger component
+     * The inject method of the fragment for the dagger component
      *
-     * @param activity the activity to inject
+     * @param fragment the fragment to inject
      */
-    void inject(final AccountActivity activity);
+    void inject(final AccountCharacterFragment fragment);
 
 
     /**
-     * @return the presenter of the MVP pattern in the context of the account
+     * @return the presenter of the MVP pattern in the context of the account character
      */
-    AccountPresenter getPresenter();
+    AccountCharacterPresenter getPresenter();
 
 
     /**
-     * @return the model of the MVP pattern in the context of the account
+     * @return the model of the MVP pattern in the context of the account character
      */
-    AccountModel getModel();
+    AccountCharacterModel getModel();
 }

@@ -13,10 +13,10 @@
  */
 package com.scavi.de.gw2imp.dagger2.component;
 
-import com.scavi.de.gw2imp.dagger2.module.OverviewModule;
-import com.scavi.de.gw2imp.model.OverviewModel;
-import com.scavi.de.gw2imp.presenter.OverviewPresenter;
-import com.scavi.de.gw2imp.ui.fragment.OverviewFragment;
+import com.scavi.de.gw2imp.dagger2.module.MainModule;
+import com.scavi.de.gw2imp.model.MainModel;
+import com.scavi.de.gw2imp.presenter.MainPresenter;
+import com.scavi.de.gw2imp.ui.activity.MainActivity;
 import com.scavi.de.gw2imp.util.ActivityScope;
 
 import dagger.Component;
@@ -24,24 +24,25 @@ import dagger.Component;
 @ActivityScope
 @Component(
         dependencies = ApplicationComponent.class,
-        modules = OverviewModule.class)
-public interface OverviewComponent {
+        modules = MainModule.class)
+public interface MainComponent {
+
     /**
-     * The inject method of the fragment for the dagger component
+     * The inject method of the activity for the dagger component
      *
-     * @param fragment the fragment to inject
+     * @param activity the activity to inject
      */
-    void inject(final OverviewFragment fragment);
+    void inject(final MainActivity activity);
 
 
     /**
-     * @return the presenter of the MVP pattern in the context of the application overview
+     * @return the presenter of the MVP pattern in the context of the main application
      */
-    OverviewPresenter getPresenter();
+    MainPresenter getPresenter();
 
 
     /**
-     * @return the model of the MVP pattern in the context of the application overview
+     * @return the model of the MVP pattern in the context of the main activity
      */
-    OverviewModel getModel();
+    MainModel getModel();
 }

@@ -13,10 +13,10 @@
  */
 package com.scavi.de.gw2imp.dagger2.component;
 
-import com.scavi.de.gw2imp.dagger2.module.OverviewModule;
-import com.scavi.de.gw2imp.model.OverviewModel;
-import com.scavi.de.gw2imp.presenter.OverviewPresenter;
-import com.scavi.de.gw2imp.ui.fragment.OverviewFragment;
+import com.scavi.de.gw2imp.dagger2.module.AccountRaidModule;
+import com.scavi.de.gw2imp.model.AccountRaidModel;
+import com.scavi.de.gw2imp.presenter.AccountRaidPresenter;
+import com.scavi.de.gw2imp.ui.fragment.AccountRaidFragment;
 import com.scavi.de.gw2imp.util.ActivityScope;
 
 import dagger.Component;
@@ -24,24 +24,25 @@ import dagger.Component;
 @ActivityScope
 @Component(
         dependencies = ApplicationComponent.class,
-        modules = OverviewModule.class)
-public interface OverviewComponent {
+        modules = AccountRaidModule.class)
+public interface AccountRaidComponent {
+
     /**
      * The inject method of the fragment for the dagger component
      *
      * @param fragment the fragment to inject
      */
-    void inject(final OverviewFragment fragment);
+    void inject(final AccountRaidFragment fragment);
 
 
     /**
-     * @return the presenter of the MVP pattern in the context of the application overview
+     * @return the presenter of the MVP pattern in the context of the account raids
      */
-    OverviewPresenter getPresenter();
+    AccountRaidPresenter getPresenter();
 
 
     /**
-     * @return the model of the MVP pattern in the context of the application overview
+     * @return the model of the MVP pattern in the context of the account raids
      */
-    OverviewModel getModel();
+    AccountRaidModel getModel();
 }

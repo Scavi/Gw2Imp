@@ -14,14 +14,26 @@
 package com.scavi.de.gw2imp.dagger2.module;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.mikepenz.fastadapter.IItem;
 import com.scavi.de.gw2imp.application.IApplication;
+import com.scavi.de.gw2imp.async.ExecutorAccess;
+import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
+import com.scavi.de.gw2imp.communication.access.IAchievementAccess;
+import com.scavi.de.gw2imp.communication.access.IItemAccess;
+import com.scavi.de.gw2imp.communication.access.IMiscellaneousAccess;
 import com.scavi.de.gw2imp.communication.access.impl.AccountAccess;
+import com.scavi.de.gw2imp.communication.access.impl.AchievementsAccess;
+import com.scavi.de.gw2imp.communication.access.impl.ItemAccess;
+import com.scavi.de.gw2imp.communication.access.impl.MiscellaneousAccess;
 import com.scavi.de.gw2imp.communication.interceptor.ApiKeyInterceptor;
+import com.scavi.de.gw2imp.data.db.Gw2ImpDatabase;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.preferences.PreferenceManager;
 import com.scavi.de.gw2imp.util.Const;
@@ -34,6 +46,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -56,7 +69,7 @@ public class ApplicationModule {
      */
     @Provides
     @Singleton
-    public IApplication provideApplication() {
+    IApplication provideApplication() {
         return mApplication;
     }
 
@@ -77,16 +90,50 @@ public class ApplicationModule {
      */
     @Provides
     @Singleton
-    public IAccountAccess provideAccountAccess(final Retrofit retrofitAdapter) {
+    IAccountAccess provideAccountAccess(final Retrofit retrofitAdapter) {
         return new AccountAccess(retrofitAdapter);
     }
+
+
+    /**
+     * @param retrofitAdapter the retrofit2 adapter to access the REST API
+     * @return the server side access to the achievement data
+     */
+    @Provides
+    @Singleton
+    IAchievementAccess provideAchievementAccess(final Retrofit retrofitAdapter) {
+        return new AchievementsAccess(retrofitAdapter);
+    }
+
+
+    /**
+     * @param retrofitAdapter the retrofit2 adapter to access the REST API
+     * @return the server side access to the item data
+     */
+    @Provides
+    @Singleton
+    IItemAccess provideItemAccess(final Retrofit retrofitAdapter) {
+        return new ItemAccess(retrofitAdapter);
+    }
+
+
+    /**
+     * @param retrofitAdapter the retrofit2 adapter to access the REST API
+     * @return the server side access to the misc information (e.g. raid)
+     */
+    @Provides
+    @Singleton
+    IMiscellaneousAccess provideMiscAccess(final Retrofit retrofitAdapter) {
+        return new MiscellaneousAccess(retrofitAdapter);
+    }
+
 
     /**
      * @return the synchronized shared preferences of this application
      */
     @Provides
     @Singleton
-    public IPreferenceAccess providePreferences() {
+    IPreferenceAccess providePreferences() {
         return PreferenceManager.getInstance();
     }
 
@@ -98,16 +145,39 @@ public class ApplicationModule {
      */
     @Provides
     @Singleton
-    public Retrofit provideRetrofitAdapter(final Context context,
-                                           final IPreferenceAccess preferenceAccess) {
+    Retrofit provideRetrofitAdapter(final Context context,
+                                    final IPreferenceAccess preferenceAccess) {
         OkHttpClient httpClient = createOkHttpClientBuilder(context, preferenceAccess);
         // set gson. Make sure that malformed JSON will be accepted
         Gson gson = new GsonBuilder().setLenient().create();
         // get the base url of the application and initiate the retrofit client
         return new Retrofit.Builder().baseUrl(Const.GW2_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient).build();
     }
+
+
+    /**
+     * @param context the context to global information about the application environment
+     * @return the database of this application
+     */
+    @Provides
+    @Singleton
+    Gw2ImpDatabase provideDatabase(final Context context) {
+        return Room.databaseBuilder(context, Gw2ImpDatabase.class, "gw2-imp-treasure").build();
+    }
+
+
+    /**
+     * @return the access to the main / background executor
+     */
+    @Provides
+    @Singleton
+    IExecutorAccess provideExecutorAccess() {
+        return new ExecutorAccess();
+    }
+
 
     /**
      * Creates the http client with all interceptors and logging components
@@ -118,8 +188,12 @@ public class ApplicationModule {
      */
     private OkHttpClient createOkHttpClientBuilder(final Context context,
                                                    final IPreferenceAccess preferenceAccess) {
+//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(new ApiKeyInterceptor(context, preferenceAccess));
+        //builder.addInterceptor(logging);
         builder.readTimeout(Const.SERVER_CONNECT_TIMEOUT, TimeUnit.SECONDS);
         builder.readTimeout(Const.SERVER_READ_TIMEOUT, TimeUnit.SECONDS);
         return builder.build();

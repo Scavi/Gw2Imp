@@ -16,10 +16,11 @@ package com.scavi.de.gw2imp.dagger2.module;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
+import com.scavi.de.gw2imp.model.MainModel;
 import com.scavi.de.gw2imp.model.OverviewModel;
-import com.scavi.de.gw2imp.presenter.OverviewPresenter;
-import com.scavi.de.gw2imp.ui.view.IOverviewView;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
+import com.scavi.de.gw2imp.presenter.MainPresenter;
+import com.scavi.de.gw2imp.ui.view.IMainView;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -27,50 +28,51 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import dagger.Module;
 import dagger.Provides;
 
-
 @Module
 @ParametersAreNonnullByDefault
-public class OverviewModule {
-    private final IOverviewView mView;
+public class MainModule {
+    private final IMainView mView;
 
     /**
      * Constructor
      *
-     * @param view the view of application overview
+     * @param view the main view of the application
      */
-    public OverviewModule(final IOverviewView view) {
+    public MainModule(final IMainView view) {
         this.mView = view;
     }
 
+
     /**
-     * @return the view of the application overview
+     * @return the main view of the application
      */
     @Provides
     @Nonnull
-    public IOverviewView provideView() {
+    public IMainView provideView() {
         return mView;
     }
 
 
     /**
-     * @param model the model of the MVP pattern in the context of the application overview
-     * @return the presenter of the MVP pattern in the context of the application overview
+     * @param model the model of the MVP pattern in the context of the main activity
+     * @return the presenter of the MVP pattern in the context of the main application
      */
     @Provides
-    @NonNull
-    public OverviewPresenter providePresenter(final OverviewModel model) {
-        return new OverviewPresenter(mView, model);
+    @Nonnull
+    public MainPresenter providePresenter(final MainModel model) {
+        return new MainPresenter(mView, model);
     }
+
 
     /**
      * @param context          the context to global information about the application environment
      * @param preferenceAccess access to the shared preferences of this application
-     * @return the model of the MVP pattern in the context of the application overview
+     * @return the model of the MVP pattern in the context of the main activity
      */
     @Provides
     @NonNull
-    public OverviewModel provideModel(final Context context,
-                                      final IPreferenceAccess preferenceAccess) {
-        return new OverviewModel(context, preferenceAccess);
+    public MainModel provideModel(final Context context,
+                                  final IPreferenceAccess preferenceAccess) {
+        return new MainModel(context, preferenceAccess);
     }
 }
