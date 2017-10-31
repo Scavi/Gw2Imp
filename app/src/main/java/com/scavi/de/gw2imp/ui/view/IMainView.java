@@ -13,5 +13,57 @@
  */
 package com.scavi.de.gw2imp.ui.view;
 
-public interface IMainView {
+public interface IMainView  {
+    /**
+     * Show the account overview view / information
+     */
+    void routeAccountOverview();
+
+
+    /**
+     * Show the account character view / information
+     */
+    void routeAccountCharacter();
+
+
+    /**
+     * Show the account raid view / information
+     */
+    void routeAccountRaid();
+
+
+    /**
+     * Shows the dailies combined with what the account did
+     */
+    void routeAccountDailies();
+
+
+    /**
+     * Show  the account achievements view / information
+     */
+    void routeAccountAchievements();
+
+
+    /**
+     * Show  the account buying transactions (history / current)
+     */
+    void routeAccountTransactionBuy();
+
+
+    /**
+     * Show the account selling transactions (history / current)
+     */
+    void routeAccountTransactionSell();
+
+
+    /**
+     * Show  the trading market information (up)
+     */
+    void routeTradingUp();
+
+
+    /**
+     * Show  the trading market information (down)
+     */
+     void routeTradingDown();
 }
