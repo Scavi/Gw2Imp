@@ -166,6 +166,11 @@ public class ApiAccountKeyActivity extends AppCompatActivity implements IApiAcco
     }
 
 
+    @Override
+    public void onHideProgressAfterError() {
+        throw new UnsupportedOperationException("Not implemented!");
+    }
+
     /**
      * @return the current entered api account key
      */
@@ -194,6 +199,9 @@ public class ApiAccountKeyActivity extends AppCompatActivity implements IApiAcco
      */
     @Override
     public void showUserError(@NonNull final String errorMessage) {
+        if (isFinishing()) {
+            return;
+        }
         AlertDialog errorDialog = ActivityHelper.createSimpleOkDialog(this, errorMessage);
         errorDialog.show();
     }
@@ -204,7 +212,7 @@ public class ApiAccountKeyActivity extends AppCompatActivity implements IApiAcco
      */
     @Override
     public void routeToMain() {
-        Intent routingTarget = new Intent(getApplicationContext(), OverviewActivity.class);
+        Intent routingTarget = new Intent(getApplicationContext(), MainActivity.class);
         routingTarget.addFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(routingTarget);
         finish();
