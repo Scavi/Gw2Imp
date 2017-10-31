@@ -26,7 +26,7 @@ import com.scavi.de.gw2imp.communication.response.account.Materials;
 import com.scavi.de.gw2imp.communication.response.account.Minis;
 import com.scavi.de.gw2imp.communication.response.account.Nodes;
 import com.scavi.de.gw2imp.communication.response.account.Outfits;
-import com.scavi.de.gw2imp.communication.response.account.Raids;
+import com.scavi.de.gw2imp.communication.response.account.AccountRaids;
 import com.scavi.de.gw2imp.communication.response.account.Recipts;
 import com.scavi.de.gw2imp.communication.response.account.Skins;
 import com.scavi.de.gw2imp.communication.response.account.Titles;
@@ -41,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface Gw2ApiV2AccountPlugin {
+public interface Gw2ApiAccountPlugin {
 
     /**
      * @return Returns information about an account associated with an API key.
@@ -131,7 +131,7 @@ public interface Gw2ApiV2AccountPlugin {
      * with an API key.
      */
     @GET("v2/account/raids")
-    Call<Raids> getRaids();
+    Call<List<String>> getRaids();
 
     /**
      * @return This resource returns information about recipes that are unlocked for an account.

@@ -13,19 +13,20 @@
  */
 package com.scavi.de.gw2imp.communication.rest;
 
-import com.scavi.de.gw2imp.communication.response.items.Finisher;
-
-import java.util.List;
+import com.scavi.de.gw2imp.communication.response.misc.RaidData;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface Gw2ApiV2ItemPlugin {
-    @GET("v2/finishers/{id}")
-    Call<Finisher> getFinisher(@Path("id") final int id);
+public interface Gw2ApiMiscellaneousPlugin {
 
-
-    @GET("v2/finishers/{ids}")
-    Call<List<Finisher>> getFinishers(@Path("ids") final String ids);
+    /**
+     * This resource returns details about each raid and it's associated wings.
+     *
+     * @param id the id of the raid ([ "forsaken_thicket","bastion_of_the_penitent" ])
+     * @return the raid information
+     */
+    @GET("v2/raids/{id}")
+    Call<RaidData> getRaids(@Path("id") final String id);
 }

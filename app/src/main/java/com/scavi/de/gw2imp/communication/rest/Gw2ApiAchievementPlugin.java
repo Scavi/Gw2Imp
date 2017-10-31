@@ -14,7 +14,8 @@
 package com.scavi.de.gw2imp.communication.rest;
 
 import com.scavi.de.gw2imp.communication.response.achievement.Category;
-import com.scavi.de.gw2imp.data.entity.Group;
+import com.scavi.de.gw2imp.communication.response.achievement.DailyAchievements;
+import com.scavi.de.gw2imp.communication.response.achievement.Group;
 
 import java.util.List;
 
@@ -22,12 +23,13 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface Gw2ApiV2AchievementPlugin {
+public interface Gw2ApiAchievementPlugin {
     /**
      * @return All the top-level groups for achievements.
      */
     @GET("v2/achievements/groups")
     Call<List<Group>> getAchievementGroups();
+
 
     /**
      * @param groupId the id of the group
@@ -36,11 +38,13 @@ public interface Gw2ApiV2AchievementPlugin {
     @GET("v2/achievements/groups/{groupId}")
     Call<Group> getAchievementGroup(@Path("groupId") final String groupId);
 
+
     /**
      * @return all the ids of the categories for achievements.
      */
     @GET("v2/achievements/categories")
     Call<List<Category>> getAchievementCategories();
+
 
     /**
      * @param id the id of the category
@@ -48,4 +52,18 @@ public interface Gw2ApiV2AchievementPlugin {
      */
     @GET("v2/achievements/categories/{id}")
     Call<Category> getAchievementCategory(@Path("id") final int id);
+
+
+    /**
+     * @return the current set of daily achievements.
+     */
+    @GET("v2/achievements/daily")
+    Call<DailyAchievements> getDaily();
+
+
+    /**
+     * @return the next set of daily achievements.
+     */
+    @GET("v2/achievements/daily/tomorrow")
+    Call<DailyAchievements> getDailyTomorrow();
 }
