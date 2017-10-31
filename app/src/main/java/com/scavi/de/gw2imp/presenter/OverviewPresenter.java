@@ -36,11 +36,4 @@ public class OverviewPresenter {
         mView = view;
         mModel = model;
     }
-
-    /**
-     * Process the information about the creation of the view to the module to update the status
-     */
-    public void onCreate() {
-        mModel.persistRoutingState();
-    }
 }
