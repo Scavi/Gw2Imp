@@ -13,7 +13,16 @@
  */
 package com.scavi.de.gw2imp.model;
 
-public class AccountModel {
+import android.content.Context;
 
+public class AccountCharacterModel extends AbstractModel {
 
+    /**
+     * Constructor
+     *
+     * @param context the context to global information about the application environment
+     */
+    public AccountCharacterModel(final Context context) {
+        super(context);
+    }
 }
