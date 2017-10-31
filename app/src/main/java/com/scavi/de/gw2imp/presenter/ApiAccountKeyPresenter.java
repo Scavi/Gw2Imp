@@ -13,6 +13,7 @@
  */
 package com.scavi.de.gw2imp.presenter;
 
+import com.scavi.de.gw2imp.communication.handler.DefaultCallback;
 import com.scavi.de.gw2imp.communication.response.account.Account;
 import com.scavi.de.gw2imp.model.ApiAccountKeyModel;
 import com.scavi.de.gw2imp.ui.view.IApiAccountKeyView;
@@ -20,7 +21,6 @@ import com.scavi.de.gw2imp.ui.view.IApiAccountKeyView;
 import javax.inject.Inject;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ApiAccountKeyPresenter {
@@ -66,28 +66,17 @@ public class ApiAccountKeyPresenter {
         mView.onShowProgress();
         mModel.storeApiKey(apiKey);
         // initiates the call to determine account information and verifies the given api key
-        mModel.determineAccount(new Callback<Account>() {
+        mModel.requestAccount(new DefaultCallback<Account>(mView, mModel) {
             @Override
-            public void onResponse(final Call<Account> call,
-                                   final Response<Account> response) {
-                mView.onHideProgress();
+            protected void processResponse(final Call<Account> call,
+                                           final Response<Account> response) {
                 // the account request was valid - route to the next activity
                 if (response.isSuccessful()) {
                     mView.routeToMain();
-                }
-                // the request was not successful
-                else {
+                } else {
                     String errorInformation = mModel.determineAccountHttpError(response.code());
                     mView.showUserError(errorInformation);
                 }
-            }
-
-            @Override
-            public void onFailure(final Call<Account> call,
-                                  final Throwable t) {
-                mView.onHideProgress();
-                String connectionException = mModel.getConnectionExceptionError();
-                mView.showUserError(connectionException);
             }
         });
     }
