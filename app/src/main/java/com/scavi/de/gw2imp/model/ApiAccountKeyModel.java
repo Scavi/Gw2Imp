@@ -128,30 +128,11 @@ public class ApiAccountKeyModel extends AbstractModel {
 
 
     /**
-     * @return the error about the connection
-     */
-    public String getConnectionExceptionError() {
-        return mContext.getString(R.string.connection_exception);
-    }
-
-    /**
-     * Determines the information to the http error code. Calling the GW2 API with an invalid api
-     * key caused a {@link HttpURLConnection#HTTP_BAD_REQUEST}
-     *
-     * @return the information to the error code
-     */
-    public String determineAccountHttpError(final int httpError) {
-        return httpError == HttpURLConnection.HTTP_BAD_REQUEST ?
-                mContext.getString(R.string.api_account_key_error) :
-                HttpErrorMapping.map(mContext, httpError);
-    }
-
-    /**
      * Determines the account data using the given account access.
      *
      * @param callback the callback to process the account result
      */
-    public void determineAccount(final Callback<Account> callback) {
+    public void requestAccount(final Callback<Account> callback) {
         mAccountAccess.getAccount(callback);
     }
 }
