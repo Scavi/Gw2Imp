@@ -13,32 +13,24 @@
  */
 package com.scavi.de.gw2imp.presenter;
 
-import android.content.Context;
-import android.content.Intent;
-
-import com.scavi.de.gw2imp.model.AccountModel;
-import com.scavi.de.gw2imp.ui.activity.AccountActivity;
-import com.scavi.de.gw2imp.ui.view.IAccountView;
+import com.scavi.de.gw2imp.model.AccountCharacterModel;
+import com.scavi.de.gw2imp.ui.view.IAccountCharacterView;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import javax.inject.Inject;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 @ParametersAreNonnullByDefault
-public class AccountPresenter {
-    private final IAccountView mView;
-    private final AccountModel mModel;
+public class AccountCharacterPresenter {
+    private final IAccountCharacterView mView;
+    private final AccountCharacterModel mModel;
 
     /**
      * Constructor
      *
-     * @param view  the view for the account details
-     * @param model the model for the account details
+     * @param view the view for the account characters
+     * @param model the model of the MVP pattern in the context of the account character screen
      */
-    @Inject
-    public AccountPresenter(final IAccountView view, final AccountModel model) {
+    public AccountCharacterPresenter(final IAccountCharacterView view,
+                                     final AccountCharacterModel model) {
         mView = view;
         mModel = model;
     }
