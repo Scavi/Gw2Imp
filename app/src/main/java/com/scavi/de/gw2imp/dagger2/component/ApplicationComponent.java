@@ -16,13 +16,20 @@ package com.scavi.de.gw2imp.dagger2.component;
 import android.content.Context;
 
 import com.scavi.de.gw2imp.application.IApplication;
+import com.scavi.de.gw2imp.async.ExecutorAccess;
+import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
+import com.scavi.de.gw2imp.communication.access.IAchievementAccess;
+import com.scavi.de.gw2imp.communication.access.IItemAccess;
+import com.scavi.de.gw2imp.communication.access.IMiscellaneousAccess;
 import com.scavi.de.gw2imp.dagger2.module.ApplicationModule;
+import com.scavi.de.gw2imp.data.db.Gw2ImpDatabase;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.Provides;
 import retrofit2.Retrofit;
 
 @Singleton
@@ -52,8 +59,39 @@ public interface ApplicationComponent {
      */
     IAccountAccess getAccountAccess();
 
+
+    /**
+     * @return the server side access to the achievement data
+     */
+    IAchievementAccess getAchievementAccess();
+
+
+    /**
+     * @return the server side access to the misc information (e.g. raid)
+     */
+    IMiscellaneousAccess getMiscAccess();
+
+
+    /**
+     * @return the server side access to the item data
+     */
+    IItemAccess getItemAccess();
+
+
     /**
      * @return the synchronized shared preferences of this application
      */
-    IPreferenceAccess providePreferences();
+    IPreferenceAccess getPreferences();
+
+
+    /**
+     * @return the database of this application
+     */
+    Gw2ImpDatabase getDatabase();
+
+
+    /**
+     * @return the access to the main / background executor
+     */
+    IExecutorAccess getExecutorAccess();
 }
