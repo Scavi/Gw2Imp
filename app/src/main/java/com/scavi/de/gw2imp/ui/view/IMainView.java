@@ -33,9 +33,9 @@ public interface IMainView  {
 
 
     /**
-     * Shows the dailies combined with what the account did
+     * Shows the dailies today, combined with what the account did
      */
-    void routeAccountDailies();
+    void routeAccountDailiesToday();
 
 
     /**
@@ -66,4 +66,16 @@ public interface IMainView  {
      * Show  the trading market information (down)
      */
      void routeTradingDown();
+
+
+    /**
+     * Shows the dailies tomorrow without any account information
+     */
+    void routeDailiesTomorrow();
+
+
+    /**
+     * Shows the license information of the app
+     */
+    void routeToLicense();
 }

@@ -62,8 +62,8 @@ public class MainPresenter {
     /**
      * The user clicked on the account dailies view / information
      */
-    public void onClickAccountDailies() {
-        mView.routeAccountDailies();
+    public void onClickAccountDailiesToday() {
+        mView.routeAccountDailiesToday();
     }
 
 
@@ -112,5 +112,21 @@ public class MainPresenter {
      */
     public void onClickTradingDown() {
         mView.routeTradingDown();
+    }
+
+
+    /**
+     * The user clicked on the dailies tomorrow view / information
+     */
+    public void onClickDailiesTomorrow() {
+        mView.routeDailiesTomorrow();
+    }
+
+
+    /**
+     * The user clicked on the license information
+     */
+    public void onClickLicense() {
+        mView.routeToLicense();
     }
 }

@@ -19,7 +19,7 @@ import retrofit2.Callback;
 
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
 import com.scavi.de.gw2imp.communication.access.IAchievementAccess;
-import com.scavi.de.gw2imp.communication.response.account.Achievement;
+import com.scavi.de.gw2imp.communication.response.account.AccountAchievement;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class AccountAchievementsModel {
      *
      * @param callback the callback to process the account achievement result
      */
-    public void requestAchievements(final Callback<List<Achievement>> callback) {
+    public void requestAchievements(final Callback<List<AccountAchievement>> callback) {
         mAccountAccess.getAchievements(callback);
     }
 }

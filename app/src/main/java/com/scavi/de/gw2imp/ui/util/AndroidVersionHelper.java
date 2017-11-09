@@ -24,6 +24,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class AndroidVersionHelper {
 
+    /**
+     * Private constructor for the helper
+     */
+    private AndroidVersionHelper() {
+    }
 
     /**
      *

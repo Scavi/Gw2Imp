@@ -20,6 +20,7 @@ import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
 import com.scavi.de.gw2imp.communication.access.IMiscellaneousAccess;
 import com.scavi.de.gw2imp.data.db.Gw2ImpDatabase;
+import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.model.AccountRaidModel;
 import com.scavi.de.gw2imp.presenter.AccountRaidPresenter;
 import com.scavi.de.gw2imp.ui.view.IAccountRaidView;
@@ -79,7 +80,7 @@ public class AccountRaidModule {
     public AccountRaidModel provideModel(final Context context,
                                          final IAccountAccess accountAccess,
                                          final IMiscellaneousAccess miscAccess,
-                                         final Gw2ImpDatabase impDatabaseAccess,
+                                         final IDatabaseAccess impDatabaseAccess,
                                          final IExecutorAccess executorAccess) {
         return new AccountRaidModel(context, accountAccess, miscAccess, impDatabaseAccess,
                 executorAccess);

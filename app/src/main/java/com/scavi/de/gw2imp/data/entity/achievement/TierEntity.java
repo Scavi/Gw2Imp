@@ -18,8 +18,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.support.annotation.NonNull;
 
+import com.scavi.de.gw2imp.communication.response.achievement.Achievement;
+import com.scavi.de.gw2imp.communication.response.achievement.Tier;
 import com.scavi.de.gw2imp.data.util.DbConst;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -82,5 +88,31 @@ public class TierEntity {
     @NonNull
     public Integer getPoints() {
         return mPoints;
+    }
+
+
+    /**
+     * Factory method to create a list of {@link TierEntity} from the given tiers of the
+     * achievement
+     *
+     * @param achievement the parent achievement for the current flags
+     * @param tiers       Describes the achievement's tiers. Each object contains:
+     *                    count (number) - The number of "things" (achievement-specific) that
+     *                    must be completed to
+     *                    achieve this tier.
+     *                    points (number) The amount of AP awarded for completing this tier.
+     * @return the achievement entities for the given flags
+     */
+    public static List<TierEntity> from(final Achievement achievement,
+                                        @Nullable final List<Tier> tiers) {
+        if (tiers == null || tiers.size() == 0) {
+            return new ArrayList<>(0);
+        }
+        List<TierEntity> tierEntities = new ArrayList<>(tiers.size());
+        for (Tier tier : tiers) {
+            tierEntities.add(new TierEntity(
+                    achievement.getId(), tier.getCount(), tier.getPoints()));
+        }
+        return tierEntities;
     }
 }

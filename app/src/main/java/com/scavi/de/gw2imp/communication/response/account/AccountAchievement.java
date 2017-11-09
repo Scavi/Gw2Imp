@@ -22,7 +22,7 @@ import android.support.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Achievement implements Comparable<Achievement> {
+public class AccountAchievement implements Comparable<AccountAchievement> {
 
     @SerializedName("id")
     @Expose
@@ -42,14 +42,14 @@ public class Achievement implements Comparable<Achievement> {
 
     // TODO bits
 
-    public Achievement() {
+    public AccountAchievement() {
 
     }
 
     /**
      * @param id The achievement id.
      */
-    public Achievement(final int id) {
+    public AccountAchievement(final int id) {
         this.id = id;
     }
 
@@ -135,7 +135,7 @@ public class Achievement implements Comparable<Achievement> {
      * @return the result of the comparison of both ids
      */
     @Override
-    public int compareTo(@NonNull final Achievement toCompare) {
+    public int compareTo(@NonNull final AccountAchievement toCompare) {
         return id.compareTo(toCompare.getId());
     }
 }

@@ -18,9 +18,12 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.scavi.de.gw2imp.communication.response.achievement.Achievement;
 import com.scavi.de.gw2imp.data.util.DbConst;
 
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 @Entity(tableName = DbConst.TABLE_ACHIEVEMENT)
 public class AchievementEntity {
@@ -41,6 +44,8 @@ public class AchievementEntity {
     private List<RewardEntity> mRewards;
     @Ignore
     private List<FlagsEntity> mFlags;
+    @Ignore
+    private List<TierEntity> mTiers;
 
 
     /**
@@ -201,5 +206,48 @@ public class AchievementEntity {
      */
     public void setRewards(final List<RewardEntity> rewards) {
         mRewards = rewards;
+    }
+
+
+    /**
+     * @return Describes the achievement's tiers. Each object contains:
+     * count (number) - The number of "things" (achievement-specific) that must be completed to
+     * achieve this tier.
+     * points (number) The amount of AP awarded for completing this tier.
+     */
+    public List<TierEntity> getTiers() {
+        return mTiers;
+    }
+
+    /**
+     * @param tiers Describes the achievement's tiers. Each object contains:
+     *              count (number) - The number of "things" (achievement-specific) that must be
+     *              completed to achieve this tier.
+     *              points (number) The amount of AP awarded for completing this tier.
+     */
+    public void setTiers(final List<TierEntity> tiers) {
+        mTiers = tiers;
+    }
+
+    /**
+     * @param achievement creates an {@link AchievementEntity} with it's child entities from the
+     *                    given achievement
+     * @return the achievement entity
+     */
+    public static AchievementEntity from(@Nullable final Achievement achievement) {
+        if (achievement == null) {
+            return null;
+        }
+        AchievementEntity achievementEntity = new AchievementEntity(
+                achievement.getId(),
+                achievement.getName(),
+                achievement.getDescription(),
+                achievement.getRequirement(),
+                achievement.getLockedText(),
+                achievement.getType());
+        achievementEntity.setFlags(FlagsEntity.from(achievement, achievement.getFlags()));
+        achievementEntity.setRewards(RewardEntity.from(achievement, achievement.getRewards()));
+        achievementEntity.setTiers(TierEntity.from(achievement, achievement.getTiers()));
+        return achievementEntity;
     }
 }

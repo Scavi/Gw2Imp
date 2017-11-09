@@ -17,6 +17,7 @@ import com.scavi.de.gw2imp.dagger2.module.AccountDailyModule;
 import com.scavi.de.gw2imp.model.AccountDailyModel;
 import com.scavi.de.gw2imp.presenter.AccountDailyPresenter;
 import com.scavi.de.gw2imp.ui.fragment.AccountDailyFragment;
+import com.scavi.de.gw2imp.ui.fragment.DailyTomorrowFragment;
 import com.scavi.de.gw2imp.util.ActivityScope;
 
 import dagger.Component;
@@ -29,10 +30,17 @@ public interface AccountDailyComponent {
     /**
      * The inject method of the fragment for the dagger component
      *
-     * @param fragment the fragment to inject
+     * @param fragment the fragment of the dailies today to inject
      */
     void inject(final AccountDailyFragment fragment);
 
+
+    /**
+     * The inject method of the fragment for the dagger component
+     *
+     * @param fragment the fragment of the dailies tomorrow to inject
+     */
+    void inject(final DailyTomorrowFragment fragment);
 
     /**
      * @return the presenter of the MVP pattern in the context of the account

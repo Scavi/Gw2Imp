@@ -13,6 +13,7 @@
  */
 package com.scavi.de.gw2imp.ui.view;
 
+import com.scavi.de.gw2imp.data.entity.achievement.AchievementEntity;
 import com.scavi.de.gw2imp.data.so.Daily;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface IAccountDailyView extends IStatusView {
     /**
      * Setups / injects the dailies into the view
      *
-     * @param dailies the dailies
+     * @param dailies the list of dailies as achievements with all information
      */
     void setupDailyView(final List<Daily> dailies);
 

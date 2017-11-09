@@ -133,7 +133,7 @@ public class RaidEntity {
 
 
     /**
-     * Divide the raid information from the server side by sections. The section is defind by
+     * Divide the raid information from the server side by sections. The section is defined by
      * it's raid. This is required for adapters.
      *
      * @param raids the known raids
@@ -151,5 +151,4 @@ public class RaidEntity {
         }
         return raids;
     }
-
 }

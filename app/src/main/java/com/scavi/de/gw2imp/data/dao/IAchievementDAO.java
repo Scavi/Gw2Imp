@@ -31,8 +31,16 @@ public interface IAchievementDAO {
     /**
      * @return all achievements from the DAO
      */
+    @Query("SELECT * FROM " + DbConst.TABLE_ACHIEVEMENT)
+    List<AchievementEntity> selectAchievements();
+
+
+    /**
+     * @param id the id of the achievement
+     * @return the achievement to the given id from the DAO
+     */
     @Query("SELECT * FROM " + DbConst.TABLE_ACHIEVEMENT + " WHERE id = :id")
-    List<AchievementEntity> selectAchievements(final int id);
+    AchievementEntity selectAchievement(final int id);
 
 
     /**
@@ -68,7 +76,7 @@ public interface IAchievementDAO {
      * @param raids the raids to insert
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertAchievements(final List<AchievementEntity> raids);
+    void insertAchievement(final AchievementEntity raids);
 
 
     /**

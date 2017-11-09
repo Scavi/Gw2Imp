@@ -14,10 +14,12 @@
 package com.scavi.de.gw2imp.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -37,9 +39,13 @@ import com.scavi.de.gw2imp.ui.fragment.AccountAchievementsFragment;
 import com.scavi.de.gw2imp.ui.fragment.AccountCharacterFragment;
 import com.scavi.de.gw2imp.ui.fragment.AccountDailyFragment;
 import com.scavi.de.gw2imp.ui.fragment.AccountRaidFragment;
+import com.scavi.de.gw2imp.ui.fragment.DailyTomorrowFragment;
+import com.scavi.de.gw2imp.ui.fragment.LicenseFragment;
 import com.scavi.de.gw2imp.ui.fragment.OverviewFragment;
 import com.scavi.de.gw2imp.ui.listener.NavigationClickListener;
 import com.scavi.de.gw2imp.ui.view.IMainView;
+
+import java.util.Random;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
@@ -89,30 +95,59 @@ public class MainActivity extends AppCompatActivity implements IMainView {
      * Create the navigation drawer and set the selection for the overview
      */
     protected void setupUiComponents() {
-        mNavigationDrawer = createDrawerMenu();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setupActionBar(getSupportActionBar());
+        mNavigationDrawer = createDrawerMenu(toolbar);
         mNavigationDrawer.setSelection(NavigationClickListener.OVERVIEW_ID);
+        //mNavigationDrawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
     }
 
 
     /**
      * Creates the navigation drawer menu
      *
+     * @param toolbar the toolbar
      * @return the created drawer of the menu
      */
-    private Drawer createDrawerMenu() {
-        setupActionBar(getSupportActionBar());
+    private Drawer createDrawerMenu(final Toolbar toolbar) {
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.logo_main)
+                .withHeaderBackground(background())
                 .build();
         DrawerBuilder drawerBuilder = new DrawerBuilder()
                 .withActivity(this)
                 .withAccountHeader(headerResult)
                 .withTranslucentStatusBar(false)
-                .withActionBarDrawerToggle(false)
+                .withToolbar(toolbar)
+                .withActionBarDrawerToggle(true)
+                .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(getNavigationDrawerItems())
                 .withOnDrawerItemClickListener(new NavigationClickListener(mPresenter));
         return drawerBuilder.buildForFragment();
+    }
+
+
+    /**
+     * Determines a random background
+     *
+     * @return the background to use
+     */
+    @DrawableRes
+    private int background() {
+        int id;
+        Random random = new Random();
+        int pos = random.nextInt() % 2;
+        switch (pos) {
+            case 0:
+                id = R.drawable.logo_main_1;
+                break;
+            case 1:
+                id = R.drawable.logo_main_2;
+                break;
+            default:
+                id = R.drawable.logo_main_2;
+        }
+        return id;
     }
 
 
@@ -161,10 +196,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         .withName(getString(R.string.core_navigation_account_character))
                         .withIcon(R.drawable.ic_account_circle_black_24dp),
                 new SecondaryDrawerItem()
-                        .withIdentifier(NavigationClickListener.ACCOUNT_DAILIES_ID)
-                        .withName(getString(R.string.core_navigation_account_dailies))
-                        .withIcon(R.drawable.ic_explore_black_24dp),
-                new SecondaryDrawerItem()
                         .withIdentifier(NavigationClickListener.ACHIEVEMENTS_ID)
                         .withName(getString(R.string.core_navigation_account_achievements))
                         .withIcon(R.drawable.ic_explore_black_24dp),
@@ -182,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         .withName(getString(R.string.core_navigation_account_sell))
                         .withIcon(R.drawable.ic_remove_shopping_cart_black_24dp),*/
                 new SectionDrawerItem().withDivider(true)
-                        .withName(getString(R.string.core_navigation_account_trading_market))/*,
+                        .withName(getString(R.string.core_navigation_account_trading_market)),/*
                 new SecondaryDrawerItem()
                         .withIdentifier(NavigationClickListener.TRADING_UP)
                         .withName(getString(R.string.core_navigation_account_trading_up))
@@ -190,7 +221,21 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 new SecondaryDrawerItem()
                         .withIdentifier(NavigationClickListener.TRADING_DOWN)
                         .withName(getString(R.string.core_navigation_account_trading_down))
-                        .withIcon(R.drawable.ic_trending_down_black_24dp)*/
+                        .withIcon(R.drawable.ic_trending_down_black_24dp),*/
+                new SectionDrawerItem().withDivider(true)
+                        .withName(getString(R.string.core_navigation_account_common)),
+                new SecondaryDrawerItem()
+                        .withIdentifier(NavigationClickListener.ACCOUNT_DAILIES_TODAY_ID)
+                        .withName(getString(R.string.core_navigation_account_dailies_today))
+                        .withIcon(R.drawable.ic_explore_black_24dp),
+                new SecondaryDrawerItem()
+                        .withIdentifier(NavigationClickListener.ACCOUNT_DAILIES_TOMORROW_ID)
+                        .withName(getString(R.string.core_navigation_dailies_tomorrow))
+                        .withIcon(R.drawable.ic_explore_black_24dp),
+                new SecondaryDrawerItem()
+                        .withIdentifier(NavigationClickListener.LICENSE_ID)
+                        .withName(getString(R.string.core_license))
+                        .withIcon(R.drawable.ic_info_black_24dp),
         };
     }
 
@@ -214,15 +259,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         show(fragment);
     }
 
-
-    /**
-     * Switch teh fragment to show the account daily view / information
-     */
-    @Override
-    public void routeAccountDailies() {
-        AccountDailyFragment fragment = new AccountDailyFragment();
-        show(fragment);
-    }
 
     /**
      * Switch the fragment to show the account raid view / information
@@ -277,6 +313,36 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeTradingDown() {
         // TODO
+    }
+
+
+    /**
+     * Switch the fragment to show the dailies of tomorrow without any account information
+     */
+    @Override
+    public void routeDailiesTomorrow() {
+        DailyTomorrowFragment fragment = new DailyTomorrowFragment();
+        show(fragment);
+    }
+
+
+    /**
+     * Switch the fragment to show the account daily view / information
+     */
+    @Override
+    public void routeAccountDailiesToday() {
+        AccountDailyFragment fragment = new AccountDailyFragment();
+        show(fragment);
+    }
+
+
+    /**
+     * Switch the fragment to show the license view / information
+     */
+    @Override
+    public void routeToLicense() {
+        LicenseFragment fragment = new LicenseFragment();
+        show(fragment);
     }
 
 

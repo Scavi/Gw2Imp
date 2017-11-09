@@ -24,6 +24,7 @@ import com.scavi.de.gw2imp.communication.access.IItemAccess;
 import com.scavi.de.gw2imp.communication.access.IMiscellaneousAccess;
 import com.scavi.de.gw2imp.dagger2.module.ApplicationModule;
 import com.scavi.de.gw2imp.data.db.Gw2ImpDatabase;
+import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 
 import javax.inject.Singleton;
@@ -87,7 +88,7 @@ public interface ApplicationComponent {
     /**
      * @return the database of this application
      */
-    Gw2ImpDatabase getDatabase();
+    IDatabaseAccess getDatabase();
 
 
     /**

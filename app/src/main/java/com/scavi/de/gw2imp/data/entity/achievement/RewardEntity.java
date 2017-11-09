@@ -18,8 +18,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.support.annotation.NonNull;
 
+import com.scavi.de.gw2imp.communication.response.achievement.Achievement;
+import com.scavi.de.gw2imp.communication.response.achievement.Reward;
 import com.scavi.de.gw2imp.data.util.DbConst;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -65,7 +71,6 @@ public class RewardEntity {
     }
 
 
-
     /**
      * @return e id of the achievement this reward is referenced
      */
@@ -101,5 +106,30 @@ public class RewardEntity {
      */
     public Integer getCount() {
         return mCount;
+    }
+
+
+    /**
+     * Factory method to create a list of {@link RewardEntity} from the given rewards of the
+     * achievement
+     *
+     * @param achievement the parent achievement for the current flags
+     * @param rewards     the flags
+     * @return the achievement entities for the given rewards
+     */
+    public static List<RewardEntity> from(final Achievement achievement,
+                                          @Nullable final List<Reward> rewards) {
+        if (rewards == null || rewards.size() == 0) {
+            return new ArrayList<>(0);
+        }
+        List<RewardEntity> rewardEntities = new ArrayList<>(rewards.size());
+        for (Reward reward : rewards) {
+            rewardEntities.add(new RewardEntity(
+                    achievement.getId(),
+                    reward.getId(),
+                    reward.getType(),
+                    reward.getCount()));
+        }
+        return rewardEntities;
     }
 }

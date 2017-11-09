@@ -17,7 +17,7 @@ package com.scavi.de.gw2imp.communication.access.impl;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
 import com.scavi.de.gw2imp.communication.error.ResponseException;
 import com.scavi.de.gw2imp.communication.response.account.Account;
-import com.scavi.de.gw2imp.communication.response.account.Achievement;
+import com.scavi.de.gw2imp.communication.response.account.AccountAchievement;
 import com.scavi.de.gw2imp.communication.response.account.Bank;
 import com.scavi.de.gw2imp.communication.response.account.Cats;
 import com.scavi.de.gw2imp.communication.response.account.Characters;
@@ -93,8 +93,8 @@ public class AccountAccess implements IAccountAccess {
      * @param callback the callback to process the asynchronous result
      */
     @Override
-    public void getAchievements(final Callback<List<Achievement>> callback) {
-        Call<List<Achievement>> call = mGw2Plugin.getAchievements();
+    public void getAchievements(final Callback<List<AccountAchievement>> callback) {
+        Call<List<AccountAchievement>> call = mGw2Plugin.getAchievements();
         call.enqueue(callback);
     }
 
@@ -106,9 +106,9 @@ public class AccountAccess implements IAccountAccess {
      * @return the account achievement information
      */
     @Override
-    public List<Achievement> getAchievements() throws IOException, ResponseException {
-        Call<List<Achievement>> call = mGw2Plugin.getAchievements();
-        Response<List<Achievement>> response = call.execute();
+    public List<AccountAchievement> getAchievements() throws IOException, ResponseException {
+        Call<List<AccountAchievement>> call = mGw2Plugin.getAchievements();
+        Response<List<AccountAchievement>> response = call.execute();
         if (response.isSuccessful()) {
             return response.body();
         } else {

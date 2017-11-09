@@ -34,6 +34,7 @@ import com.scavi.de.gw2imp.communication.access.impl.ItemAccess;
 import com.scavi.de.gw2imp.communication.access.impl.MiscellaneousAccess;
 import com.scavi.de.gw2imp.communication.interceptor.ApiKeyInterceptor;
 import com.scavi.de.gw2imp.data.db.Gw2ImpDatabase;
+import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.preferences.PreferenceManager;
 import com.scavi.de.gw2imp.util.Const;
@@ -164,7 +165,7 @@ public class ApplicationModule {
      */
     @Provides
     @Singleton
-    Gw2ImpDatabase provideDatabase(final Context context) {
+    IDatabaseAccess provideDatabase(final Context context) {
         return Room.databaseBuilder(context, Gw2ImpDatabase.class, "gw2-imp-treasure").build();
     }
 

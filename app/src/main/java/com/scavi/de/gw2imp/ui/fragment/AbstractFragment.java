@@ -45,6 +45,6 @@ public abstract class AbstractFragment extends Fragment implements IStatusView {
      */
     protected LayoutAnimationController createLayoutAdapterController() {
         return new LayoutAnimationController(
-                AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in), 0.7f);
+                AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in), 0.35f);
     }
 }

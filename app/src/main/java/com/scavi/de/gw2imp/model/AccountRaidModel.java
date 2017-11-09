@@ -25,6 +25,7 @@ import com.scavi.de.gw2imp.communication.error.ResponseException;
 import com.scavi.de.gw2imp.communication.response.account.AccountRaids;
 import com.scavi.de.gw2imp.communication.response.misc.RaidData;
 import com.scavi.de.gw2imp.data.db.Gw2ImpDatabase;
+import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
 
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class AccountRaidModel extends AbstractModel {
 
     private final IAccountAccess mAccountAccess;
     private final IMiscellaneousAccess mMiscAccess;
-    private final Gw2ImpDatabase mImpDatabase;
+    private final IDatabaseAccess mImpDatabase;
     private final IExecutorAccess mExecutorAccess;
 
     /**
@@ -52,14 +53,14 @@ public class AccountRaidModel extends AbstractModel {
      * @param context        the context to global information about the application environment
      * @param accountAccess  the server side access the account data
      * @param miscAccess     the server side access to the misc data
-     * @param impDatabase    the imp database
+     * @param impDatabase    the database access of this application
      * @param executorAccess to access the main and background threads
      */
     @Inject
     public AccountRaidModel(final Context context,
                             final IAccountAccess accountAccess,
                             final IMiscellaneousAccess miscAccess,
-                            final Gw2ImpDatabase impDatabase,
+                            final IDatabaseAccess impDatabase,
                             final IExecutorAccess executorAccess) {
         super(context);
         mAccountAccess = accountAccess;

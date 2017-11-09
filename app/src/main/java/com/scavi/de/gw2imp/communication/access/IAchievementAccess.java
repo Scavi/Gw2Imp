@@ -27,6 +27,25 @@ import retrofit2.Callback;
 import retrofit2.http.GET;
 
 public interface IAchievementAccess {
+
+    /**
+     * Calls the server side synchronous to determine all achievement data including rewards, flags.
+     *
+     * @return all achievement data
+     */
+    List<Achievement> getAchievements() throws IOException, ResponseException;
+
+
+    /**
+     * Calls the server side synchronous to determine the achievement data including rewards,
+     * flags to the given id
+     *
+     * @param ids the id of the achievement
+     * @return all achievement data
+     */
+    List<Achievement> getAchievement(final int... ids) throws IOException, ResponseException;
+
+
     /**
      * Calls the server side asynchronous to determine the top-level groups for achievements
      * asynchronous
@@ -77,7 +96,7 @@ public interface IAchievementAccess {
     /**
      * Calls the server side synchronous to determine the dailies today
      *
-     * @rreturn the dailies today
+     * @return the dailies today
      */
     DailyAchievements getDaily() throws IOException, ResponseException;
 
@@ -93,7 +112,7 @@ public interface IAchievementAccess {
     /**
      * Calls the server side synchronous to determine the dailies today
      *
-     * @rreturn the dailies today
+     * @return the dailies today
      */
     DailyAchievements getDailyTomorrow() throws IOException, ResponseException;
 }

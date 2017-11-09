@@ -26,13 +26,15 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class NavigationClickListener implements Drawer.OnDrawerItemClickListener {
     public static final int OVERVIEW_ID = 10;
     public static final int CHARACTER_ID = 11;
-    public static final int ACCOUNT_DAILIES_ID = 12;
+    public static final int ACCOUNT_DAILIES_TODAY_ID = 12;
     public static final int ACHIEVEMENTS_ID = 13;
     public static final int RAID_ID = 14;
     public static final int TRANSACTION_BUY_ID = 20;
     public static final int TRANSACTION_SELL_ID = 21;
     public static final int TRADING_UP = 30;
     public static final int TRADING_DOWN = 31;
+    public static final int ACCOUNT_DAILIES_TOMORROW_ID = 40;
+    public static final int LICENSE_ID = 90;
     private final MainPresenter mMainNavigator;
 
     /**
@@ -63,8 +65,8 @@ public class NavigationClickListener implements Drawer.OnDrawerItemClickListener
             case CHARACTER_ID:
                 mMainNavigator.onClickAccountCharacter();
                 break;
-            case ACCOUNT_DAILIES_ID:
-                mMainNavigator.onClickAccountDailies();
+            case ACCOUNT_DAILIES_TODAY_ID:
+                mMainNavigator.onClickAccountDailiesToday();
                 break;
             case RAID_ID:
                 mMainNavigator.onClickAccountRaid();
@@ -83,6 +85,12 @@ public class NavigationClickListener implements Drawer.OnDrawerItemClickListener
                 break;
             case TRADING_DOWN:
                 mMainNavigator.onClickTradingDown();
+                break;
+            case ACCOUNT_DAILIES_TOMORROW_ID:
+                mMainNavigator.onClickDailiesTomorrow();
+                break;
+            case LICENSE_ID:
+                mMainNavigator.onClickLicense();
                 break;
             default:
                 return false;

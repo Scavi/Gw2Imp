@@ -15,11 +15,13 @@ package com.scavi.de.gw2imp.communication.access.impl;
 
 import com.scavi.de.gw2imp.communication.access.IAchievementAccess;
 import com.scavi.de.gw2imp.communication.error.ResponseException;
+import com.scavi.de.gw2imp.communication.response.achievement.Achievement;
 import com.scavi.de.gw2imp.communication.response.achievement.Category;
 import com.scavi.de.gw2imp.communication.response.achievement.DailyAchievements;
 import com.scavi.de.gw2imp.communication.response.achievement.Group;
 import com.scavi.de.gw2imp.communication.response.misc.RaidData;
 import com.scavi.de.gw2imp.communication.rest.Gw2ApiAchievementPlugin;
+import com.scavi.de.gw2imp.util.RestHelper;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,6 +43,43 @@ public class AchievementsAccess implements IAchievementAccess {
         mGw2Plugin = retrofit.create(Gw2ApiAchievementPlugin.class);
     }
 
+
+    /**
+     * Calls the server side synchronous to determine all achievement data including rewards, flags.
+     *
+     * @return all achievement data
+     */
+    @Override
+    public List<Achievement> getAchievements() throws IOException, ResponseException {
+        Call<List<Achievement>> call = mGw2Plugin.getAchievements();
+        Response<List<Achievement>> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        } else {
+            throw new ResponseException(response.code(), response.errorBody());
+        }
+    }
+
+
+    /**
+     * Calls the server side synchronous to determine the achievement data including rewards,
+     * flags to the given id
+     *
+     * @param ids the ids of the achievements
+     * @return all achievement data
+     */
+    @Override
+    public List<Achievement> getAchievement(final int... ids) throws IOException,
+            ResponseException {
+        String requestIds = RestHelper.intToGetParamList(ids);
+        Call<List<Achievement>> call = mGw2Plugin.getAchievementToIds(requestIds);
+        Response<List<Achievement>> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        } else {
+            throw new ResponseException(response.code(), response.errorBody());
+        }
+    }
 
     /**
      * Calls the server side asynchronous to determine the top-level groups for achievements
@@ -117,7 +156,7 @@ public class AchievementsAccess implements IAchievementAccess {
      */
     @Override
     public DailyAchievements getDaily() throws IOException, ResponseException {
-        Call<DailyAchievements> call = mGw2Plugin.getDailyTomorrow();
+        Call<DailyAchievements> call = mGw2Plugin.getDaily();
         Response<DailyAchievements> response = call.execute();
         if (response.isSuccessful()) {
             return response.body();

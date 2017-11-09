@@ -13,14 +13,17 @@
  */
 package com.scavi.de.gw2imp.presenter;
 
+import android.util.Log;
+
 import com.scavi.de.gw2imp.communication.error.ResponseException;
-import com.scavi.de.gw2imp.communication.response.account.Achievement;
+import com.scavi.de.gw2imp.communication.response.account.AccountAchievement;
 import com.scavi.de.gw2imp.communication.response.achievement.DailyAchievements;
 import com.scavi.de.gw2imp.data.so.Daily;
 import com.scavi.de.gw2imp.model.AccountDailyModel;
 import com.scavi.de.gw2imp.ui.view.IAccountDailyView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -54,15 +57,18 @@ public class AccountDailyPresenter {
         mModel.executeDailyDataRequest(() -> {
             try {
                 // request the information from the server side
-                List<Achievement> requestedAccountDailies = mModel.requestAccountDailies();
+                // FIXME: doesn't return the required info. A ticket is open to return the needed
+                // info
+                //List<AccountAchievement> requestedAccountDailies = mModel.requestAccountDailies();
                 DailyAchievements requestedDailies = mModel.requestDailies();
 
                 // merge and convert the requested data into the local app format
-                List<Daily> dailies = Daily.from(requestedDailies, requestedAccountDailies);
+                List<Daily> dailies = Daily.from(requestedDailies);
+                mModel.injectAchievementsData(dailies);
 
                 mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
                     mView.onHideProgress();
-                    mView.setupDailyView(dailies);
+                    mView.setupDailyView(Daily.injectSections(dailies));
                 });
 
             } catch (IOException ioEx) {
@@ -92,12 +98,12 @@ public class AccountDailyPresenter {
                 // request the information from the server side
                 DailyAchievements requestedDailiesTomorrow = mModel.requestDailiesTomorrow();
                 // convert the requested data into the local app format
-                List<Daily> dailiesTomorrow = Daily.from(requestedDailiesTomorrow, null);
-
+                List<Daily> dailiesTomorrow = Daily.from(requestedDailiesTomorrow);
+                mModel.injectAchievementsData(dailiesTomorrow);
                 mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
                     // show in ui
+                    mView.setupDailyView(Daily.injectSections(dailiesTomorrow));
                     mView.onHideProgress();
-                    mView.setupDailyView(dailiesTomorrow);
                 });
             } catch (IOException ioEx) {
                 mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {

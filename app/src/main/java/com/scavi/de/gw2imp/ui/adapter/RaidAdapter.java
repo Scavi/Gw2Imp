@@ -20,12 +20,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.common.base.Strings;
 import com.scavi.de.gw2imp.R;
 import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
 import com.scavi.de.gw2imp.ui.util.AndroidVersionHelper;
+import com.scavi.de.gw2imp.ui.util.Gw2DataMapper;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -128,5 +130,9 @@ public class RaidAdapter extends ArrayAdapter<RaidEntity> {
             text = getContext().getString(R.string.core_account_raid_uncompleted);
         }
         statusView.setText(text);
+
+        ImageView imageView = rowView.findViewById(R.id.raid_picture);
+        int drawableId = Gw2DataMapper.determineRaidDrawableId(currentItem);
+        imageView.setImageDrawable(getContext().getDrawable(drawableId));
     }
 }

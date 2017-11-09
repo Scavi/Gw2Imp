@@ -13,7 +13,7 @@
  */
 package com.scavi.de.gw2imp.presenter;
 
-import com.scavi.de.gw2imp.communication.response.account.Achievement;
+import com.scavi.de.gw2imp.communication.response.account.AccountAchievement;
 import com.scavi.de.gw2imp.model.AccountAchievementsModel;
 import com.scavi.de.gw2imp.ui.view.IAccountAchievementsView;
 
@@ -44,15 +44,15 @@ public class AccountAchievementsPresenter {
 
 
     public void determineAchievements() {
-        mModel.requestAchievements(new Callback<List<Achievement>>() {
+        mModel.requestAchievements(new Callback<List<AccountAchievement>>() {
             @Override
-            public void onResponse(final Call<List<Achievement>> call,
-                                   final Response<List<Achievement>> response) {
+            public void onResponse(final Call<List<AccountAchievement>> call,
+                                   final Response<List<AccountAchievement>> response) {
                 System.out.print("");
             }
 
             @Override
-            public void onFailure(final Call<List<Achievement>> call,
+            public void onFailure(final Call<List<AccountAchievement>> call,
                                   final Throwable t) {
                 System.out.print("");
             }

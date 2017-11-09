@@ -33,8 +33,9 @@ public class RestHelper {
     public static String intToGetParamList(int... intParams) {
         StringBuilder paramList = new StringBuilder(intParams.length * 2);
         for (int i = 0; i < intParams.length; ++i) {
+            paramList.append(intParams[i]);
             if (i < intParams.length - 1) {
-                paramList.append(intParams[i]).append(",");
+                paramList.append(",");
             }
         }
         return paramList.toString();

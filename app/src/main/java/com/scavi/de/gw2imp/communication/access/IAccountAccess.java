@@ -15,7 +15,7 @@ package com.scavi.de.gw2imp.communication.access;
 
 import com.scavi.de.gw2imp.communication.error.ResponseException;
 import com.scavi.de.gw2imp.communication.response.account.Account;
-import com.scavi.de.gw2imp.communication.response.account.Achievement;
+import com.scavi.de.gw2imp.communication.response.account.AccountAchievement;
 import com.scavi.de.gw2imp.communication.response.account.Bank;
 import com.scavi.de.gw2imp.communication.response.account.Cats;
 import com.scavi.de.gw2imp.communication.response.account.Characters;
@@ -64,7 +64,7 @@ public interface IAccountAccess {
      *
      * @param callback the callback to process the asynchronous result
      */
-    void getAchievements(final Callback<List<Achievement>> callback);
+    void getAchievements(final Callback<List<AccountAchievement>> callback);
 
 
     /**
@@ -72,7 +72,7 @@ public interface IAccountAccess {
      *
      * @return the account achievements
      */
-    List<Achievement> getAchievements() throws IOException, ResponseException;
+    List<AccountAchievement> getAchievements() throws IOException, ResponseException;
 
 
     /**

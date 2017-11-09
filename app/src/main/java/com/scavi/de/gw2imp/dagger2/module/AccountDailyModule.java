@@ -19,6 +19,7 @@ import android.support.annotation.NonNull;
 import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
 import com.scavi.de.gw2imp.communication.access.IAchievementAccess;
+import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.model.AccountDailyModel;
 import com.scavi.de.gw2imp.presenter.AccountDailyPresenter;
 import com.scavi.de.gw2imp.ui.view.IAccountDailyView;
@@ -69,6 +70,7 @@ public class AccountDailyModule {
      * @param accountAccess     the server side access the account data
      * @param achievementAccess the server side access to the achievement data
      * @param executorAccess    to access the main and background threads
+     * @param impDatabase       the database access of this application
      * @return the model of the MVP pattern in the context of the account
      */
     @Provides
@@ -76,7 +78,9 @@ public class AccountDailyModule {
     public AccountDailyModel provideModel(final Context context,
                                           final IAccountAccess accountAccess,
                                           final IAchievementAccess achievementAccess,
-                                          final IExecutorAccess executorAccess) {
-        return new AccountDailyModel(context, accountAccess, achievementAccess, executorAccess);
+                                          final IExecutorAccess executorAccess,
+                                          final IDatabaseAccess impDatabase) {
+        return new AccountDailyModel(context, accountAccess, achievementAccess, executorAccess,
+                impDatabase);
     }
 }

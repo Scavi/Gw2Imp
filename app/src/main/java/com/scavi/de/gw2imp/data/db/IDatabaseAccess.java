@@ -10,33 +10,21 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 package com.scavi.de.gw2imp.data.db;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
-
 import com.scavi.de.gw2imp.data.dao.IAchievementDAO;
 import com.scavi.de.gw2imp.data.dao.IRaidDAO;
-import com.scavi.de.gw2imp.data.entity.achievement.AchievementEntity;
-import com.scavi.de.gw2imp.data.entity.achievement.FlagsEntity;
-import com.scavi.de.gw2imp.data.entity.achievement.RewardEntity;
-import com.scavi.de.gw2imp.data.entity.achievement.TierEntity;
-import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
 
-@Database(entities =
-        {RaidEntity.class, AchievementEntity.class, FlagsEntity.class, RewardEntity.class,
-                TierEntity.class},
-        version = 1)
-public abstract class Gw2ImpDatabase extends RoomDatabase implements IDatabaseAccess {
-
+public interface IDatabaseAccess {
     /**
      * @return the access to the raid table
      */
-    public abstract IRaidDAO raidDAO();
+    IRaidDAO raidDAO();
 
     /**
      * @return the access to the achievement table and it's embedded tables
      */
-    public abstract IAchievementDAO achievementDAO();
+    IAchievementDAO achievementDAO();
 }

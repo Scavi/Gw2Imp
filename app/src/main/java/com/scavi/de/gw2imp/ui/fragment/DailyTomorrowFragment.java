@@ -22,7 +22,9 @@ import android.view.ViewGroup;
 import com.scavi.de.gw2imp.R;
 import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
+import com.scavi.de.gw2imp.dagger2.component.DaggerAccountDailyComponent;
 import com.scavi.de.gw2imp.dagger2.module.AccountDailyModule;
+import com.scavi.de.gw2imp.data.entity.achievement.AchievementEntity;
 import com.scavi.de.gw2imp.data.so.Daily;
 import com.scavi.de.gw2imp.presenter.AccountDailyPresenter;
 import com.scavi.de.gw2imp.ui.view.IAccountDailyView;
@@ -33,11 +35,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
 
 @ParametersAreNonnullByDefault
-public class AccountDailyTomorrowFragment extends AbstractFragment implements IAccountDailyView {
-    @Inject
-    AccountDailyPresenter mPresenter;
-
-
+public class DailyTomorrowFragment extends AbstractDailyFragment  {
     /**
      * Called to have the fragment instantiate its user interface view. This is optional, and
      * non-graphical fragments can return null (which is the default implementation). This will
@@ -58,8 +56,9 @@ public class AccountDailyTomorrowFragment extends AbstractFragment implements IA
     public View onCreateView(final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        injectComponent(((IApplication) getContext().getApplicationContext()).getComponent());
-        return inflater.inflate(R.layout.fragment_account_daily, container, false);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        mPresenter.loadDailiesTomorrow();
+        return view;
     }
 
 
@@ -68,40 +67,13 @@ public class AccountDailyTomorrowFragment extends AbstractFragment implements IA
      *
      * @param applicationComponent the application component
      */
+    @Override
     protected void injectComponent(final ApplicationComponent applicationComponent) {
         AccountDailyModule module = new AccountDailyModule(this);
-        // FIXME
-//        DaggerAccountDailyComponent.builder()
-//                .applicationComponent(applicationComponent)
-//                .accountDailyModule(module)
-//                .build()
-//                .inject(this);
-    }
-
-
-    @Override
-    public void setupDailyView(final List<Daily> dailies) {
-        // setup
-    }
-
-
-    @Override
-    public void onShowProgress() {
-        // TODO
-    }
-
-
-    @Override
-    public void onHideProgress() {
-        // TODO
-    }
-
-
-    /**
-     *
-     */
-    @Override
-    public void onHideProgressAfterError() {
-        // TODO
+        DaggerAccountDailyComponent.builder()
+                .applicationComponent(applicationComponent)
+                .accountDailyModule(module)
+                .build()
+                .inject(this);
     }
 }

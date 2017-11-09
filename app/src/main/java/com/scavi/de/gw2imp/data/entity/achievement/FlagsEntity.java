@@ -18,8 +18,13 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.support.annotation.NonNull;
 
+import com.scavi.de.gw2imp.communication.response.achievement.Achievement;
 import com.scavi.de.gw2imp.data.util.DbConst;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -94,5 +99,26 @@ public class FlagsEntity {
     @NonNull
     public String getFlag() {
         return mFlag;
+    }
+
+
+    /**
+     * Factory method to create a list of {@link FlagsEntity} from the given flags of the
+     * achievement
+     *
+     * @param achievement the parent achievement for the current flags
+     * @param flags       the flags
+     * @return the achievement entities for the given flags
+     */
+    public static List<FlagsEntity> from(final Achievement achievement,
+                                         @Nullable final List<String> flags) {
+        if (flags == null || flags.size() == 0) {
+            return new ArrayList<>(0);
+        }
+        List<FlagsEntity> flagEntities = new ArrayList<>(flags.size());
+        for (String flag : flags) {
+            flagEntities.add(new FlagsEntity(achievement.getId(), flag));
+        }
+        return flagEntities;
     }
 }
