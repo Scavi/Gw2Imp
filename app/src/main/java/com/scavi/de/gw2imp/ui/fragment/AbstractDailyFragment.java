@@ -25,17 +25,17 @@ import com.scavi.de.gw2imp.R;
 import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
 import com.scavi.de.gw2imp.data.so.Daily;
-import com.scavi.de.gw2imp.presenter.AccountDailyPresenter;
+import com.scavi.de.gw2imp.presenter.DailyPresenter;
 import com.scavi.de.gw2imp.ui.adapter.DailyAdapter;
-import com.scavi.de.gw2imp.ui.view.IAccountDailyView;
+import com.scavi.de.gw2imp.ui.view.IDailyView;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public abstract class AbstractDailyFragment extends AbstractFragment implements IAccountDailyView {
+public abstract class AbstractDailyFragment extends AbstractFragment implements IDailyView {
     @Inject
-    AccountDailyPresenter mPresenter;
+    DailyPresenter mPresenter;
     private ListView mDailyListView;
     private View mDailyInfoContainer;
     private View mGettingThingsDoneContainer;

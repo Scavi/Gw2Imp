@@ -19,20 +19,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.scavi.de.gw2imp.R;
-import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
-import com.scavi.de.gw2imp.dagger2.component.DaggerAccountDailyComponent;
-import com.scavi.de.gw2imp.dagger2.module.AccountDailyModule;
-import com.scavi.de.gw2imp.data.entity.achievement.AchievementEntity;
-import com.scavi.de.gw2imp.data.so.Daily;
-import com.scavi.de.gw2imp.presenter.AccountDailyPresenter;
-import com.scavi.de.gw2imp.ui.view.IAccountDailyView;
-
-import java.util.List;
+import com.scavi.de.gw2imp.dagger2.component.DaggerDailyComponent;
+import com.scavi.de.gw2imp.dagger2.module.DailyModule;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import javax.inject.Inject;
 
 @ParametersAreNonnullByDefault
 public class DailyTomorrowFragment extends AbstractDailyFragment  {
@@ -69,10 +60,10 @@ public class DailyTomorrowFragment extends AbstractDailyFragment  {
      */
     @Override
     protected void injectComponent(final ApplicationComponent applicationComponent) {
-        AccountDailyModule module = new AccountDailyModule(this);
-        DaggerAccountDailyComponent.builder()
+        DailyModule module = new DailyModule(this);
+        DaggerDailyComponent.builder()
                 .applicationComponent(applicationComponent)
-                .accountDailyModule(module)
+                .dailyModule(module)
                 .build()
                 .inject(this);
     }

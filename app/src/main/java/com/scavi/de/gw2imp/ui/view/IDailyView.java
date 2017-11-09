@@ -18,7 +18,7 @@ import com.scavi.de.gw2imp.data.so.Daily;
 
 import java.util.List;
 
-public interface IAccountDailyView extends IStatusView {
+public interface IDailyView extends IStatusView {
     /**
      * Setups / injects the dailies into the view
      *

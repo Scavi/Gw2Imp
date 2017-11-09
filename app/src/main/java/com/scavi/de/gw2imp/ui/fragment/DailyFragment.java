@@ -18,26 +18,15 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.scavi.de.gw2imp.R;
-import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
-import com.scavi.de.gw2imp.dagger2.component.DaggerAccountDailyComponent;
-import com.scavi.de.gw2imp.dagger2.module.AccountDailyModule;
-import com.scavi.de.gw2imp.data.entity.achievement.AchievementEntity;
-import com.scavi.de.gw2imp.data.so.Daily;
-import com.scavi.de.gw2imp.presenter.AccountDailyPresenter;
-import com.scavi.de.gw2imp.ui.adapter.DailyAdapter;
-import com.scavi.de.gw2imp.ui.view.IAccountDailyView;
-
-import java.util.List;
+import com.scavi.de.gw2imp.dagger2.component.DaggerDailyComponent;
+import com.scavi.de.gw2imp.dagger2.module.DailyModule;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import javax.inject.Inject;
 
 @ParametersAreNonnullByDefault
-public class AccountDailyFragment extends AbstractDailyFragment {
+public class DailyFragment extends AbstractDailyFragment {
     /**
      * Called to have the fragment instantiate its user interface view. This is optional, and
      * non-graphical fragments can return null (which is the default implementation). This will
@@ -71,10 +60,10 @@ public class AccountDailyFragment extends AbstractDailyFragment {
      */
     @Override
     protected void injectComponent(final ApplicationComponent applicationComponent) {
-        AccountDailyModule module = new AccountDailyModule(this);
-        DaggerAccountDailyComponent.builder()
+        DailyModule module = new DailyModule(this);
+        DaggerDailyComponent.builder()
                 .applicationComponent(applicationComponent)
-                .accountDailyModule(module)
+                .dailyModule(module)
                 .build()
                 .inject(this);
     }

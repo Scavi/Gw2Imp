@@ -13,26 +13,22 @@
  */
 package com.scavi.de.gw2imp.presenter;
 
-import android.util.Log;
-
 import com.scavi.de.gw2imp.communication.error.ResponseException;
-import com.scavi.de.gw2imp.communication.response.account.AccountAchievement;
 import com.scavi.de.gw2imp.communication.response.achievement.DailyAchievements;
 import com.scavi.de.gw2imp.data.so.Daily;
-import com.scavi.de.gw2imp.model.AccountDailyModel;
-import com.scavi.de.gw2imp.ui.view.IAccountDailyView;
+import com.scavi.de.gw2imp.model.DailyModel;
+import com.scavi.de.gw2imp.ui.view.IDailyView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
 
 @ParametersAreNonnullByDefault
-public class AccountDailyPresenter {
-    private final IAccountDailyView mView;
-    private final AccountDailyModel mModel;
+public class DailyPresenter {
+    private final IDailyView mView;
+    private final DailyModel mModel;
 
     /**
      * Constructor
@@ -41,8 +37,8 @@ public class AccountDailyPresenter {
      * @param model the model for the account dailies
      */
     @Inject
-    public AccountDailyPresenter(final IAccountDailyView view,
-                                 final AccountDailyModel model) {
+    public DailyPresenter(final IDailyView view,
+                          final DailyModel model) {
         mView = view;
         mModel = model;
     }

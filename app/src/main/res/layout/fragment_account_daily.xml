@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context="com.scavi.de.gw2imp.ui.fragment.AccountDailyFragment">
+              tools:context="com.scavi.de.gw2imp.ui.fragment.DailyFragment">
 
     <LinearLayout
         android:id="@+id/account_daily_information"

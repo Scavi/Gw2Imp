@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class AccountDailyModel extends AbstractModel {
+public class DailyModel extends AbstractModel {
     private final IAccountAccess mAccountAccess;
     private final IAchievementAccess mAchievementAccess;
     private final IExecutorAccess mExecutorAccess;
@@ -51,11 +51,11 @@ public class AccountDailyModel extends AbstractModel {
      * @param executorAccess    to access the main and background threads
      * @param impDatabase       the database access of this application
      */
-    public AccountDailyModel(final Context context,
-                             final IAccountAccess accountAccess,
-                             final IAchievementAccess achievementAccess,
-                             final IExecutorAccess executorAccess,
-                             final IDatabaseAccess impDatabase) {
+    public DailyModel(final Context context,
+                      final IAccountAccess accountAccess,
+                      final IAchievementAccess achievementAccess,
+                      final IExecutorAccess executorAccess,
+                      final IDatabaseAccess impDatabase) {
         super(context);
         mAccountAccess = accountAccess;
         mAchievementAccess = achievementAccess;

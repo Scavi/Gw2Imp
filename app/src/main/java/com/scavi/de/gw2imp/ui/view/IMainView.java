@@ -33,12 +33,6 @@ public interface IMainView  {
 
 
     /**
-     * Shows the dailies today, combined with what the account did
-     */
-    void routeAccountDailiesToday();
-
-
-    /**
      * Show  the account achievements view / information
      */
     void routeAccountAchievements();
@@ -69,7 +63,13 @@ public interface IMainView  {
 
 
     /**
-     * Shows the dailies tomorrow without any account information
+     * Shows the dailies today
+     */
+    void routeDailiesToday();
+
+
+    /**
+     * Shows the dailies tomorrow
      */
     void routeDailiesTomorrow();
 

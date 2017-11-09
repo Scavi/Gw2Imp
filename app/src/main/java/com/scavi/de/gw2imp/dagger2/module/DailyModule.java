@@ -20,9 +20,9 @@ import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
 import com.scavi.de.gw2imp.communication.access.IAchievementAccess;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
-import com.scavi.de.gw2imp.model.AccountDailyModel;
-import com.scavi.de.gw2imp.presenter.AccountDailyPresenter;
-import com.scavi.de.gw2imp.ui.view.IAccountDailyView;
+import com.scavi.de.gw2imp.model.DailyModel;
+import com.scavi.de.gw2imp.presenter.DailyPresenter;
+import com.scavi.de.gw2imp.ui.view.IDailyView;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -32,15 +32,15 @@ import dagger.Provides;
 
 @Module
 @ParametersAreNonnullByDefault
-public class AccountDailyModule {
-    private final IAccountDailyView mView;
+public class DailyModule {
+    private final IDailyView mView;
 
     /**
      * Constructor
      *
      * @param view the view for the account
      */
-    public AccountDailyModule(final IAccountDailyView view) {
+    public DailyModule(final IDailyView view) {
         this.mView = view;
     }
 
@@ -49,7 +49,7 @@ public class AccountDailyModule {
      */
     @Provides
     @Nonnull
-    public IAccountDailyView provideView() {
+    public IDailyView provideView() {
         return mView;
     }
 
@@ -60,8 +60,8 @@ public class AccountDailyModule {
      */
     @Provides
     @NonNull
-    public AccountDailyPresenter providePresenter(final AccountDailyModel model) {
-        return new AccountDailyPresenter(mView, model);
+    public DailyPresenter providePresenter(final DailyModel model) {
+        return new DailyPresenter(mView, model);
     }
 
 
@@ -75,12 +75,12 @@ public class AccountDailyModule {
      */
     @Provides
     @NonNull
-    public AccountDailyModel provideModel(final Context context,
-                                          final IAccountAccess accountAccess,
-                                          final IAchievementAccess achievementAccess,
-                                          final IExecutorAccess executorAccess,
-                                          final IDatabaseAccess impDatabase) {
-        return new AccountDailyModel(context, accountAccess, achievementAccess, executorAccess,
+    public DailyModel provideModel(final Context context,
+                                   final IAccountAccess accountAccess,
+                                   final IAchievementAccess achievementAccess,
+                                   final IExecutorAccess executorAccess,
+                                   final IDatabaseAccess impDatabase) {
+        return new DailyModel(context, accountAccess, achievementAccess, executorAccess,
                 impDatabase);
     }
 }

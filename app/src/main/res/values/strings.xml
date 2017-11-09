@@ -17,7 +17,6 @@
     <string name="core_navigation_account">Account</string>
     <string name="core_navigation_account_overview">Übersicht</string>
     <string name="core_navigation_account_character">Charaktere</string>
-    <string name="core_navigation_account_dailies_today">Events heute</string>
     <string name="core_navigation_account_achievements">Erfolge</string>
     <string name="core_navigation_account_raid">Raids</string>
     <string name="core_navigation_account_buy">Kaufen</string>
@@ -26,8 +25,8 @@
     <string name="core_navigation_account_trading_up">Anstieg</string>
     <string name="core_navigation_account_trading_down">Abstieg</string>
     <string name="core_navigation_account_common">Allgemeine Informationen</string>
-    <string name="core_navigation_dailies_tomorrow">Events morgen</string>
-
+    <string name="core_navigation_dailies_today">Tägliche events heute</string>
+    <string name="core_navigation_dailies_tomorrow">Tägliche events morgen</string>
 
     <string name="core_account_raid_uncompleted">OFFEN</string>
     <string name="core_account_raid_completed">VOLLSTÄNDIG</string>

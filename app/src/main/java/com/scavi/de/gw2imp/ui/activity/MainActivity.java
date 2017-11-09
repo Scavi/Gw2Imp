@@ -37,7 +37,7 @@ import com.scavi.de.gw2imp.dagger2.module.MainModule;
 import com.scavi.de.gw2imp.presenter.MainPresenter;
 import com.scavi.de.gw2imp.ui.fragment.AccountAchievementsFragment;
 import com.scavi.de.gw2imp.ui.fragment.AccountCharacterFragment;
-import com.scavi.de.gw2imp.ui.fragment.AccountDailyFragment;
+import com.scavi.de.gw2imp.ui.fragment.DailyFragment;
 import com.scavi.de.gw2imp.ui.fragment.AccountRaidFragment;
 import com.scavi.de.gw2imp.ui.fragment.DailyTomorrowFragment;
 import com.scavi.de.gw2imp.ui.fragment.LicenseFragment;
@@ -225,11 +225,11 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 new SectionDrawerItem().withDivider(true)
                         .withName(getString(R.string.core_navigation_account_common)),
                 new SecondaryDrawerItem()
-                        .withIdentifier(NavigationClickListener.ACCOUNT_DAILIES_TODAY_ID)
-                        .withName(getString(R.string.core_navigation_account_dailies_today))
+                        .withIdentifier(NavigationClickListener.DAILIES_TODAY_ID)
+                        .withName(getString(R.string.core_navigation_dailies_today))
                         .withIcon(R.drawable.ic_explore_black_24dp),
                 new SecondaryDrawerItem()
-                        .withIdentifier(NavigationClickListener.ACCOUNT_DAILIES_TOMORROW_ID)
+                        .withIdentifier(NavigationClickListener.DAILIES_TOMORROW_ID)
                         .withName(getString(R.string.core_navigation_dailies_tomorrow))
                         .withIcon(R.drawable.ic_explore_black_24dp),
                 new SecondaryDrawerItem()
@@ -317,21 +317,21 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
 
     /**
-     * Switch the fragment to show the dailies of tomorrow without any account information
+     * Switch the fragment to show the account daily view / information
      */
     @Override
-    public void routeDailiesTomorrow() {
-        DailyTomorrowFragment fragment = new DailyTomorrowFragment();
+    public void routeDailiesToday() {
+        DailyFragment fragment = new DailyFragment();
         show(fragment);
     }
 
 
     /**
-     * Switch the fragment to show the account daily view / information
+     * Switch the fragment to show the dailies of tomorrow without any account information
      */
     @Override
-    public void routeAccountDailiesToday() {
-        AccountDailyFragment fragment = new AccountDailyFragment();
+    public void routeDailiesTomorrow() {
+        DailyTomorrowFragment fragment = new DailyTomorrowFragment();
         show(fragment);
     }
 

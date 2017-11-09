@@ -62,8 +62,8 @@ public class MainPresenter {
     /**
      * The user clicked on the account dailies view / information
      */
-    public void onClickAccountDailiesToday() {
-        mView.routeAccountDailiesToday();
+    public void onClickDailiesToday() {
+        mView.routeDailiesToday();
     }
 
 
