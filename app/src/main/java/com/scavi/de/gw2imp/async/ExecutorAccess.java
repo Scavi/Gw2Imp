@@ -26,7 +26,7 @@ import java.util.concurrent.Executors;
 public class ExecutorAccess implements IExecutorAccess {
     private final Executor mUiExecutor = new UiThreadExecutor();
     private final ListeningExecutorService mBackgroundExecutor = MoreExecutors.listeningDecorator
-            (Executors.newFixedThreadPool(5));
+            (Executors.newFixedThreadPool(10));
 
 
     /**
