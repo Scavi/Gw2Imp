@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GW2Imp.iml" filepath="$PROJECT_DIR$/GW2Imp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Gw2Imp.iml" filepath="$PROJECT_DIR$/Gw2Imp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
