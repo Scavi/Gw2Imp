@@ -60,25 +60,40 @@
 
     <!-- account raid list view row -->
     <dimen name="account_daily_list_view_margin_top">2dp</dimen>
-    <dimen name="account_daily_list_view_margin_right">8dp</dimen>
+    <dimen name="account_daily_list_view_margin_right">4dp</dimen>
     <dimen name="account_daily_list_view_margin_left">8dp</dimen>
-    <dimen name="account_daily_list_view_margin_bottom">2dp</dimen>
+    <dimen name="account_daily_list_view_margin_bottom">0dp</dimen>
     <dimen name="account_daily_row_header_margin_top">0dp</dimen>
     <dimen name="account_daily_row_header_margin_right">12dp</dimen>
     <dimen name="account_daily_row_header_margin_left">32dp</dimen>
     <dimen name="account_daily_row_header_margin_bottom">6dp</dimen>
-    <dimen name="account_daily_row_text_margin_top">16dp</dimen>
-    <dimen name="account_daily_row_text_margin_right">12dp</dimen>
-    <dimen name="account_daily_row_text_margin_left">24dp</dimen>
+    <dimen name="account_daily_row_text_margin_top">8dp</dimen>
+    <dimen name="account_daily_row_text_margin_right">8dp</dimen>
+    <dimen name="account_daily_row_text_margin_left">4dp</dimen>
     <dimen name="account_daily_row_text_margin_bottom">0dp</dimen>
-    <dimen name="account_daily_row_state_text_margin_top">16dp</dimen>
-    <dimen name="account_daily_row_state_text_margin_right">12dp</dimen>
-    <dimen name="account_daily_row_state_text_margin_left">24dp</dimen>
-    <dimen name="account_daily_row_state_text_margin_bottom">12dp</dimen>
+    <dimen name="account_daily_row_progress_text_margin_top">3dp</dimen>
+    <dimen name="account_daily_row_progress_text_margin_right">8dp</dimen>
+    <dimen name="account_daily_row_progress_text_margin_left">4dp</dimen>
+    <dimen name="account_daily_row_progress_text_margin_bottom">0dp</dimen>
+    <dimen name="account_daily_row_state_text_margin_top">1dp</dimen>
+    <dimen name="account_daily_row_state_text_margin_right">8dp</dimen>
+    <dimen name="account_daily_row_state_text_margin_left">4dp</dimen>
+    <dimen name="account_daily_row_state_text_margin_bottom">2dp</dimen>
     <dimen name="account_daily_row_picture_margin_top">0dp</dimen>
-    <dimen name="account_daily_row_picture_margin_right">12dp</dimen>
-    <dimen name="account_daily_row_picture_margin_left">32dp</dimen>
+    <dimen name="account_daily_row_picture_margin_right">4dp</dimen>
+    <dimen name="account_daily_row_picture_margin_left">8dp</dimen>
     <dimen name="account_daily_row_picture_margin_bottom">0dp</dimen>
+
+    <!-- license -->
+    <dimen name="license_gw2_header_margin_top">24dp</dimen>
+    <dimen name="license_gw2_header_margin_right">32dp</dimen>
+    <dimen name="license_gw2_header_margin_left">32dp</dimen>
+    <dimen name="license_gw2_header_margin_bottom">0dp</dimen>
+    <dimen name="license_gw2_info_margin_top">12dp</dimen>
+    <dimen name="license_gw2_info_margin_right">32dp</dimen>
+    <dimen name="license_gw2_info_margin_left">32dp</dimen>
+    <dimen name="license_gw2_info_margin_bottom">0dp</dimen>
+
 
 
     <!-- overall app dimensions -->

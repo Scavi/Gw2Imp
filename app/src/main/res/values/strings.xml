@@ -2,7 +2,7 @@
     <string name="app_name">GW2Imp</string>
 
     <string name="api_account_key_title">API-Key</string>
-    <string name="api_account_key_text">Für den Zugriff auf den Account wird ein GW2-API Key benötigt.\nDieser kann auf der GuildWars 2 Seite nach einem erfolgreichen Account Login erstellt werden.</string>
+    <string name="api_account_key_text">Für den Zugriff auf den Account wird ein GW2-API Key benötigt.\nDieser kann auf der GuildWars 2 Seite nach einem erfolgreichen Account Login erstellt werden. Der API Key steht dort auch als QR Code zur Verfügung.</string>
     <string name="api_account_key_skip">Überspringen</string>
     <string name="api_account_key_next">Weiter</string>
 
@@ -17,7 +17,7 @@
     <string name="core_navigation_account">Account</string>
     <string name="core_navigation_account_overview">Übersicht</string>
     <string name="core_navigation_account_character">Charaktere</string>
-    <string name="core_navigation_account_dailies">Tägliche Events</string>
+    <string name="core_navigation_account_dailies_today">Events heute</string>
     <string name="core_navigation_account_achievements">Erfolge</string>
     <string name="core_navigation_account_raid">Raids</string>
     <string name="core_navigation_account_buy">Kaufen</string>
@@ -25,8 +25,11 @@
     <string name="core_navigation_account_trading_market">Handelsmarkt</string>
     <string name="core_navigation_account_trading_up">Anstieg</string>
     <string name="core_navigation_account_trading_down">Abstieg</string>
+    <string name="core_navigation_account_common">Allgemeine Informationen</string>
+    <string name="core_navigation_dailies_tomorrow">Events morgen</string>
 
-    <string name="core_account_raid_uncompleted">UNVOLLSTÄNDIG</string>
+
+    <string name="core_account_raid_uncompleted">OFFEN</string>
     <string name="core_account_raid_completed">VOLLSTÄNDIG</string>
     <string name="core_account_raid_getting_raid_data">Deine aktuellen Raid-Informationen werden ermittelt</string>
     <string name="core_account_raid_db_error">Es trat ein Fehler beim Datenbankzugriff auf: %s</string>
@@ -34,9 +37,14 @@
     <string name="core_account_raid_account_data">Es trat ein Fehler beim Ermitteln der Account Raid-Informationen auf: %s</string>
 
     <string name="core_account_daily_getting_your_data">Deine aktuellen Event-Informationen werden ermittelt</string>
-    <string name="core_account_daily_in_progress" formatted="false">%s von %s erledigt</string>
-    <string name="core_account_daily_uncompleted">UNVOLLSTÄNDIG</string>
-    <string name="core_account_daily_completed">VOLLSTÄNDIG</string>
+    <string name="core_account_daily_in_progress" formatted="false">%d von %d abgeschlossen</string>
+    <string name="core_account_daily_uncompleted">OFFEN</string>
+    <string name="core_account_daily_completed">ABGESCHLOSSEN</string>
+
+    <string name="core_license">Lizenzen</string>
+    <string name="core_license_gw2_header">Guild Wars 2 Bilder</string>
+    <string name="core_license_gw2_text">Das Copyright der genutzten Bilder gehört einzig und alleine ArenaNet. Für den privaten Einsatz hat ArenaNet freundlicherweise die Verwendung der Bilder gestattet. Für genauere Informationen siehe:\n\nhttps://www.guildwars2.com/en/legal/guild-wars-2-content-terms-of-use/</string>
+    <string name="core_license_gw2_copyright">© 2015 ArenaNet, LLC. All rights reserved. NCSOFT, the interlocking NC logo, ArenaNet, Guild Wars, Guild Wars Factions, Guild Wars Nightfall, Guild Wars: Eye of the North, Guild Wars 2, Heart of Thorns, and all associated logos and designs are trademarks or registered trademarks of NCSOFT Corporation. All other trademarks are the property of their respective owners.</string>
 
     <string name="connection_exception">Es konnte keine Verbindung zum GuildWars2 Server hergestellt werden. Überprüfe Deine Internetverbindung.</string>
 

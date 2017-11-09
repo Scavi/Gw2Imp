@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/account_daily_list_view_row_height"
-              android:orientation="horizontal">
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/account_daily_list_view_row_height"
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:id="@+id/raid_header"
+        android:id="@+id/daily_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/account_daily_list_view_margin_bottom"
@@ -18,7 +18,7 @@
         android:visibility="visible">
 
         <TextView
-            android:id="@+id/raid_realm"
+            android:id="@+id/daily_realm"
             style="@style/Gw2ImpTheme.Text.Highlight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,12 +27,12 @@
             android:layout_marginEnd="@dimen/account_daily_row_header_margin_right"
             android:layout_marginStart="@dimen/account_daily_row_header_margin_left"
             android:layout_marginTop="@dimen/account_daily_row_header_margin_top"
-            android:text="@string/empty"/>
+            android:text="@string/empty" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/raid_context_data"
+        android:id="@+id/daily_context_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/account_daily_list_view_margin_bottom"
@@ -51,43 +51,57 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/raid_picture"
+                android:id="@+id/daily_picture"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/account_daily_row_picture_margin_bottom"
                 android:layout_marginEnd="@dimen/account_daily_row_picture_margin_right"
                 android:layout_marginStart="@dimen/account_daily_row_picture_margin_left"
                 android:layout_marginTop="@dimen/account_daily_row_picture_margin_top"
-                android:src="@drawable/raid_gorseval"/>
+                android:src="@drawable/quaggan_knight" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/raid_boss"
+                android:id="@+id/daily_event"
                 style="@style/Gw2ImpTheme.Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/account_daily_row_text_margin_bottom"
                 android:layout_marginEnd="@dimen/account_daily_row_text_margin_right"
                 android:layout_marginStart="@dimen/account_daily_row_text_margin_left"
-                android:layout_marginTop="@dimen/account_daily_row_text_margin_top"/>
+                android:layout_marginTop="@dimen/account_daily_row_text_margin_top" />
 
             <TextView
-                android:id="@+id/raid_status"
+                android:id="@+id/daily_progress"
+                style="@style/Gw2ImpTheme.Text.Highlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/daily_event"
+                android:layout_marginBottom="@dimen/account_daily_row_progress_text_margin_bottom"
+                android:layout_marginEnd="@dimen/account_daily_row_progress_text_margin_right"
+                android:layout_marginStart="@dimen/account_daily_row_progress_text_margin_left"
+                android:layout_marginTop="@dimen/account_daily_row_progress_text_margin_top"
+                android:text="@string/empty"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/daily_status"
                 style="@style/Gw2ImpTheme.Text.ErrorHighlight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/raid_boss"
+                android:layout_below="@+id/daily_progress"
                 android:layout_marginBottom="@dimen/account_daily_row_state_text_margin_bottom"
                 android:layout_marginEnd="@dimen/account_daily_row_state_text_margin_right"
                 android:layout_marginStart="@dimen/account_daily_row_state_text_margin_left"
                 android:layout_marginTop="@dimen/account_daily_row_state_text_margin_top"
-                android:text="@string/empty"/>
+                android:text="@string/empty"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
