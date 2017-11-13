@@ -18,7 +18,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Level {
-
+    public static final int MAX_LEVEL = 80;
     @SerializedName("min")
     @Expose
     private Integer min;
