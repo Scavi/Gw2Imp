@@ -13,6 +13,8 @@
  */
 package com.scavi.de.gw2imp.communication.helper;
 
+import com.scavi.de.gw2imp.communication.response.achievement.Level;
+
 public interface IDaily {
     /**
      * @return The achievement id.
@@ -24,4 +26,10 @@ public interface IDaily {
      * @return the type of the daily (e.g. pvp or wvw)
      */
     String getType();
+
+
+    /**
+     * @return the level of the daily
+     */
+    Level getLevel();
 }
