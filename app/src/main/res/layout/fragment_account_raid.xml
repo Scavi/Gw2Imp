@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context="com.scavi.de.gw2imp.ui.fragment.AccountRaidFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.scavi.de.gw2imp.ui.fragment.AccountRaidFragment">
 
     <LinearLayout
         android:id="@+id/account_raid_information"
@@ -15,9 +15,8 @@
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:divider="@android:color/transparent"
-            android:dividerHeight="@dimen/account_raid_list_view_row_divider_height"/>
+            android:dividerHeight="@dimen/account_raid_list_view_row_divider_height" />
     </LinearLayout>
 
     <LinearLayout
@@ -31,8 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/technical_fragment_data_setup_icon_description"
             android:scaleType="centerCrop"
-            android:src="@drawable/quaggan_cry"/>
+            android:src="@drawable/quaggan_cry" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/core_account_raid_getting_raid_data"/>
+            android:text="@string/account_raid_getting_raid_data" />
 
         <ProgressBar
             android:id="@+id/account_raid_data_progressbar"
@@ -60,8 +60,7 @@
             android:layout_marginStart="@dimen/account_raid_progress_bar_margin_left"
             android:layout_marginTop="@dimen/account_raid_progress_bar_margin_top"
             android:backgroundTint="@color/core_progressbar_color"
-            android:indeterminate="true"
-            />
+            android:indeterminate="true" />
     </LinearLayout>
 
 </LinearLayout>
