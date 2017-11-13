@@ -21,6 +21,7 @@ import com.scavi.de.gw2imp.communication.error.ResponseException;
 import com.scavi.de.gw2imp.communication.helper.IDaily;
 import com.scavi.de.gw2imp.communication.response.account.AccountAchievement;
 import com.scavi.de.gw2imp.communication.response.achievement.DailyAchievements;
+import com.scavi.de.gw2imp.communication.response.achievement.Level;
 import com.scavi.de.gw2imp.data.entity.achievement.AchievementEntity;
 import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
 
@@ -128,18 +129,12 @@ public class Daily {
      * Creates a list of {@link Daily} based on the possible dailies. The completed dailies of
      * the account will be marked
      *
-     * @param dailies             the possible daily achievements
+     * @param dailies the possible daily achievements
      * @return all converted dailies
      */
     public static List<Daily> from(final DailyAchievements dailies) {
-        // FIXME - API doesn't provide it right now
-//        if (accountAchievements == null || accountAchievements.size() == 0) {
-//            return new ArrayList<>(0);
-//        }
-//        accountAchievements.sort((o1, o2) -> o1.getId().compareTo(o2.getId()));
-
         List<Daily> dailyStatus = new ArrayList<>(32);
-        from(dailies.getPve(), dailyStatus);
+        from(dailies.getPve(), dailyStatus, true);
         from(dailies.getPvp(), dailyStatus);
         from(dailies.getWvw(), dailyStatus);
         from(dailies.getFractals(), dailyStatus);
@@ -164,37 +159,38 @@ public class Daily {
 
 
     /**
-     * Iterates through the given dailies (pvp, pve, wvw,...) and verify the current account data
-     * with the dailies to mark them, if they are completed.
-     * If they are not completed they will be added as uncompleted entry
+     * Iterates through the given dailies (pvp, pve, wvw,...) to add all entries that have the
+     * max level.
      *
-     * @param dailies             the current dailies by it's context (e.g. pvp, wvw)
-     * @param dailyStatus         the list of all dailies
+     * @param dailies     the current dailies by it's context (e.g. pvp, wvw)
+     * @param dailyStatus the list of all dailies
      */
     private static <T extends IDaily> void from(@Nullable final List<T> dailies,
-
                                                 final List<Daily> dailyStatus) {
+        from(dailies, dailyStatus, false);
+    }
+
+    /**
+     * Iterates through the given dailies (pvp, pve, wvw,...) to add all entries that have the
+     * max level.
+     *
+     * @param dailies        the current dailies by it's context (e.g. pvp, wvw)
+     * @param dailyStatus    the list of all dailies
+     * @param isOnlyMaxLevel <code>true</code> only the max level will be added<br/>
+     *                       <code>false</code> all entries will be added
+     */
+    private static <T extends IDaily> void from(@Nullable final List<T> dailies,
+                                                final List<Daily> dailyStatus,
+                                                final boolean isOnlyMaxLevel) {
         if (dailies == null || dailies.size() == 0) {
             return;
         }
         for (IDaily daily : dailies) {
-            // FIXME API doesn't provide an information, if a daily is done, yet
-//            AccountAchievement achievement = new AccountAchievement(daily.getId());
-//            int lookup =
-//                    accountAchievements == null ? -1 : Collections.binarySearch
-//                    (accountAchievements, achievement);
-//            // verifies if the daily is done by the user
-//            if (lookup >= 0) {
-//                AccountAchievement accountAchievement = accountAchievements.get(lookup);
-//                dailyStatus.add(new Daily(
-//                        daily.getType(),
-//                        daily.getId(),
-//                        accountAchievement.getCurrent(),
-//                        accountAchievement.getMax()));
-//            } else {
-//                dailyStatus.add(new Daily(daily.getType(), daily.getId()));
-//            }
-            dailyStatus.add(new Daily(daily.getType(), daily.getId()));
+            if (!isOnlyMaxLevel || daily.getLevel() != null &&
+                    daily.getLevel().getMax() != null &&
+                    daily.getLevel().getMax() == Level.MAX_LEVEL) {
+                dailyStatus.add(new Daily(daily.getType(), daily.getId()));
+            }
         }
     }
 
