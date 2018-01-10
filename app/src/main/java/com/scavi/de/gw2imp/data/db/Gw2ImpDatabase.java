@@ -17,17 +17,24 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
 import com.scavi.de.gw2imp.data.dao.IAchievementDAO;
+import com.scavi.de.gw2imp.data.dao.IItemsDAO;
 import com.scavi.de.gw2imp.data.dao.IRaidDAO;
+import com.scavi.de.gw2imp.data.dao.ITimedEventsDAO;
 import com.scavi.de.gw2imp.data.entity.achievement.AchievementEntity;
 import com.scavi.de.gw2imp.data.entity.achievement.FlagsEntity;
 import com.scavi.de.gw2imp.data.entity.achievement.RewardEntity;
 import com.scavi.de.gw2imp.data.entity.achievement.TierEntity;
+import com.scavi.de.gw2imp.data.entity.event.WorldBossEntity;
+import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
+import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
+import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
 import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
 
 @Database(entities =
         {RaidEntity.class, AchievementEntity.class, FlagsEntity.class, RewardEntity.class,
-                TierEntity.class},
-        version = 1)
+                TierEntity.class, WorldBossEntity.class, ItemEntity.class, ItemPriceEntity.class,
+                ItemPriceHistoryEntity.class},
+        version = 2)
 public abstract class Gw2ImpDatabase extends RoomDatabase implements IDatabaseAccess {
 
     /**
@@ -35,8 +42,21 @@ public abstract class Gw2ImpDatabase extends RoomDatabase implements IDatabaseAc
      */
     public abstract IRaidDAO raidDAO();
 
+
     /**
      * @return the access to the achievement table and it's embedded tables
      */
     public abstract IAchievementDAO achievementDAO();
+
+
+    /**
+     * @return the access to the timed events (e.g. world bosses)
+     */
+    public abstract ITimedEventsDAO timedEventsDAO();
+
+
+    /**
+     * @return the access to all item information (e.g. id, name, url, icon)
+     */
+    public abstract IItemsDAO itemsDAO();
 }

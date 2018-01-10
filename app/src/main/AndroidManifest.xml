@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.scavi.de.gw2imp">
+    package="com.scavi.de.gw2imp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <meta-data
         android:name="com.google.android.gms.vision.DEPENDENCIES"
-        android:value="barcode"/>
+        android:value="barcode" />
 
     <application
         android:name=".application.Gw2ImpApplication"
@@ -19,29 +21,43 @@
 
         <activity android:name="com.scavi.de.gw2imp.ui.activity.SplashActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.scavi.de.gw2imp.ui.activity.ApiAccountKeyActivity"
+            android:name=".ui.activity.ApiAccountKeyActivity"
             android:label="@string/empty"
             android:launchMode="standard"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.scavi.de.gw2imp.ui.activity.ApiKeyQrCaptureActivity"
+            android:name=".ui.activity.ApiKeyQrCaptureActivity"
             android:label="@string/empty"
             android:launchMode="standard"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.scavi.de.gw2imp.ui.activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/empty"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.KeepAliveActivity"
+            android:allowTaskReparenting="true"
+            android:alwaysRetainTaskState="false"
+            android:clearTaskOnLaunch="true"
+            android:enabled="true"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true"
+            android:noHistory="true"
+            android:stateNotNeeded="true"
+            android:theme="@android:style/Theme.NoDisplay" />
+
+        <service
+            android:name=".background.DataCollectionService"
+            android:enabled="true" />
     </application>
 </manifest>
