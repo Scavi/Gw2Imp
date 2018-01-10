@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.scavi.de.gw2imp.ui.activity.ApiAccountKeyActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.scavi.de.gw2imp.ui.activity.ApiAccountKeyActivity">
 
     <ImageView
         android:id="@+id/gw2_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitStart"
-        android:src="@drawable/registration_logo"/>
+        android:src="@drawable/registration_logo" />
 
     <LinearLayout
         android:id="@+id/account_api_key_information_container"
@@ -27,7 +28,7 @@
             android:layout_marginEnd="@dimen/account_api_key_text_margin_right"
             android:layout_marginStart="@dimen/account_api_key_text_margin_left"
             android:layout_marginTop="@dimen/account_api_key_text_margin_top"
-            android:text="@string/api_account_key_text"/>
+            android:text="@string/api_account_key_text" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +54,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="textCapCharacters"
                     android:maxLength="72"
-                    android:maxLines="1"/>
+                    android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -66,12 +67,10 @@
                 android:layout_marginStart="@dimen/account_api_key_scan_code_margin_left"
                 android:layout_marginTop="@dimen/account_api_key_scan_code_margin_top"
                 android:layout_weight="1"
-                android:backgroundTint="@color/core_floating_button_color"
                 android:minHeight="@dimen/button_floating_min_diameter"
                 android:minWidth="@dimen/button_floating_min_diameter"
                 android:scaleType="center"
-                android:src="@drawable/ic_photo_camera_black_24dp"
-                />
+                app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -89,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/api_account_key_validating"/>
+            android:text="@string/api_account_key_validating" />
 
         <ProgressBar
             android:id="@+id/account_api_key_progressbar"
@@ -101,8 +100,7 @@
             android:layout_marginStart="@dimen/account_api_key_progress_bar_margin_left"
             android:layout_marginTop="@dimen/account_api_key_progress_bar_margin_top"
             android:backgroundTint="@color/core_progressbar_color"
-            android:indeterminate="true"
-            />
+            android:indeterminate="true" />
     </LinearLayout>
 
     <RelativeLayout
@@ -123,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_bottom_height"
                 android:layout_weight="1"
-                android:text="@string/api_account_key_skip"/>
+                android:text="@string/api_account_key_skip" />
 
             <Button
                 android:id="@+id/verify_api_account_key"
@@ -131,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_bottom_height"
                 android:layout_weight="1"
-                android:text="@string/api_account_key_next"/>
+                android:text="@string/api_account_key_next" />
         </LinearLayout>
     </RelativeLayout>
 
