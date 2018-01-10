@@ -48,9 +48,7 @@
     <dimen name="account_raid_row_picture_margin_left">32dp</dimen>
     <dimen name="account_raid_row_picture_margin_bottom">0dp</dimen>
 
-
-
-    <!-- account raid fragment -->
+    <!-- account daily fragment -->
     <dimen name="account_daily_progress_bar_margin_top">8dp</dimen>
     <dimen name="account_daily_progress_bar_margin_right">72dp</dimen>
     <dimen name="account_daily_progress_bar_margin_left">72dp</dimen>
@@ -58,7 +56,7 @@
     <dimen name="account_daily_list_view_row_height">96dp</dimen>
     <dimen name="account_daily_list_view_row_divider_height">4dp</dimen>
 
-    <!-- account raid list view row -->
+    <!-- account daily list view row -->
     <dimen name="account_daily_list_view_margin_top">2dp</dimen>
     <dimen name="account_daily_list_view_margin_right">4dp</dimen>
     <dimen name="account_daily_list_view_margin_left">8dp</dimen>
@@ -83,6 +81,54 @@
     <dimen name="account_daily_row_picture_margin_right">4dp</dimen>
     <dimen name="account_daily_row_picture_margin_left">8dp</dimen>
     <dimen name="account_daily_row_picture_margin_bottom">0dp</dimen>
+
+    <!-- account world boss fragment -->
+    <dimen name="world_boss_list_view_margin_top">2dp</dimen>
+    <dimen name="world_boss_list_view_margin_right">8dp</dimen>
+    <dimen name="world_boss_list_view_margin_left">8dp</dimen>
+    <dimen name="world_boss_list_view_margin_bottom">2dp</dimen>
+    <dimen name="world_boss_progress_bar_margin_top">8dp</dimen>
+    <dimen name="world_boss_progress_bar_margin_right">16dp</dimen>
+    <dimen name="world_boss_progress_bar_margin_left">16dp</dimen>
+    <dimen name="world_boss_progress_bar_margin_bottom">8dp</dimen>
+    <dimen name="world_boss_list_view_row_height">96dp</dimen>
+    <dimen name="world_boss_list_view_row_divider_height">4dp</dimen>
+
+    <!-- account world boss fragment -->
+    <dimen name="trading_items_list_view_margin_top">2dp</dimen>
+    <dimen name="trading_items_list_view_margin_right">8dp</dimen>
+    <dimen name="trading_items_list_view_margin_left">8dp</dimen>
+    <dimen name="trading_items_list_view_margin_bottom">2dp</dimen>
+    <dimen name="trading_items_progress_bar_margin_top">8dp</dimen>
+    <dimen name="trading_items_progress_bar_margin_right">16dp</dimen>
+    <dimen name="trading_items_progress_bar_margin_left">16dp</dimen>
+    <dimen name="trading_items_progress_bar_margin_bottom">8dp</dimen>
+    <dimen name="trading_items_list_view_row_height">96dp</dimen>
+    <dimen name="trading_items_list_view_row_divider_height">4dp</dimen>
+
+    <!-- account world boss list view row -->
+    <dimen name="world_boss_row_text_margin_top">8dp</dimen>
+    <dimen name="world_boss_row_text_margin_right">8dp</dimen>
+    <dimen name="world_boss_row_text_margin_left">4dp</dimen>
+    <dimen name="world_boss_row_text_margin_bottom">0dp</dimen>
+    <dimen name="world_boss_row_progress_text_margin_top">3dp</dimen>
+    <dimen name="world_boss_row_progress_text_margin_right">8dp</dimen>
+    <dimen name="world_boss_row_progress_text_margin_left">4dp</dimen>
+    <dimen name="world_boss_row_progress_text_margin_bottom">0dp</dimen>
+    <dimen name="world_boss_row_state_text_margin_top">4dp</dimen>
+    <dimen name="world_boss_row_state_text_margin_right">8dp</dimen>
+    <dimen name="world_boss_row_state_text_margin_left">4dp</dimen>
+    <dimen name="world_boss_row_state_text_margin_bottom">2dp</dimen>
+    <dimen name="world_boss_row_reward_text_margin_top">0dp</dimen>
+    <dimen name="world_boss_row_reward_text_margin_right">8dp</dimen>
+    <dimen name="world_boss_row_reward_text_margin_left">4dp</dimen>
+    <dimen name="world_boss_row_reward_text_margin_bottom">2dp</dimen>
+    <dimen name="world_boss_row_picture_margin_top">0dp</dimen>
+    <dimen name="world_boss_row_picture_margin_right">4dp</dimen>
+    <dimen name="world_boss_row_picture_margin_left">8dp</dimen>
+    <dimen name="world_boss_row_picture_margin_bottom">0dp</dimen>
+
+
 
     <!-- license -->
     <dimen name="license_gw2_header_margin_top">24dp</dimen>
