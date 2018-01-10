@@ -116,7 +116,7 @@ public class DailyAdapter extends ArrayAdapter<Daily> {
 
         TextView dailyProgressView = rowView.findViewById(R.id.daily_progress);
         dailyProgressView.setText(
-                String.format(getContext().getString(R.string.core_account_daily_in_progress),
+                String.format(getContext().getString(R.string.account_daily_in_progress),
                         currentItem.getCurrent(),
                         currentItem.getMax()));
 
@@ -124,13 +124,13 @@ public class DailyAdapter extends ArrayAdapter<Daily> {
         TextView statusView = rowView.findViewById(R.id.daily_status);
         String text;
         if (currentItem.isCompleted()) {
-            AndroidVersionHelper.setTextAppearance(getContext(), statusView, R.style
-                    .Gw2ImpTheme_Text_SuccessHighlight);
-            text = getContext().getString(R.string.core_account_daily_completed);
+            AndroidVersionHelper.setTextAppearance(getContext(), statusView,
+                    R.style.Gw2ImpTheme_Text_SuccessHighlight);
+            text = getContext().getString(R.string.account_daily_completed);
         } else {
-            AndroidVersionHelper.setTextAppearance(getContext(), statusView, R.style
-                    .Gw2ImpTheme_Text_ErrorHighlight);
-            text = getContext().getString(R.string.core_account_daily_uncompleted);
+            AndroidVersionHelper.setTextAppearance(getContext(), statusView,
+                    R.style.Gw2ImpTheme_Text_ErrorHighlight);
+            text = getContext().getString(R.string.account_daily_uncompleted);
         }
         statusView.setText(text);
     }
