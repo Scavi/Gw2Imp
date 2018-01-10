@@ -20,7 +20,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -35,6 +37,7 @@ import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
 import com.scavi.de.gw2imp.dagger2.component.DaggerMainComponent;
 import com.scavi.de.gw2imp.dagger2.module.MainModule;
 import com.scavi.de.gw2imp.presenter.MainPresenter;
+import com.scavi.de.gw2imp.ui.adapter.WorldBossesAdapter;
 import com.scavi.de.gw2imp.ui.fragment.AccountAchievementsFragment;
 import com.scavi.de.gw2imp.ui.fragment.AccountCharacterFragment;
 import com.scavi.de.gw2imp.ui.fragment.DailyFragment;
@@ -42,6 +45,8 @@ import com.scavi.de.gw2imp.ui.fragment.AccountRaidFragment;
 import com.scavi.de.gw2imp.ui.fragment.DailyTomorrowFragment;
 import com.scavi.de.gw2imp.ui.fragment.LicenseFragment;
 import com.scavi.de.gw2imp.ui.fragment.OverviewFragment;
+import com.scavi.de.gw2imp.ui.fragment.TradingItemsFragment;
+import com.scavi.de.gw2imp.ui.fragment.WorldBossEventTimerFragment;
 import com.scavi.de.gw2imp.ui.listener.NavigationClickListener;
 import com.scavi.de.gw2imp.ui.view.IMainView;
 
@@ -95,11 +100,14 @@ public class MainActivity extends AppCompatActivity implements IMainView {
      * Create the navigation drawer and set the selection for the overview
      */
     protected void setupUiComponents() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setupActionBar(getSupportActionBar());
+        setupNavigationDrawer();
+    }
+
+    private void setupNavigationDrawer() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
         mNavigationDrawer = createDrawerMenu(toolbar);
         mNavigationDrawer.setSelection(NavigationClickListener.OVERVIEW_ID);
-        //mNavigationDrawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
     }
 
 
@@ -114,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 .withActivity(this)
                 .withHeaderBackground(background())
                 .build();
+        IDrawerItem[] drawerItems = getNavigationDrawerItems();
         DrawerBuilder drawerBuilder = new DrawerBuilder()
                 .withActivity(this)
                 .withAccountHeader(headerResult)
@@ -121,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 .withToolbar(toolbar)
                 .withActionBarDrawerToggle(true)
                 .withActionBarDrawerToggleAnimated(true)
-                .addDrawerItems(getNavigationDrawerItems())
+                .addDrawerItems(drawerItems)
                 .withOnDrawerItemClickListener(new NavigationClickListener(mPresenter));
         return drawerBuilder.buildForFragment();
     }
@@ -191,6 +200,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         .withIdentifier(OVERVIEW_ID)
                         .withName(getString(R.string.core_navigation_account_overview))
                         .withIcon(R.drawable.ic_home_black_24dp),
+                /*
                 new SecondaryDrawerItem()
                         .withIdentifier(NavigationClickListener.CHARACTER_ID)
                         .withName(getString(R.string.core_navigation_account_character))
@@ -198,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 new SecondaryDrawerItem()
                         .withIdentifier(NavigationClickListener.ACHIEVEMENTS_ID)
                         .withName(getString(R.string.core_navigation_account_achievements))
-                        .withIcon(R.drawable.ic_explore_black_24dp),
+                        .withIcon(R.drawable.ic_explore_black_24dp), */
                 new SecondaryDrawerItem()
                         .withIdentifier(NavigationClickListener.RAID_ID)
                         .withName(getString(R.string.core_navigation_account_raid))
@@ -213,15 +223,17 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         .withName(getString(R.string.core_navigation_account_sell))
                         .withIcon(R.drawable.ic_remove_shopping_cart_black_24dp),*/
                 new SectionDrawerItem().withDivider(true)
-                        .withName(getString(R.string.core_navigation_account_trading_market)),/*
+                        .withName(getString(R.string.core_navigation_account_trading_market)),
                 new SecondaryDrawerItem()
-                        .withIdentifier(NavigationClickListener.TRADING_UP)
-                        .withName(getString(R.string.core_navigation_account_trading_up))
+                        .withIdentifier(NavigationClickListener.TRADING_ITEMS)
+                        .withName(getString(R.string.core_navigation_account_trading))
                         .withIcon(R.drawable.ic_trending_up_black_24dp),
+                new SectionDrawerItem().withDivider(true)
+                        .withName(getString(R.string.core_navigation_event_timer)),
                 new SecondaryDrawerItem()
-                        .withIdentifier(NavigationClickListener.TRADING_DOWN)
-                        .withName(getString(R.string.core_navigation_account_trading_down))
-                        .withIcon(R.drawable.ic_trending_down_black_24dp),*/
+                        .withIdentifier(NavigationClickListener.WORLD_BOSS_EVENT_TIMER_ID)
+                        .withName(getString(R.string.core_navigation_world_boss_event_timer))
+                        .withIcon(R.drawable.ic_explore_black_24dp),
                 new SectionDrawerItem().withDivider(true)
                         .withName(getString(R.string.core_navigation_account_common)),
                 new SecondaryDrawerItem()
@@ -236,6 +248,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         .withIdentifier(NavigationClickListener.LICENSE_ID)
                         .withName(getString(R.string.core_license))
                         .withIcon(R.drawable.ic_info_black_24dp),
+
         };
     }
 
@@ -299,22 +312,23 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
 
     /**
-     * Switch the fragment to show  the trading market information (up)
+     * Switch the fragment to show the trading market information
      */
     @Override
-    public void routeTradingUp() {
-        // TODO
+    public void routeTradingItems() {
+        TradingItemsFragment fragment = new TradingItemsFragment();
+        show(fragment);
     }
 
 
     /**
-     * Switch the fragment to show  the trading market information (down)
+     * Switch the fragment to show the world boss event timer
      */
     @Override
-    public void routeTradingDown() {
-        // TODO
+    public void routeWorldBossEventTimer() {
+        WorldBossEventTimerFragment fragment = new WorldBossEventTimerFragment();
+        show(fragment);
     }
-
 
     /**
      * Switch the fragment to show the account daily view / information

@@ -100,18 +100,18 @@ public class MainPresenter {
 
 
     /**
-     * The user clicked on the trading market information (up)
+     * The user clicked on the trading market information
      */
-    public void onClickTradingUp() {
-        mView.routeTradingUp();
+    public void onClickTradingItems() {
+        mView.routeTradingItems();
     }
 
 
     /**
-     * The user clicked on the trading market information (down)
+     * The user clicked on the world boss event timer
      */
-    public void onClickTradingDown() {
-        mView.routeTradingDown();
+    public void onClickWorldBossEventTimer() {
+        mView.routeWorldBossEventTimer();
     }
 
 

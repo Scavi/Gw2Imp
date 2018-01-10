@@ -13,7 +13,7 @@
  */
 package com.scavi.de.gw2imp.ui.view;
 
-public interface IMainView  {
+public interface IMainView {
     /**
      * Show the account overview view / information
      */
@@ -51,15 +51,15 @@ public interface IMainView  {
 
 
     /**
-     * Show  the trading market information (up)
+     * Show  the trading market information
      */
-    void routeTradingUp();
+    void routeTradingItems();
 
 
     /**
-     * Show  the trading market information (down)
+     * Show the world boss event timer
      */
-     void routeTradingDown();
+    void routeWorldBossEventTimer();
 
 
     /**
