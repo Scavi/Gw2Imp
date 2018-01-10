@@ -26,10 +26,12 @@ import com.scavi.de.gw2imp.async.ExecutorAccess;
 import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
 import com.scavi.de.gw2imp.communication.access.IAchievementAccess;
+import com.scavi.de.gw2imp.communication.access.ICommerceAccess;
 import com.scavi.de.gw2imp.communication.access.IItemAccess;
 import com.scavi.de.gw2imp.communication.access.IMiscellaneousAccess;
 import com.scavi.de.gw2imp.communication.access.impl.AccountAccess;
 import com.scavi.de.gw2imp.communication.access.impl.AchievementsAccess;
+import com.scavi.de.gw2imp.communication.access.impl.CommerceAccess;
 import com.scavi.de.gw2imp.communication.access.impl.ItemAccess;
 import com.scavi.de.gw2imp.communication.access.impl.MiscellaneousAccess;
 import com.scavi.de.gw2imp.communication.interceptor.ApiKeyInterceptor;
@@ -38,6 +40,8 @@ import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.preferences.PreferenceManager;
 import com.scavi.de.gw2imp.util.Const;
+import com.scavi.de.gw2imp.util.network.IConnectivityAccess;
+import com.scavi.de.gw2imp.util.network.NetworkConnectivityAccess;
 
 import java.util.concurrent.TimeUnit;
 
@@ -108,13 +112,16 @@ public class ApplicationModule {
 
 
     /**
-     * @param retrofitAdapter the retrofit2 adapter to access the REST API
+     * @param retrofitAdapter    the retrofit2 adapter to access the REST API
+     * @param connectivityAccess the network connectivity access to determine information about
+     *                           network connection
      * @return the server side access to the item data
      */
     @Provides
     @Singleton
-    IItemAccess provideItemAccess(final Retrofit retrofitAdapter) {
-        return new ItemAccess(retrofitAdapter);
+    IItemAccess provideItemAccess(final Retrofit retrofitAdapter,
+                                  final IConnectivityAccess connectivityAccess) {
+        return new ItemAccess(retrofitAdapter, connectivityAccess);
     }
 
 
@@ -126,6 +133,20 @@ public class ApplicationModule {
     @Singleton
     IMiscellaneousAccess provideMiscAccess(final Retrofit retrofitAdapter) {
         return new MiscellaneousAccess(retrofitAdapter);
+    }
+
+
+    /**
+     * @param retrofitAdapter    the retrofit2 adapter to access the REST API
+     * @param connectivityAccess the network connectivity access to determine information about
+     *                           network connection
+     * @return the server side access to the commerce information
+     */
+    @Provides
+    @Singleton
+    ICommerceAccess provideCommerceAccess(final Retrofit retrofitAdapter,
+                                          final IConnectivityAccess connectivityAccess) {
+        return new CommerceAccess(retrofitAdapter, connectivityAccess);
     }
 
 
@@ -166,7 +187,9 @@ public class ApplicationModule {
     @Provides
     @Singleton
     IDatabaseAccess provideDatabase(final Context context) {
-        return Room.databaseBuilder(context, Gw2ImpDatabase.class, "gw2-imp-treasure").build();
+        return Room.databaseBuilder(context, Gw2ImpDatabase.class, "gw2-imp-treasure")
+                .fallbackToDestructiveMigration()
+                .build();
     }
 
 
@@ -177,6 +200,17 @@ public class ApplicationModule {
     @Singleton
     IExecutorAccess provideExecutorAccess() {
         return new ExecutorAccess();
+    }
+
+
+    /**
+     * @param context the context to global information about the application environment
+     * @return the network connectivity access to determine information about network connection
+     */
+    @Provides
+    @Singleton
+    IConnectivityAccess provideNetworkConnectivityAccess(final Context context) {
+        return new NetworkConnectivityAccess(context);
     }
 
 
