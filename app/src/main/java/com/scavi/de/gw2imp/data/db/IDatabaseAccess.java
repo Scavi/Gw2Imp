@@ -15,7 +15,9 @@
 package com.scavi.de.gw2imp.data.db;
 
 import com.scavi.de.gw2imp.data.dao.IAchievementDAO;
+import com.scavi.de.gw2imp.data.dao.IItemsDAO;
 import com.scavi.de.gw2imp.data.dao.IRaidDAO;
+import com.scavi.de.gw2imp.data.dao.ITimedEventsDAO;
 
 public interface IDatabaseAccess {
     /**
@@ -23,8 +25,21 @@ public interface IDatabaseAccess {
      */
     IRaidDAO raidDAO();
 
+
     /**
      * @return the access to the achievement table and it's embedded tables
      */
     IAchievementDAO achievementDAO();
+
+
+    /**
+     * @return the access to the timed events (e.g. world bosses)
+     */
+    ITimedEventsDAO timedEventsDAO();
+
+
+    /**
+     * @return the access to the items
+     */
+    IItemsDAO itemsDAO();
 }
