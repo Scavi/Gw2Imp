@@ -13,6 +13,7 @@
  */
 package com.scavi.de.gw2imp.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,13 +36,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class AccountRaidFragment extends AbstractFragment implements IAccountRaidView {
+public class AccountRaidFragment extends AbstractStatusFragment implements IAccountRaidView {
     @Inject
     AccountRaidPresenter mPresenter;
     private ListView mRaidListView;
-    private View mRaidInfoContainer;
-    private View mGettingThingsDoneContainer;
-    private View mRaidErrorContainer;
 
 
     /**
@@ -71,6 +69,9 @@ public class AccountRaidFragment extends AbstractFragment implements IAccountRai
     }
 
 
+    /**
+     * @see AbstractFragment#onStart()
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -96,12 +97,9 @@ public class AccountRaidFragment extends AbstractFragment implements IAccountRai
     /**
      * Determine the frequent accessed views
      */
-    private void setupUiComponents(final View fragmentView) {
+    protected void setupUiComponents(final View fragmentView) {
+        super.setupUiComponents(fragmentView);
         mRaidListView = fragmentView.findViewById(android.R.id.list);
-        mRaidInfoContainer = fragmentView.findViewById(R.id.account_raid_information);
-        mRaidErrorContainer = fragmentView.findViewById(R.id.account_raid_error_container);
-        mGettingThingsDoneContainer = fragmentView.findViewById(R.id
-                .account_raid_getting_things_done);
     }
 
 
@@ -110,11 +108,12 @@ public class AccountRaidFragment extends AbstractFragment implements IAccountRai
      */
     @Override
     public void setupRaidView(final List<RaidEntity> raids) {
-        if (isRemoving()) {
+        Context context = getActivity() != null ? getActivity().getApplicationContext() : null;
+        if (isRemoving() || context == null) {
             return;
         }
         RaidAdapter adapter = new RaidAdapter(
-                getContext(),
+                context,
                 android.R.id.list,
                 raids.toArray(new RaidEntity[raids.size()]));
         mRaidListView.setLayoutAnimation(createLayoutAdapterController());
@@ -124,43 +123,28 @@ public class AccountRaidFragment extends AbstractFragment implements IAccountRai
 
 
     /**
-     * Informs the user about the loading progress
+     * @return the resource id of the info / data container
      */
     @Override
-    public void onShowProgress() {
-        if (isRemoving()) {
-            return;
-        }
-        mRaidInfoContainer.setVisibility(View.GONE);
-        mRaidErrorContainer.setVisibility(View.GONE);
-        mGettingThingsDoneContainer.setVisibility(View.VISIBLE);
+    protected int getInfoContainerId() {
+        return R.id.account_raid_information;
     }
 
 
     /**
-     * The loading of the data is done.
+     * @return the resource id of the error container
      */
     @Override
-    public void onHideProgress() {
-        if (isRemoving()) {
-            return;
-        }
-        mRaidInfoContainer.setVisibility(View.VISIBLE);
-        mGettingThingsDoneContainer.setVisibility(View.GONE);
-        mRaidErrorContainer.setVisibility(View.GONE);
+    protected int getErrorContainerId() {
+        return R.id.account_raid_error_container;
     }
 
 
     /**
-     * The loading of the data is done but an error has occurred
+     * @return the resource id of the view
      */
     @Override
-    public void onHideProgressAfterError() {
-        if (isRemoving()) {
-            return;
-        }
-        mRaidErrorContainer.setVisibility(View.VISIBLE);
-        mRaidInfoContainer.setVisibility(View.GONE);
-        mGettingThingsDoneContainer.setVisibility(View.GONE);
+    protected int getGettingThingsDoneContainerId() {
+        return R.id.account_raid_getting_things_done;
     }
 }
