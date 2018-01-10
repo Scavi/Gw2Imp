@@ -15,6 +15,10 @@ package com.scavi.de.gw2imp.util;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 public class RestHelper {
     /**
      * Private constructor to prevent access of the helper class (only static access)
@@ -30,14 +34,35 @@ public class RestHelper {
      * @return the "," separated int param list
      */
     @NonNull
-    public static String intToGetParamList(int... intParams) {
-        StringBuilder paramList = new StringBuilder(intParams.length * 2);
-        for (int i = 0; i < intParams.length; ++i) {
-            paramList.append(intParams[i]);
-            if (i < intParams.length - 1) {
-                paramList.append(",");
-            }
+    public static String intToGetParamList(@Nonnull final int... intParams) {
+        if (intParams.length == 0) {
+            return "";
         }
-        return paramList.toString();
+        StringBuilder paramList = new StringBuilder(intParams.length * 2);
+        for (final int intParam : intParams) {
+            paramList.append(intParam);
+            paramList.append(",");
+        }
+        return paramList.substring(0, paramList.length() - 1);
+    }
+
+
+    /**
+     * Creates an int-parameter "," separated list from the given index with the given length
+     *
+     * @param list   the list to split
+     * @param from   from the index of
+     * @param length the length of the new temp array
+     * @return the "," separated list of the split list
+     */
+    @Nonnull
+    public static String splitIntToGetParamList(@Nonnull final List<Integer> list,
+                                                final int from,
+                                                final int length) {
+        int[] temp = new int[Math.min(length, list.size() - from)];
+        for (int i = 0, j = from; i < length && j < list.size(); ++i, ++j) {
+            temp[i] = list.get(j);
+        }
+        return intToGetParamList(temp);
     }
 }
