@@ -123,11 +123,11 @@ public class RaidAdapter extends ArrayAdapter<RaidEntity> {
         if (currentItem.isCompleted()) {
             AndroidVersionHelper.setTextAppearance(getContext(), statusView, R.style
                     .Gw2ImpTheme_Text_SuccessHighlight);
-            text = getContext().getString(R.string.core_account_raid_completed);
+            text = getContext().getString(R.string.account_raid_completed);
         } else {
             AndroidVersionHelper.setTextAppearance(getContext(), statusView, R.style
                     .Gw2ImpTheme_Text_ErrorHighlight);
-            text = getContext().getString(R.string.core_account_raid_uncompleted);
+            text = getContext().getString(R.string.account_raid_uncompleted);
         }
         statusView.setText(text);
 
