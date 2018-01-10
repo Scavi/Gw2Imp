@@ -14,7 +14,10 @@
  */
 package com.scavi.de.gw2imp.ui.util;
 
+import android.content.Context;
+
 import com.scavi.de.gw2imp.R;
+import com.scavi.de.gw2imp.data.entity.event.WorldBossEntity;
 import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
 
 import java.util.Locale;
@@ -102,5 +105,106 @@ public class Gw2DataMapper {
                 break;
         }
         return drawableId;
+    }
+
+
+    /**
+     * Determines from the world boss context of the given {@link WorldBossEntity} the drawable id
+     *
+     * @param entity the world boss entity
+     * @return the drawable id
+     */
+    public static int determineWorldBossDrawableId(final WorldBossEntity entity) {
+        int id = R.drawable.quaggan_knight;
+        // TODO
+        switch (entity.getType()) {
+            case TaidhaCovington:
+                break;
+            case JungleWorm:
+                break;
+            case EvolvedJungleWorm:
+                break;
+            case MegaDestroyer:
+                break;
+            case ShadowBehemoth:
+                break;
+            case Shatterer:
+                break;
+            case SvanirShamanChief:
+                break;
+            case ModnirUlgoth:
+                break;
+            case FireElemental:
+                break;
+            case GolemMarkTwo:
+                break;
+            case Tequatl:
+                break;
+            case FrozenMaw:
+                break;
+            case KarkaQueen:
+                break;
+            case ClawOfJormag:
+                break;
+        }
+        return id;
+    }
+
+
+    /**
+     * Determines from the world boss context of the given {@link WorldBossEntity#getType()}
+     *
+     * @param context the context to global information about the application environment
+     * @param entity  the world boss entity
+     * @return the title / name of of the world boss
+     */
+    public static String determineWorldBoss(final Context context,
+                                            final WorldBossEntity entity) {
+        String title = "";
+        switch (entity.getType()) {
+            case TaidhaCovington:
+                title = context.getString(R.string.world_boss_taidha_covington);
+                break;
+            case JungleWorm:
+                title = context.getString(R.string.world_boss_jungle_worm);
+                break;
+            case EvolvedJungleWorm:
+                title = context.getString(R.string.world_boss_evolved_jungle_worm);
+                break;
+            case MegaDestroyer:
+                title = context.getString(R.string.world_boss_mega_destroyer);
+                break;
+            case ShadowBehemoth:
+                title = context.getString(R.string.world_boss_shadow_behemoth);
+                break;
+            case Shatterer:
+                title = context.getString(R.string.world_boss_shatterer);
+                break;
+            case SvanirShamanChief:
+                title = context.getString(R.string.world_boss_svanir_shaman_chief);
+                break;
+            case ModnirUlgoth:
+                title = context.getString(R.string.world_boss_modniir_ulgoth);
+                break;
+            case FireElemental:
+                title = context.getString(R.string.world_boss_fire_elemental);
+                break;
+            case GolemMarkTwo:
+                title = context.getString(R.string.world_boss_golem_mark_two);
+                break;
+            case Tequatl:
+                title = context.getString(R.string.world_boss_tequatl_the_sunless);
+                break;
+            case FrozenMaw:
+                title = context.getString(R.string.world_boss_frozen_maw);
+                break;
+            case KarkaQueen:
+                title = context.getString(R.string.world_boss_karka_queen);
+                break;
+            case ClawOfJormag:
+                title = context.getString(R.string.world_boss_claw_of_jormag);
+                break;
+        }
+        return title;
     }
 }
