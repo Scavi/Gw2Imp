@@ -14,7 +14,9 @@
 package com.scavi.de.gw2imp.application;
 
 import android.app.Application;
+import android.content.Intent;
 
+import com.scavi.de.gw2imp.background.DataCollectionService;
 import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
 import com.scavi.de.gw2imp.dagger2.component.DaggerApplicationComponent;
 import com.scavi.de.gw2imp.dagger2.module.ApplicationModule;
@@ -26,13 +28,15 @@ public class Gw2ImpApplication extends Application implements IApplication {
     public void onCreate() {
         super.onCreate();
         setupComponent();
+        startService(new Intent(this, DataCollectionService.class));
     }
 
     /**
      * Setup the main component for the gw2 imp application
      */
     private void setupComponent() {
-        mGw2ImpApplicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+        mGw2ImpApplicationComponent = DaggerApplicationComponent.builder().applicationModule(new
+                ApplicationModule(this)).build();
     }
 
     /**
