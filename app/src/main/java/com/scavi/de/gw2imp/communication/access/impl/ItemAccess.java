@@ -14,26 +14,40 @@
 package com.scavi.de.gw2imp.communication.access.impl;
 
 import com.scavi.de.gw2imp.communication.access.IItemAccess;
+import com.scavi.de.gw2imp.communication.error.ResponseException;
+import com.scavi.de.gw2imp.communication.response.account.AccountAchievement;
 import com.scavi.de.gw2imp.communication.response.items.Finisher;
+import com.scavi.de.gw2imp.communication.response.items.Item;
 import com.scavi.de.gw2imp.communication.rest.Gw2ApiItemPlugin;
+import com.scavi.de.gw2imp.util.network.IConnectivityAccess;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 @ParametersAreNonnullByDefault
 public class ItemAccess implements IItemAccess {
     private final Gw2ApiItemPlugin mGw2Plugin;
+    private final IConnectivityAccess mConnectivityAccess;
 
     /**
      * Constructor
      *
-     * @param retrofit the retrofit adapter
+     * @param retrofit           the retrofit adapter
+     * @param connectivityAccess the network connectivity access to determine information about
+     *                           network connection
      */
-    public ItemAccess(final Retrofit retrofit) {
+    public ItemAccess(final Retrofit retrofit,
+                      final IConnectivityAccess connectivityAccess) {
         this.mGw2Plugin = retrofit.create(Gw2ApiItemPlugin.class);
+        this.mConnectivityAccess = connectivityAccess;
     }
 
 
@@ -48,5 +62,31 @@ public class ItemAccess implements IItemAccess {
                             final Callback<Finisher> callback) {
         Call<Finisher> call = mGw2Plugin.getFinisher(id);
         call.enqueue(callback);
+    }
+
+
+    /**
+     * Makes a synchronous call to get the item to the passed ID. A wifi connection is mandatory.
+     * In case, no wifi connection exists, the method returns <code>null</code>
+     *
+     * @param id the ID of the item
+     * @return The item to the ID or <code>null</code> in case no wifi connection exists
+     * (or the ID is unknown) or if the item id doesn't exists on server side (inconsistency on
+     * server side)
+     */
+    @Override
+    public Item getItemWithWifi(final int id) throws IOException, ResponseException {
+        if (!mConnectivityAccess.hasWifiConnection()) {
+            return null;
+        }
+        Call<Item> call = mGw2Plugin.getItem(id);
+        Response<Item> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        } else if (response.code() == HttpURLConnection.HTTP_NOT_FOUND) {
+            return null;
+        } else {
+            throw new ResponseException(response.code(), response.errorBody());
+        }
     }
 }

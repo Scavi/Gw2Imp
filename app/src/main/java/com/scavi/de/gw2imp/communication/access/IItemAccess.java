@@ -13,9 +13,17 @@
  */
 package com.scavi.de.gw2imp.communication.access;
 
+import com.scavi.de.gw2imp.communication.error.ResponseException;
+import com.scavi.de.gw2imp.communication.response.account.AccountAchievement;
 import com.scavi.de.gw2imp.communication.response.items.Finisher;
+import com.scavi.de.gw2imp.communication.response.items.Item;
 
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public interface IItemAccess {
     /**
@@ -24,5 +32,17 @@ public interface IItemAccess {
      * @param id       the id of the finisher
      * @param callback the callback to process the response
      */
-    void getFinisher(final int id, final Callback<Finisher> callback);
+    void getFinisher(final int id,
+                     final Callback<Finisher> callback);
+
+
+    /**
+     * Makes a synchronous call to get the item to the passed ID. A wifi connection is mandatory.
+     * In case, no wifi connection exists, the method returns <code>null</code>
+     *
+     * @param id the ID of the item
+     * @return The item to the ID or <code>null</code> in case no wifi connection exists
+     * (or the ID is unknown)
+     */
+    Item getItemWithWifi(final int id) throws IOException, ResponseException;
 }

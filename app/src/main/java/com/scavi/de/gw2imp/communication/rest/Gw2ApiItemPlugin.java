@@ -14,6 +14,7 @@
 package com.scavi.de.gw2imp.communication.rest;
 
 import com.scavi.de.gw2imp.communication.response.items.Finisher;
+import com.scavi.de.gw2imp.communication.response.items.Item;
 
 import java.util.List;
 
@@ -28,4 +29,8 @@ public interface Gw2ApiItemPlugin {
 
     @GET("v2/finishers/{ids}")
     Call<List<Finisher>> getFinishers(@Path("ids") final String ids);
+
+
+    @GET("v2/items/{id}?lang=de")
+    Call<Item> getItem(@Path("id") final int id);
 }
