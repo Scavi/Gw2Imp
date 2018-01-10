@@ -14,6 +14,7 @@
  */
 package com.scavi.de.gw2imp.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -94,8 +95,12 @@ public abstract class AbstractDailyFragment extends AbstractFragment implements 
      */
     @Override
     public void setupDailyView(final List<Daily> dailies) {
+        Context context = getActivity() != null ? getActivity().getApplicationContext() : null;
+        if (isRemoving() || context == null) {
+            return;
+        }
         DailyAdapter adapter = new DailyAdapter(
-                getContext(),
+                context,
                 android.R.id.list,
                 dailies.toArray(new Daily[dailies.size()]));
         mDailyListView.setLayoutAnimation(createLayoutAdapterController());
