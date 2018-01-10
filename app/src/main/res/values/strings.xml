@@ -22,28 +22,56 @@
     <string name="core_navigation_account_buy">Kaufen</string>
     <string name="core_navigation_account_sell">Verkaufen</string>
     <string name="core_navigation_account_trading_market">Handelsmarkt</string>
-    <string name="core_navigation_account_trading_up">Anstieg</string>
-    <string name="core_navigation_account_trading_down">Abstieg</string>
+    <string name="core_navigation_account_trading">Waren</string>
     <string name="core_navigation_account_common">Allgemeine Informationen</string>
     <string name="core_navigation_dailies_today">Tägliche events heute</string>
     <string name="core_navigation_dailies_tomorrow">Tägliche events morgen</string>
+    <string name="core_navigation_event_timer">Event timer</string>
+    <string name="core_navigation_world_boss_event_timer">Weltbosse</string>
 
-    <string name="core_account_raid_uncompleted">OFFEN</string>
-    <string name="core_account_raid_completed">VOLLSTÄNDIG</string>
-    <string name="core_account_raid_getting_raid_data">Deine aktuellen Raid-Informationen werden ermittelt</string>
-    <string name="core_account_raid_db_error">Es trat ein Fehler beim Datenbankzugriff auf: %s</string>
-    <string name="core_account_raid_general_info">Es trat ein Fehler beim Ermitteln der Raid-Informationen auf: %s</string>
-    <string name="core_account_raid_account_data">Es trat ein Fehler beim Ermitteln der Account Raid-Informationen auf: %s</string>
+    <string name="account_raid_uncompleted">OFFEN</string>
+    <string name="account_raid_completed">VOLLSTÄNDIG</string>
+    <string name="account_raid_getting_raid_data">Deine aktuellen Raid-Informationen werden ermittelt</string>
+    <string name="account_raid_data_access_error">Es trat ein Fehler beim Datenbankzugriff auf: %s</string>
+    <string name="account_raid_general_info">Es trat ein Fehler beim Ermitteln der Raid-Informationen auf: %s</string>
+    <string name="account_raid_account_data">Es trat ein Fehler beim Ermitteln der Account Raid-Informationen auf: %s</string>
 
-    <string name="core_account_daily_getting_your_data">Deine aktuellen Event-Informationen werden ermittelt</string>
-    <string name="core_account_daily_in_progress" formatted="false">%d von %d abgeschlossen</string>
-    <string name="core_account_daily_uncompleted">OFFEN</string>
-    <string name="core_account_daily_completed">ABGESCHLOSSEN</string>
+    <string name="account_daily_getting_your_data">Deine aktuellen Event-Informationen werden ermittelt</string>
+    <string name="account_daily_in_progress" formatted="false">%d von %d abgeschlossen</string>
+    <string name="account_daily_uncompleted">OFFEN</string>
+    <string name="account_daily_completed">ABGESCHLOSSEN</string>
+
+    <string name="world_boss_getting_your_data">Deine Weltboss-Informationen werden ermittelt</string>
+    <string name="world_boss_status_pattern" formatted="false">Um %02d:%02d</string>
+    <string name="world_boss_reward_pattern" formatted="false">Bonus: %s, %s</string>
+    <string name="world_boss_chests_pattern" formatted="false">%d Kisten</string>
+    <string name="world_boss_chest_pattern" formatted="false">%d Kiste</string>
+    <string name="world_boss_reward_item_pattern">%d Gegenstand</string>
+    <string name="world_boss_reward_items_pattern">%d Gegenstände</string>
+    <string name="world_boss_data_access_error">Bei der Ermittlung der Weltboss-Informationen ist ein Fehler aufgetreten: %s</string>
+
+    <string name="trading_items_getting_your_data">Deine Handels-Informationen werden ermittelt</string>
+    <string name="trading_items_data_access_error">Bei der Ermittlung der Handels-Informationen ist ein Fehler aufgetreten: %s</string>
 
     <string name="core_license">Lizenzen</string>
     <string name="core_license_gw2_header">Guild Wars 2 Bilder</string>
     <string name="core_license_gw2_text">Das Copyright der genutzten Bilder gehört einzig und alleine ArenaNet. Für den privaten Einsatz hat ArenaNet freundlicherweise die Verwendung der Bilder gestattet. Für genauere Informationen siehe:\n\nhttps://www.guildwars2.com/en/legal/guild-wars-2-content-terms-of-use/</string>
     <string name="core_license_gw2_copyright">© 2015 ArenaNet, LLC. All rights reserved. NCSOFT, the interlocking NC logo, ArenaNet, Guild Wars, Guild Wars Factions, Guild Wars Nightfall, Guild Wars: Eye of the North, Guild Wars 2, Heart of Thorns, and all associated logos and designs are trademarks or registered trademarks of NCSOFT Corporation. All other trademarks are the property of their respective owners.</string>
+
+    <string name="world_boss_taidha_covington">Admiral Taidha Covington</string>
+    <string name="world_boss_jungle_worm">Dschungelwurm</string>
+    <string name="world_boss_evolved_jungle_worm">Triple Trouble</string>
+    <string name="world_boss_mega_destroyer">Megadestroyer</string>
+    <string name="world_boss_shadow_behemoth">Shadow Behemoth</string>
+    <string name="world_boss_shatterer">Shatterer</string>
+    <string name="world_boss_svanir_shaman_chief">Svanier Schamane</string>
+    <string name="world_boss_modniir_ulgoth">Modniier Ulgoth</string>
+    <string name="world_boss_fire_elemental">Feuerelementar</string>
+    <string name="world_boss_golem_mark_two">Golem Mark II</string>
+    <string name="world_boss_tequatl_the_sunless">Tequatl</string>
+    <string name="world_boss_frozen_maw">The frozen maw</string>
+    <string name="world_boss_karka_queen">Karka Königin</string>
+    <string name="world_boss_claw_of_jormag">Klaue Jormag</string>
 
     <string name="connection_exception">Es konnte keine Verbindung zum GuildWars2 Server hergestellt werden. Überprüfe Deine Internetverbindung.</string>
 
@@ -57,6 +85,7 @@
     <string name="http_504_connection_gateway_timeout">Es ist eine Zeitüberschreitung beim Gatewayzugriff aufgetreten. Versuche es zu einem späteren Zeitpunkt erneut. (http 504)</string>
     <string name="http_code_unknown">Es ist ein unbekannter Fehler bei der Anfrage aufgetreten (http %s)</string>
 
+    <string name="technical_fragment_data_setup_icon_description">Fehlericon</string>
     <string name="empty"></string>
 </resources>
 
