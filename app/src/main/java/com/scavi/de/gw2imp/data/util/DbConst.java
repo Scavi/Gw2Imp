@@ -19,6 +19,10 @@ public class DbConst {
     public static final String TABLE_ACHIEVEMENT_FLAGS = "AchievementFlags";
     public static final String TABLE_ACHIEVEMENT_REWARDS = "AchievementRewards";
     public static final String TABLE_ACHIEVEMENT_TIERS = "AchievementTiers";
+    public static final String TABLE_WORLD_BOSSES = "WorldBosses";
+    public static final String TABLE_ITEMS = "Items";
+    public static final String TABLE_ITEM_PRICES = "ItemPrices";
+    public static final String TABLE_ITEM_PRICE_HISTORY = "ItemPriceHistory";
 
     private DbConst() {
 
