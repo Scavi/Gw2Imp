@@ -171,13 +171,14 @@ public class Daily {
     }
 
     /**
-     * Iterates through the given dailies (pvp, pve, wvw,...) to add all entries that have the
-     * max level.
+     * Iterates through the given dailies (pvp, pve, wvw,...) to add all entries.
+     * If the flag <code>isOnlyMaxLevel</code> is set to <code>true</code> only entries with the
+     * max level will be added.
      *
      * @param dailies        the current dailies by it's context (e.g. pvp, wvw)
      * @param dailyStatus    the list of all dailies
      * @param isOnlyMaxLevel <code>true</code> only the max level will be added<br/>
-     *                       <code>false</code> all entries will be added
+     *                       <code>false</code> all entries will be converted
      */
     private static <T extends IDaily> void from(@Nullable final List<T> dailies,
                                                 final List<Daily> dailyStatus,
