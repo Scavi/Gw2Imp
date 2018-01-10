@@ -75,7 +75,7 @@ public class AccountRaidModel extends AbstractModel {
      *
      * @param callback the callback to process the raid result
      */
-    @AnyThread
+    @WorkerThread
     public void getRaidData(final FutureCallback<List<RaidEntity>> callback) {
         Callable<List<RaidEntity>> dbCall = () -> mImpDatabase.raidDAO().selectAll();
         mExecutorAccess.executeBackgroundTask(dbCall, callback);
