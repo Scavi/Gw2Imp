@@ -98,7 +98,7 @@ public class AccountRaidPresenter {
             @Override
             public void onFailure(final Throwable t) {
                 mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
-                    String errorInfo = mModel.getString(R.string.core_account_raid_db_error,
+                    String errorInfo = mModel.getString(R.string.account_raid_data_access_error,
                             t.getLocalizedMessage());
                     mView.onHideProgressAfterError();
                     mView.showUserError(errorInfo);
@@ -135,7 +135,7 @@ public class AccountRaidPresenter {
             });
         } catch (final IOException ex) {
             mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
-                String errorInfo = mModel.getString(R.string.core_account_raid_general_info,
+                String errorInfo = mModel.getString(R.string.account_raid_general_info,
                         ex.getLocalizedMessage());
                 mView.onHideProgressAfterError();
                 mView.showUserError(errorInfo);
@@ -162,7 +162,7 @@ public class AccountRaidPresenter {
             });
         } catch (final IOException ex) {
             mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
-                String errorInfo = mModel.getString(R.string.core_account_raid_account_data,
+                String errorInfo = mModel.getString(R.string.account_raid_account_data,
                         ex.getLocalizedMessage());
                 mView.onHideProgressAfterError();
                 mView.showUserError(errorInfo);
