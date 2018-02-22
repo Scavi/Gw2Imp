@@ -14,5 +14,19 @@
  */
 package com.scavi.de.gw2imp.ui.view;
 
+import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 public interface ITradingItemsView extends IStatusView {
+
+    /**
+     * @return the current name of the item we want to find
+     */
+    String getItemSearchName();
+
+
+    void updateFoundItems(@Nonnull final List<ItemEntity> foundItems);
 }

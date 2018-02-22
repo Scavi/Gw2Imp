@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">GW2Imp</string>
 
+    <string name="app_notification_title">GW2 Imp</string>
+    <string name="app_notification_text">Collecting treasures&#8230;</string>
+
     <string name="api_account_key_title">API-Key</string>
     <string name="api_account_key_text">Für den Zugriff auf den Account wird ein GW2-API Key benötigt.\nDieser kann auf der GuildWars 2 Seite nach einem erfolgreichen Account Login erstellt werden. Der API Key steht dort auch als QR Code zur Verfügung.</string>
     <string name="api_account_key_skip">Überspringen</string>

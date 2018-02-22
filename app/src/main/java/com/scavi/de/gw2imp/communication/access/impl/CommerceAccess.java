@@ -14,17 +14,16 @@
  */
 package com.scavi.de.gw2imp.communication.access.impl;
 
+import com.scavi.androidimp.env.android.IConnectivityAccess;
 import com.scavi.de.gw2imp.communication.access.ICommerceAccess;
 import com.scavi.de.gw2imp.communication.error.ResponseException;
 import com.scavi.de.gw2imp.communication.response.commerce.Price;
 import com.scavi.de.gw2imp.communication.rest.GW2CommercePlugin;
-import com.scavi.de.gw2imp.util.network.IConnectivityAccess;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import retrofit2.Call;

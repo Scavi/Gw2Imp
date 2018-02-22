@@ -24,9 +24,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.common.base.Strings;
+import com.scavi.androidimp.util.AndroidVersionHelper;
 import com.scavi.de.gw2imp.R;
 import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
-import com.scavi.de.gw2imp.ui.util.AndroidVersionHelper;
 import com.scavi.de.gw2imp.ui.util.Gw2DataMapper;
 
 import javax.annotation.ParametersAreNonnullByDefault;

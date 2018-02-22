@@ -13,17 +13,15 @@
  */
 package com.scavi.de.gw2imp.communication.access.impl;
 
+import com.scavi.androidimp.env.android.IConnectivityAccess;
 import com.scavi.de.gw2imp.communication.access.IItemAccess;
 import com.scavi.de.gw2imp.communication.error.ResponseException;
-import com.scavi.de.gw2imp.communication.response.account.AccountAchievement;
 import com.scavi.de.gw2imp.communication.response.items.Finisher;
 import com.scavi.de.gw2imp.communication.response.items.Item;
 import com.scavi.de.gw2imp.communication.rest.Gw2ApiItemPlugin;
-import com.scavi.de.gw2imp.util.network.IConnectivityAccess;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 

@@ -15,25 +15,23 @@ package com.scavi.de.gw2imp.dagger2.component;
 
 import android.content.Context;
 
+import com.scavi.androidimp.env.android.IConnectivityAccess;
+import com.scavi.androidimp.env.android.INotificationManagerAccess;
+import com.scavi.androidimp.env.android.NotificationManagerAccessImpl;
 import com.scavi.de.gw2imp.application.IApplication;
-import com.scavi.de.gw2imp.async.ExecutorAccess;
 import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.communication.access.IAccountAccess;
 import com.scavi.de.gw2imp.communication.access.IAchievementAccess;
 import com.scavi.de.gw2imp.communication.access.ICommerceAccess;
 import com.scavi.de.gw2imp.communication.access.IItemAccess;
 import com.scavi.de.gw2imp.communication.access.IMiscellaneousAccess;
-import com.scavi.de.gw2imp.communication.access.impl.CommerceAccess;
 import com.scavi.de.gw2imp.dagger2.module.ApplicationModule;
-import com.scavi.de.gw2imp.data.db.Gw2ImpDatabase;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
-import com.scavi.de.gw2imp.util.network.IConnectivityAccess;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
-import dagger.Provides;
 import retrofit2.Retrofit;
 
 @Singleton
@@ -98,6 +96,12 @@ public interface ApplicationComponent {
      * @return the network connectivity access to determine information about network connection
      */
     IConnectivityAccess getNetworkConnectivityAccess();
+
+
+    /**
+     * @return the notification manager access
+     */
+    INotificationManagerAccess getNotificationManagerAccess();
 
 
     /**

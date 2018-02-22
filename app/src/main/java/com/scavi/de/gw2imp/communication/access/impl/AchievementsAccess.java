@@ -13,15 +13,14 @@
  */
 package com.scavi.de.gw2imp.communication.access.impl;
 
+import com.scavi.androidimp.util.RestHelper;
 import com.scavi.de.gw2imp.communication.access.IAchievementAccess;
 import com.scavi.de.gw2imp.communication.error.ResponseException;
 import com.scavi.de.gw2imp.communication.response.achievement.Achievement;
 import com.scavi.de.gw2imp.communication.response.achievement.Category;
 import com.scavi.de.gw2imp.communication.response.achievement.DailyAchievements;
 import com.scavi.de.gw2imp.communication.response.achievement.Group;
-import com.scavi.de.gw2imp.communication.response.misc.RaidData;
 import com.scavi.de.gw2imp.communication.rest.Gw2ApiAchievementPlugin;
-import com.scavi.de.gw2imp.util.RestHelper;
 
 import java.io.IOException;
 import java.util.List;

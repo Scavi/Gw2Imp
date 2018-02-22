@@ -29,8 +29,8 @@ import xyz.belvi.mobilevisionbarcodescanner.BarcodeRetriever;
 @ParametersAreNonnullByDefault
 public class ApiKeyQrCaptureModel extends Observable implements BarcodeRetriever {
     public static final int RC_VALID = 0;
-    public static final int RC_RETRIEVE_FAILED = -10;
-    public static final int RC_MISSING_PERMISSION = -20;
+    private static final int RC_RETRIEVE_FAILED = -10;
+    private static final int RC_MISSING_PERMISSION = -20;
 
 
     /**

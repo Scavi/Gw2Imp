@@ -13,11 +13,11 @@
  */
 package com.scavi.de.gw2imp.dagger2.component;
 
+import com.scavi.androidimp.util.ActivityScope;
 import com.scavi.de.gw2imp.dagger2.module.OverviewModule;
 import com.scavi.de.gw2imp.model.OverviewModel;
 import com.scavi.de.gw2imp.presenter.OverviewPresenter;
 import com.scavi.de.gw2imp.ui.fragment.OverviewFragment;
-import com.scavi.de.gw2imp.util.ActivityScope;
 
 import dagger.Component;
 

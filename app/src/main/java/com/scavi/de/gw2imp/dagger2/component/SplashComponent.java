@@ -13,11 +13,11 @@
  */
 package com.scavi.de.gw2imp.dagger2.component;
 
+import com.scavi.androidimp.util.ActivityScope;
 import com.scavi.de.gw2imp.dagger2.module.SplashModule;
 import com.scavi.de.gw2imp.model.SplashModel;
 import com.scavi.de.gw2imp.presenter.SplashPresenter;
 import com.scavi.de.gw2imp.ui.activity.SplashActivity;
-import com.scavi.de.gw2imp.util.ActivityScope;
 
 import dagger.Component;
 

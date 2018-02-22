@@ -10,7 +10,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 package com.scavi.de.gw2imp.data.entity.item;
 
@@ -25,39 +24,52 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 
 @Entity(tableName = DbConst.TABLE_ITEM_PRICE_HISTORY,
+        primaryKeys = {"id", "startOfMonth"},
         foreignKeys = @ForeignKey(
                 entity = ItemEntity.class,
                 parentColumns = "id",
                 childColumns = "id"))
 @ParametersAreNonnullByDefault
 public class ItemPriceHistoryEntity {
-    @PrimaryKey
     @ColumnInfo(name = "id")
     private final int mItemId;
-    @ColumnInfo(name = "month")
-    private final int mMonth;
-    @ColumnInfo(name = "min")
-    private final int mMinPrice;
-    @ColumnInfo(name = "max")
-    private final int mMaxPrice;
-
+    @ColumnInfo(name = "startOfMonth")
+    private final long mTsStartOfMonth;
+    @ColumnInfo(name = "avgStartBuy")
+    private final int mAvgStartBuy;
+    @ColumnInfo(name = "avgEndBuy")
+    private final int mAvgEndBuy;
+    @ColumnInfo(name = "avgStartSell")
+    private final int mAvgStartSell;
+    @ColumnInfo(name = "avgEndSell")
+    private final int mAvgEndSell;
 
     /**
      * Constructor
      *
-     * @param itemId   the unique id of the item
-     * @param month    the month that shows the min / max price
-     * @param minPrice the min price of this item during the month
-     * @param maxPrice the max price of this item during the month
+     * @param itemId         the unique id of the item
+     * @param tsStartOfMonth the timestamp of the start of the month
+     * @param avgStartBuy    the average buy-price of the start of the month (calculate the average
+     *                       of the first half of all prices)
+     * @param avgEndBuy      the average buy-price of the end of the month (calculate the average of
+     *                       the last half of all prices)
+     * @param avgStartSell   the average sell-price of the start of the month (calculate the average
+     *                       of the first half of all prices)
+     * @param avgEndSell     the average sell-price of the end of the month (calculate the
+     *                       average of the last half of all prices)
      */
     public ItemPriceHistoryEntity(final int itemId,
-                                  final int month,
-                                  final int minPrice,
-                                  final int maxPrice) {
+                                  final long tsStartOfMonth,
+                                  final int avgStartBuy,
+                                  final int avgEndBuy,
+                                  final int avgStartSell,
+                                  final int avgEndSell) {
         mItemId = itemId;
-        mMonth = month;
-        mMinPrice = minPrice;
-        mMaxPrice = maxPrice;
+        mTsStartOfMonth = tsStartOfMonth;
+        mAvgStartBuy = avgStartBuy;
+        mAvgEndBuy = avgEndBuy;
+        mAvgStartSell = avgStartSell;
+        mAvgEndSell = avgEndSell;
     }
 
 
@@ -68,27 +80,42 @@ public class ItemPriceHistoryEntity {
         return mItemId;
     }
 
-
     /**
-     * @return the month that shows the min / max price
+     * @return the timestamp of the start of the month
      */
-    public int getMonth() {
-        return mMonth;
+    public long getTsStartOfMonth() {
+        return mTsStartOfMonth;
     }
 
-
     /**
-     * @return the min price of this item during the month
+     * @return the average buy price of the start of the month (calculate the average
+     * of the first half of all prices)
      */
-    public int getMinPrice() {
-        return mMinPrice;
+    public int getAvgStartBuy() {
+        return mAvgStartBuy;
     }
 
+    /**
+     * @return the average buy price of the end of the month (calculate the average of
+     * the last half of all prices)
+     */
+    public int getAvgEndBuy() {
+        return mAvgEndBuy;
+    }
 
     /**
-     * @return the max price of this item during the month
+     * @return the average sell-price of the start of the month (calculate the average
+     * of the first half of all prices)
      */
-    public int getMaxPrice() {
-        return mMaxPrice;
+    public int getAvgStartSell() {
+        return mAvgStartSell;
+    }
+
+    /**
+     * @return the average sell-price of the end of the month (calculate the
+     * average of the last half of all prices)
+     */
+    public int getAvgEndSell() {
+        return mAvgEndSell;
     }
 }

@@ -14,11 +14,11 @@
  */
 package com.scavi.de.gw2imp.dagger2.component;
 
+import com.scavi.androidimp.util.ActivityScope;
 import com.scavi.de.gw2imp.dagger2.module.WorldBossEventTimerModule;
 import com.scavi.de.gw2imp.model.WorldBossEventTimerModel;
 import com.scavi.de.gw2imp.presenter.WorldBossEventTimerPresenter;
 import com.scavi.de.gw2imp.ui.fragment.WorldBossEventTimerFragment;
-import com.scavi.de.gw2imp.util.ActivityScope;
 
 import dagger.Component;
 

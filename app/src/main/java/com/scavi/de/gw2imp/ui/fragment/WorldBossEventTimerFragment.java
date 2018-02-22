@@ -28,9 +28,7 @@ import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
 import com.scavi.de.gw2imp.dagger2.component.DaggerWorldBossEventTimerComponent;
 import com.scavi.de.gw2imp.dagger2.module.WorldBossEventTimerModule;
 import com.scavi.de.gw2imp.data.entity.event.WorldBossEntity;
-import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
 import com.scavi.de.gw2imp.presenter.WorldBossEventTimerPresenter;
-import com.scavi.de.gw2imp.ui.adapter.RaidAdapter;
 import com.scavi.de.gw2imp.ui.adapter.WorldBossesAdapter;
 import com.scavi.de.gw2imp.ui.view.IWorldBossEventTimerView;
 

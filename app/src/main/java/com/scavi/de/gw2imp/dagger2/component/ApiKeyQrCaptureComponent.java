@@ -13,11 +13,11 @@
  */
 package com.scavi.de.gw2imp.dagger2.component;
 
+import com.scavi.androidimp.util.ActivityScope;
 import com.scavi.de.gw2imp.dagger2.module.ApiKeyQrCaptureModule;
 import com.scavi.de.gw2imp.model.ApiKeyQrCaptureModel;
 import com.scavi.de.gw2imp.presenter.ApiKeyQrCapturePresenter;
 import com.scavi.de.gw2imp.ui.activity.ApiKeyQrCaptureActivity;
-import com.scavi.de.gw2imp.util.ActivityScope;
 
 import dagger.Component;
 

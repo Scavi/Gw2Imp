@@ -13,11 +13,11 @@
  */
 package com.scavi.de.gw2imp.dagger2.component;
 
+import com.scavi.androidimp.util.ActivityScope;
 import com.scavi.de.gw2imp.dagger2.module.AccountCharacterModule;
 import com.scavi.de.gw2imp.model.AccountCharacterModel;
 import com.scavi.de.gw2imp.presenter.AccountCharacterPresenter;
 import com.scavi.de.gw2imp.ui.fragment.AccountCharacterFragment;
-import com.scavi.de.gw2imp.util.ActivityScope;
 
 import dagger.Component;
 

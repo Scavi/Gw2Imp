@@ -17,6 +17,7 @@ package com.scavi.de.gw2imp.background.collector;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
+import com.scavi.androidimp.util.RestHelper;
 import com.scavi.de.gw2imp.communication.access.ICommerceAccess;
 import com.scavi.de.gw2imp.communication.access.IItemAccess;
 import com.scavi.de.gw2imp.communication.error.ResponseException;
@@ -25,7 +26,6 @@ import com.scavi.de.gw2imp.communication.response.items.Item;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
-import com.scavi.de.gw2imp.util.RestHelper;
 
 import java.io.IOException;
 import java.util.List;
@@ -175,7 +175,7 @@ public class ItemCollector extends Thread {
     @VisibleForTesting
     protected void updateHistoryItemPrices() {
         try {
-
+            // TODO
 
         } catch (Exception ex) {
             Log.e(TAG, ex.getMessage(), ex); // TODO

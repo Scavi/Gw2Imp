@@ -13,12 +13,12 @@
  */
 package com.scavi.de.gw2imp.dagger2.component;
 
+import com.scavi.androidimp.util.ActivityScope;
 import com.scavi.de.gw2imp.dagger2.module.DailyModule;
 import com.scavi.de.gw2imp.model.DailyModel;
 import com.scavi.de.gw2imp.presenter.DailyPresenter;
 import com.scavi.de.gw2imp.ui.fragment.DailyFragment;
 import com.scavi.de.gw2imp.ui.fragment.DailyTomorrowFragment;
-import com.scavi.de.gw2imp.util.ActivityScope;
 
 import dagger.Component;
 

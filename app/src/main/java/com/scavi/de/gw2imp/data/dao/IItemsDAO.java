@@ -54,6 +54,14 @@ public interface IItemsDAO {
 
 
     /**
+     * @param name the name of the item. Wildcard can be used
+     * @return the item to the given id from the DAO
+     */
+    @Query("SELECT * FROM " + DbConst.TABLE_ITEMS + " WHERE name LIKE(:name)")
+    List<ItemEntity> selectItems(final String name);
+
+
+    /**
      * @return the amount of distinct items in the database
      */
     @Query("SELECT COUNT(*) FROM " + DbConst.TABLE_ITEMS)
@@ -85,10 +93,11 @@ public interface IItemsDAO {
 
 
     /**
+     * @param id all prices to the given ID
      * @return the item to the given id from the DAO
      */
-    @Query("SELECT * FROM " + DbConst.TABLE_ITEM_PRICES)
-    List<ItemPriceEntity> selectItemPrices();
+    @Query("SELECT * FROM " + DbConst.TABLE_ITEM_PRICES + " WHERE id = :id")
+    List<ItemPriceEntity> selectItemPricesByName(final int id);
 
 
     /**

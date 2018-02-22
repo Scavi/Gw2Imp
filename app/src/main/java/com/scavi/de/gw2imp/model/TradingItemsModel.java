@@ -15,23 +15,59 @@
 package com.scavi.de.gw2imp.model;
 
 import android.content.Context;
+import android.support.annotation.WorkerThread;
+import android.text.TextWatcher;
 
+import com.google.common.util.concurrent.FutureCallback;
+import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
+import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
+import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
+import com.scavi.de.gw2imp.ui.util.DelayedTextFieldWatcher;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TimerTask;
 
 public class TradingItemsModel {
+    public static final int TRADING_ITEM_DELAY_MS = 2000;
     private final Context mContext;
     private final IDatabaseAccess mImpDatabase;
-
+    private final IExecutorAccess mExecutorAccess;
 
     /**
      * Constructor
      *
-     * @param context     the context to global information about the application environment
-     * @param impDatabase the database access of this application
+     * @param context        the context to global information about the application environment
+     * @param impDatabase    the database access of this application
+     * @param executorAccess to access the main and background threads
      */
     public TradingItemsModel(final Context context,
-                             final IDatabaseAccess impDatabase) {
+                             final IDatabaseAccess impDatabase,
+                             final IExecutorAccess executorAccess) {
         mContext = context;
         mImpDatabase = impDatabase;
+        mExecutorAccess = executorAccess;
     }
+
+
+    @WorkerThread
+    public List<ItemEntity> selectItemsToName(String name) {
+        if (name == null || name.isEmpty()) {
+            return new ArrayList<>(0);
+        }
+        name = name.endsWith("%") ? name : name + "%";
+        return mImpDatabase.itemsDAO().selectItems(name);
+    }
+
+
+    /**
+     * @return to access the main and background threads
+     */
+    public IExecutorAccess getExecutorAccess() {
+        return mExecutorAccess;
+    }
+
+
+
 }

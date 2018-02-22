@@ -15,9 +15,12 @@ package com.scavi.de.gw2imp.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -29,8 +32,13 @@ import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
 import com.scavi.de.gw2imp.dagger2.component.DaggerTradingItemsComponent;
 import com.scavi.de.gw2imp.dagger2.module.TradingItemsModule;
+import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
 import com.scavi.de.gw2imp.presenter.TradingItemsPresenter;
+import com.scavi.de.gw2imp.ui.util.DelayedTextFieldWatcher;
 import com.scavi.de.gw2imp.ui.view.ITradingItemsView;
+
+import java.util.List;
+import java.util.TimerTask;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -38,7 +46,9 @@ import javax.inject.Inject;
 public class TradingItemsFragment extends AbstractStatusFragment implements ITradingItemsView {
     @Inject
     TradingItemsPresenter mPresenter;
-
+    private EditText mSearchItemName;
+    private Spinner mTradingItemsToName;
+    private GraphView mTradingItemGraph;
 
     /**
      * Called to have the fragment instantiate its user interface view. This is optional, and
@@ -63,17 +73,30 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
         injectComponent(((IApplication) getActivity().getApplicationContext()).getComponent());
         View view = inflater.inflate(R.layout.fragment_trading_item, container, false);
         setupUiComponents(view);
-        updateChart(view);
         return view;
     }
 
 
-    private void updateChart(@Nonnull final View view) {
+    @Override
+    protected void setupUiComponents(final View fragmentView) {
+        super.setupUiComponents(fragmentView);
+        mTradingItemGraph = fragmentView.findViewById(R.id.item_price_chart);
+        mTradingItemsToName = fragmentView.findViewById(R.id.found_trading_items);
+        mSearchItemName = fragmentView.findViewById(R.id.search_trading_item_name);
+        mSearchItemName.addTextChangedListener(mPresenter.createTradingItemTextDelay());
+    }
 
-        GraphView graph = view.findViewById(R.id.item_price_chart);
-        graph.getLegendRenderer().setVisible(true);
-        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+
+    @Override
+    public String getItemSearchName() {
+        return mSearchItemName.getText().toString();
+    }
+
+    @Override
+    public void updateFoundItems(@Nonnull final List<ItemEntity> foundItems) {
+        mTradingItemGraph.getLegendRenderer().setVisible(true);
+        mTradingItemGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+        mTradingItemGraph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value,
                                       boolean isValueX) {
@@ -116,58 +139,10 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
         series2.setColor(0xFF00FFFF);
         series2.setAnimated(true);
         series2.setTitle("bar");
-        graph.addSeries(series1);
-        graph.addSeries(series2);
-
-
-        // other graph: http://www.android-graphview.org/
-//        ValueLineChart mCubicValueLineChart = view.findViewById(R.id.item_price_chart);
-//
-//        ValueLineSeries series1 = new ValueLineSeries();
-//        series1.setColor(0xFF0000FF);
-//
-//        series1.addPoint(new ValueLinePoint("Jan", 2.4f));
-//        series1.addPoint(new ValueLinePoint("Feb", 3.4f));
-//        series1.addPoint(new ValueLinePoint("Mar", .4f));
-//        series1.addPoint(new ValueLinePoint("Apr", 1.2f));
-//        series1.addPoint(new ValueLinePoint("Mai", 2.6f));
-//        series1.addPoint(new ValueLinePoint("Jun", 1.0f));
-//        series1.addPoint(new ValueLinePoint("Jul", 3.5f));
-//        series1.addPoint(new ValueLinePoint("Aug", 2.4f));
-//        series1.addPoint(new ValueLinePoint("Sep", 2.4f));
-//        series1.addPoint(new ValueLinePoint("Oct", 3.4f));
-//        series1.addPoint(new ValueLinePoint("Nov", .4f));
-//        series1.addPoint(new ValueLinePoint("Dec", 1.3f));
-//        series1.addPoint(new ValueLinePoint("|", 1.3f));
-//        series1.addPoint(new ValueLinePoint("", 1.3f));
-//        series1.addPoint(new ValueLinePoint("", 1.3f));
-//        series1.addPoint(new ValueLinePoint("", 1.1f));
-//
-//
-//        ValueLineSeries series2 = new ValueLineSeries();
-//        series2.setColor(0xFF00FFFF);
-//
-//        series2.addPoint(new ValueLinePoint("Jan", 2.0f));
-//        series2.addPoint(new ValueLinePoint("Feb", 3.0f));
-//        series2.addPoint(new ValueLinePoint("Mar", .3f));
-//        series2.addPoint(new ValueLinePoint("Apr", 1.1f));
-//        series2.addPoint(new ValueLinePoint("Mai", 2.1f));
-//        series2.addPoint(new ValueLinePoint("Jun", 0.7f));
-//        series2.addPoint(new ValueLinePoint("Jul", 3.2f));
-//        series2.addPoint(new ValueLinePoint("Aug", 2.1f));
-//        series2.addPoint(new ValueLinePoint("Sep", 2.3f));
-//        series2.addPoint(new ValueLinePoint("Oct", 3.2f));
-//        series2.addPoint(new ValueLinePoint("Nov", .1f));
-//        series2.addPoint(new ValueLinePoint("Dec", 1.1f));
-//        series2.addPoint(new ValueLinePoint("", 1.2f));
-//        series2.addPoint(new ValueLinePoint("", 1.2f));
-//        series2.addPoint(new ValueLinePoint("", 1.2f));
-//        series2.addPoint(new ValueLinePoint("", 1.0f));
-//
-//        mCubicValueLineChart.addSeries(series1);
-//        mCubicValueLineChart.addSeries(series2);
-//        mCubicValueLineChart.startAnimation();
+        mTradingItemGraph.addSeries(series1);
+        mTradingItemGraph.addSeries(series2);
     }
+
 
     /**
      * This method will be called to setup the dagger module of the current activity
@@ -209,4 +184,6 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
     protected int getGettingThingsDoneContainerId() {
         return R.id.trading_items_getting_things_done;
     }
+
+
 }

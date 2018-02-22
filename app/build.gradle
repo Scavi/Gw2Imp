@@ -85,4 +85,6 @@ dependencies {
     //compile 'com.nineoldandroids:library:2.4.0'
     // Chart and Graph Library for Android
     compile 'com.jjoe64:graphview:4.2.1'
+
+    compile 'com.scavi.androidimp:android-imp:0.0.3.0@aar'
 }

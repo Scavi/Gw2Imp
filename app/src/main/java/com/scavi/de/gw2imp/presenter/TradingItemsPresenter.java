@@ -14,8 +14,15 @@
  */
 package com.scavi.de.gw2imp.presenter;
 
+import android.text.TextWatcher;
+
+import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
 import com.scavi.de.gw2imp.model.TradingItemsModel;
+import com.scavi.de.gw2imp.ui.util.DelayedTextFieldWatcher;
 import com.scavi.de.gw2imp.ui.view.ITradingItemsView;
+
+import java.util.List;
+import java.util.TimerTask;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
@@ -37,4 +44,49 @@ public class TradingItemsPresenter {
         mView = view;
         mModel = model;
     }
+
+
+    /**
+     * @return
+     */
+    public TextWatcher createTradingItemTextDelay() {
+        return new DelayedTextFieldWatcher(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        Runnable itemSearch = createItemSearchProcessor();
+                        mModel.getExecutorAccess().getUiThreadExecutor().execute(itemSearch);
+                    }
+                }, TradingItemsModel.TRADING_ITEM_DELAY_MS);
+    }
+
+
+    /**
+     *
+     */
+    private Runnable createItemSearchProcessor() {
+        return () -> {
+            String itemName = mView.getItemSearchName();
+            mView.onShowProgress();
+            Runnable itemSearchProcess = createItemSearchProcessor(itemName);
+            mModel.getExecutorAccess().getBackgroundThreadExecutor().execute(itemSearchProcess);
+        };
+    }
+
+
+    /**
+     * @param itemName
+     * @return
+     */
+    private Runnable createItemSearchProcessor(final String itemName) {
+        return () -> {
+            List<ItemEntity> foundItems = mModel.selectItemsToName(itemName);
+            mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
+                mView.onHideProgress();
+                mView.updateFoundItems(foundItems);
+            });
+        };
+    }
+
+
 }

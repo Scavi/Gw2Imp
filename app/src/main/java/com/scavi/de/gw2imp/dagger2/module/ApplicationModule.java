@@ -20,7 +20,10 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.mikepenz.fastadapter.IItem;
+import com.scavi.androidimp.env.android.IConnectivityAccess;
+import com.scavi.androidimp.env.android.INotificationManagerAccess;
+import com.scavi.androidimp.env.android.NetworkConnectivityAccess;
+import com.scavi.androidimp.env.android.NotificationManagerAccessImpl;
 import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.async.ExecutorAccess;
 import com.scavi.de.gw2imp.async.IExecutorAccess;
@@ -40,8 +43,6 @@ import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.preferences.PreferenceManager;
 import com.scavi.de.gw2imp.util.Const;
-import com.scavi.de.gw2imp.util.network.IConnectivityAccess;
-import com.scavi.de.gw2imp.util.network.NetworkConnectivityAccess;
 
 import java.util.concurrent.TimeUnit;
 
@@ -51,7 +52,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -211,6 +211,17 @@ public class ApplicationModule {
     @Singleton
     IConnectivityAccess provideNetworkConnectivityAccess(final Context context) {
         return new NetworkConnectivityAccess(context);
+    }
+
+
+    /**
+     * @param context the context to global information about the application environment
+     * @return the notification manager access
+     */
+    @Provides
+    @Singleton
+    INotificationManagerAccess provideNotificationManagerAccess(final Context context) {
+        return new NotificationManagerAccessImpl(context);
     }
 
 

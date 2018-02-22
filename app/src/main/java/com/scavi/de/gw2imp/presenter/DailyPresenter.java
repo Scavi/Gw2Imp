@@ -66,12 +66,9 @@ public class DailyPresenter {
                     mView.onHideProgress();
                     mView.setupDailyView(Daily.injectSections(dailies));
                 });
-
             } catch (IOException ioEx) {
-                mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
-                    mView.onHideProgressAfterError();
-                    // TODO
-                });
+                mModel.getExecutorAccess().getUiThreadExecutor().execute
+                        (mView::onHideProgressAfterError);
             } catch (final ResponseException ex) {
                 mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
                     mView.onHideProgressAfterError();
@@ -102,10 +99,8 @@ public class DailyPresenter {
                     mView.onHideProgress();
                 });
             } catch (IOException ioEx) {
-                mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
-                    mView.onHideProgressAfterError();
-                    // TODO
-                });
+                mModel.getExecutorAccess().getUiThreadExecutor().execute(
+                        (mView::onHideProgressAfterError));
             } catch (final ResponseException ex) {
                 mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
                     mView.onHideProgressAfterError();
