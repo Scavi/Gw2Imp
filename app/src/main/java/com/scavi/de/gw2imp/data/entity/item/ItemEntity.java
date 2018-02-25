@@ -22,6 +22,9 @@ import android.support.annotation.NonNull;
 import com.scavi.de.gw2imp.communication.response.items.Item;
 import com.scavi.de.gw2imp.data.util.DbConst;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @Entity(tableName = DbConst.TABLE_ITEMS)
@@ -106,5 +109,20 @@ public class ItemEntity {
     @NonNull
     public String getIconUrl() {
         return mIconUrl;
+    }
+
+
+    @Override
+    public String toString() {
+        return mName;
+    }
+
+
+    public static List<String> toNameList(final ItemEntity[] items) {
+        List<String> names = new ArrayList<>(items.length);
+        for (ItemEntity item : items) {
+            names.add(item.getName());
+        }
+        return names;
     }
 }

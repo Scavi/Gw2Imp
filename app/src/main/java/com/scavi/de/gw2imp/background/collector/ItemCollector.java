@@ -28,6 +28,7 @@ import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -36,13 +37,17 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class ItemCollector extends Thread {
     private static final String TAG = "ItemPriceCollector";
+    // the constant defines how many items will be processed at once (e.g. load 100 item prices)
     private static final int ITEM_PROCESS_SIZE = 100;
+    // the constant defines the iteration until we wait before interact with the server again
+    // while loading all prices / items
+    private static final int ITEM_PROCESS_WAIT_COUNT = ITEM_PROCESS_SIZE * 10;
     private static final long ITERATION_MS = 60 * 60 * 1000;
+    // the wait time (give the server time to breath ;-))
     private static final int TOO_MANY_REQUEST_DELAY_MS = 60 * 1000;
     private final IDatabaseAccess mDatabaseAccess;
     private final IItemAccess mItemAccess;
     private final ICommerceAccess mCommerceAccess;
-    private boolean mItemsLoaded;
 
     /**
      * Constructor
@@ -70,7 +75,8 @@ public class ItemCollector extends Thread {
     @Override
     public void run() {
         while (!isInterrupted()) {
-            //loadItems();
+            List<Integer> allCommerceItemIds = loadAllCommerceItemIds();
+            loadItemsAndPrices(allCommerceItemIds);
             //updateHistoryItemPrices();
             waitMs(ITERATION_MS);
         }
@@ -78,54 +84,59 @@ public class ItemCollector extends Thread {
 
 
     /**
-     * This method loads all item IDs that have a commerce context. Currently there are around
-     * 25000 out of 88000 commerce items.
-     * After that, the method initiates the processing of the loaded prices.
+     * Loads the item IDs with a commerce item id context
+     *
+     * @return a list of all item IDs in a commerce context
      */
-    @VisibleForTesting
-    protected void loadItems() {
-        if (!mItemsLoaded) {
-            try {
-                // all commerce item IDs
-                List<Integer> allCommerceItemIds = mCommerceAccess.getAllCommerceItemsWithWifi();
-                int pos = 0;
-                while (pos < allCommerceItemIds.size()) {
-                    Log.i(TAG, "loaded items: " + mDatabaseAccess.itemsDAO().selectItemCount());
-                    Log.i(TAG, "loaded item prices: " + mDatabaseAccess.itemsDAO()
-                            .selectItemPriceCount());
-                    String ids = RestHelper.splitIntToGetParamList(allCommerceItemIds,
-                            pos, ITEM_PROCESS_SIZE);
-                    List<Price> prices = mCommerceAccess.getPricesWithWifi(ids);
-                    processPrices(prices);
-                    pos += ITEM_PROCESS_SIZE;
+    private List<Integer> loadAllCommerceItemIds() {
+        List<Integer> allCommerceItemIds = new LinkedList<>();
+        try {
+            allCommerceItemIds = mCommerceAccess.getAllCommerceItemsWithWifi();
+        } catch (Exception ex) {
+            Log.e(TAG, ex.getMessage(), ex); // TODO
+        }
+        return allCommerceItemIds;
+    }
 
-                    // to prevent too many request at once, wait every 1000 processed items
-                    if (pos % 1000 == 0) {
-                        waitMs(TOO_MANY_REQUEST_DELAY_MS);
-                    }
+
+    /**
+     * This method loads all prices (and their items) to the given item IDs that have a
+     * commerce context. Currently there are around 25000 out of 88000 commerce items.
+     * After that, the method initiates the processing of the loaded prices.
+     *
+     * @param allCommerceItemIds all item ids
+     */
+    private void loadItemsAndPrices(final List<Integer> allCommerceItemIds) {
+        if (allCommerceItemIds.size() == 0) {
+            return;
+        }
+        int pos = 0;
+        // initiates the loading of items and their price via REST. Since each item must
+        // be loaded in a single request, this loop loads the items in chunks (otherwise
+        // we might have too many requests at once)
+        while (pos < allCommerceItemIds.size()) {
+            try {
+                Log.i(TAG, "loaded items: " + mDatabaseAccess.itemsDAO().selectItemCount());
+                Log.i(TAG, "loaded item prices: " +
+                        mDatabaseAccess.itemsDAO().selectItemPriceCount());
+                // creates a "," separated list of item IDs for the GET parameter
+                String ids = RestHelper.splitIntToGetParamList(allCommerceItemIds,
+                        pos, ITEM_PROCESS_SIZE);
+                // all prices to the "," separated ID list.
+                List<Price> prices = mCommerceAccess.getPricesWithWifi(ids);
+
+                processPrices(prices);
+                pos += ITEM_PROCESS_SIZE;
+
+                // to prevent too many request at once, wait every 1000 processed items
+                if (pos % ITEM_PROCESS_WAIT_COUNT == 0) {
+                    waitMs(TOO_MANY_REQUEST_DELAY_MS);
                 }
-                mItemsLoaded = true;
             } catch (Exception ex) {
                 Log.e(TAG, ex.getMessage(), ex); // TODO
             }
         }
     }
-
-    /**
-     * Waits the given ms
-     *
-     * @param toWait the ms to wait
-     */
-    private void waitMs(final long toWait) {
-        synchronized (this) {
-            try {
-                wait(toWait);
-            } catch (InterruptedException ex) {
-                Log.e(TAG, ex.getMessage(), ex); // TODO
-            }
-        }
-    }
-
 
     /**
      * Verifies, if the general item information (id, name, icon) already exists. If not, the item
@@ -146,7 +157,6 @@ public class ItemCollector extends Thread {
             // item is not known yet. Load the item via the REST API
             if (knownItem == null) {
                 Item newItem = mItemAccess.getItemWithWifi(price.getId());
-
                 if (newItem != null) {
                     mDatabaseAccess.itemsDAO().insertItems(new ItemEntity(newItem));
                     isItemExisting = true;
@@ -172,6 +182,10 @@ public class ItemCollector extends Thread {
     }
 
 
+    /**
+     * This method will be used to update older prices.
+     * To save some space on the smartphone, prices of the previous months will be merged together.
+     */
     @VisibleForTesting
     protected void updateHistoryItemPrices() {
         try {
@@ -179,6 +193,22 @@ public class ItemCollector extends Thread {
 
         } catch (Exception ex) {
             Log.e(TAG, ex.getMessage(), ex); // TODO
+        }
+    }
+
+
+    /**
+     * Waits the given ms
+     *
+     * @param toWait the ms to wait
+     */
+    private void waitMs(final long toWait) {
+        synchronized (this) {
+            try {
+                wait(toWait);
+            } catch (InterruptedException ex) {
+                Log.e(TAG, ex.getMessage(), ex); // TODO
+            }
         }
     }
 }

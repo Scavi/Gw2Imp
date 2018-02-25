@@ -55,6 +55,10 @@
 
     <string name="trading_items_getting_your_data">Deine Handels-Informationen werden ermittelt</string>
     <string name="trading_items_data_access_error">Bei der Ermittlung der Handels-Informationen ist ein Fehler aufgetreten: %s</string>
+    <string name="trading_items_search">Suche</string>
+    <string name="trading_items_buy">Kaufspreis</string>
+    <string name="trading_items_sell">Verkaufspreis</string>
+    <string name="trading_items_currency_format">%s %s</string>
 
     <string name="core_license">Lizenzen</string>
     <string name="core_license_gw2_header">Guild Wars 2 Bilder</string>

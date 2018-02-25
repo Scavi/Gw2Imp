@@ -16,22 +16,20 @@ package com.scavi.de.gw2imp.model;
 
 import android.content.Context;
 import android.support.annotation.WorkerThread;
-import android.text.TextWatcher;
 
-import com.google.common.util.concurrent.FutureCallback;
 import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
-import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
-import com.scavi.de.gw2imp.ui.util.DelayedTextFieldWatcher;
+import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
+import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimerTask;
 
-public class TradingItemsModel {
-    public static final int TRADING_ITEM_DELAY_MS = 2000;
-    private final Context mContext;
+import javax.annotation.Nonnull;
+
+public class TradingItemsModel extends AbstractModel {
+    public static final int TRADING_ITEM_DELAY_MS = 400;
     private final IDatabaseAccess mImpDatabase;
     private final IExecutorAccess mExecutorAccess;
 
@@ -45,19 +43,46 @@ public class TradingItemsModel {
     public TradingItemsModel(final Context context,
                              final IDatabaseAccess impDatabase,
                              final IExecutorAccess executorAccess) {
-        mContext = context;
+        super(context);
         mImpDatabase = impDatabase;
         mExecutorAccess = executorAccess;
     }
 
 
+    /**
+     * Selects all items by name
+     *
+     * @param name the name
+     * @return all items to the given name
+     */
     @WorkerThread
     public List<ItemEntity> selectItemsToName(String name) {
         if (name == null || name.isEmpty()) {
             return new ArrayList<>(0);
         }
+        name = name.trim();
         name = name.endsWith("%") ? name : name + "%";
         return mImpDatabase.itemsDAO().selectItems(name);
+    }
+
+
+    /**
+     * @param item the item
+     * @return all prices to the item
+     */
+    @WorkerThread
+    public List<ItemPriceEntity> selectItemPrices(@Nonnull final ItemEntity item) {
+        return mImpDatabase.itemsDAO().selectItemPrices(item.getItemId());
+    }
+
+
+    /**
+     * @param item the item
+     * @return all history prices to the given item
+     */
+    @WorkerThread
+    public List<ItemPriceHistoryEntity> selectItemPriceHistory(@Nonnull final ItemEntity item) {
+        return mImpDatabase.itemsDAO().selectItemPriceHistory(item.getItemId());
     }
 
 
@@ -67,7 +92,4 @@ public class TradingItemsModel {
     public IExecutorAccess getExecutorAccess() {
         return mExecutorAccess;
     }
-
-
-
 }

@@ -78,14 +78,6 @@ public interface IItemsDAO {
 
 
     /**
-     * @param id the id of the item
-     * @return the item to the given id from the DAO
-     */
-    @Query("SELECT * FROM " + DbConst.TABLE_ITEM_PRICES + " WHERE id = :id")
-    ItemPriceEntity selectItemPrice(final int id);
-
-
-    /**
      * @return the item to the given id from the DAO
      */
     @Query("SELECT COUNT(*) FROM " + DbConst.TABLE_ITEM_PRICES)
@@ -97,7 +89,7 @@ public interface IItemsDAO {
      * @return the item to the given id from the DAO
      */
     @Query("SELECT * FROM " + DbConst.TABLE_ITEM_PRICES + " WHERE id = :id")
-    List<ItemPriceEntity> selectItemPricesByName(final int id);
+    List<ItemPriceEntity> selectItemPrices(final int id);
 
 
     /**
@@ -114,5 +106,5 @@ public interface IItemsDAO {
      * @return the item to the given id from the DAO
      */
     @Query("SELECT * FROM " + DbConst.TABLE_ITEM_PRICE_HISTORY + " WHERE id = :id")
-    ItemPriceHistoryEntity selectItemPriceHistory(final int id);
+    List<ItemPriceHistoryEntity> selectItemPriceHistory(final int id);
 }

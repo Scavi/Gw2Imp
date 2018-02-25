@@ -24,34 +24,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/search_trading_item_name"
+            style="@style/Gw2ImpTheme.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/trading_items_search_item_name_margin_bottom"
             android:layout_marginEnd="@dimen/trading_items_search_item_name_margin_right"
             android:layout_marginStart="@dimen/trading_items_search_item_name_margin_left"
-            android:layout_marginTop="@dimen/trading_items_search_item_name_margin_top" />
+            android:layout_marginTop="@dimen/trading_items_search_item_name_margin_top"
+            android:completionThreshold="1"
 
-        <LinearLayout
-            android:id="@+id/trading_items_information"
+            android:hint="@string/trading_items_search"
+
+
+            android:popupBackground="#ffffff" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/item_price_chart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <Spinner
-                android:id="@+id/found_trading_items"
-                style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
-
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/item_price_chart"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_gravity="center" />
-        </LinearLayout>
+            android:layout_height="400dp"
+            android:layout_gravity="center" />
 
         <LinearLayout
             android:id="@+id/trading_items_error_container"

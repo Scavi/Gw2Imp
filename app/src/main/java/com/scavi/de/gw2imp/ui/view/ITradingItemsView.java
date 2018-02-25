@@ -15,6 +15,8 @@
 package com.scavi.de.gw2imp.ui.view;
 
 import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
+import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
+import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
 
 import java.util.List;
 
@@ -28,5 +30,24 @@ public interface ITradingItemsView extends IStatusView {
     String getItemSearchName();
 
 
-    void updateFoundItems(@Nonnull final List<ItemEntity> foundItems);
+    /**
+     * @param foundItems the list of items that were found
+     */
+    void updatePossibleItems(@Nonnull final List<ItemEntity> foundItems);
+
+
+    /**
+     * Updates the graph with the prices
+     *
+     * @param itemHistoryPrices the history prices
+     * @param itemPrices        the current prices
+     */
+    void updateItemGraph(@Nonnull final List<ItemPriceHistoryEntity> itemHistoryPrices,
+                         @Nonnull final List<ItemPriceEntity> itemPrices);
+
+
+    /**
+     * This method resets the item graph from previous searches
+     */
+    void resetItemGraph();
 }

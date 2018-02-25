@@ -17,6 +17,8 @@ package com.scavi.de.gw2imp.presenter;
 import android.text.TextWatcher;
 
 import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
+import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
+import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
 import com.scavi.de.gw2imp.model.TradingItemsModel;
 import com.scavi.de.gw2imp.ui.util.DelayedTextFieldWatcher;
 import com.scavi.de.gw2imp.ui.view.ITradingItemsView;
@@ -24,6 +26,7 @@ import com.scavi.de.gw2imp.ui.view.ITradingItemsView;
 import java.util.List;
 import java.util.TimerTask;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
 
@@ -47,7 +50,11 @@ public class TradingItemsPresenter {
 
 
     /**
-     * @return
+     * This method creates a text field watcher with a small delay. After the delay an item search
+     * will be initiated against the database will be initiated to determine all items to the
+     * entered name
+     *
+     * @return the text watcher
      */
     public TextWatcher createTradingItemTextDelay() {
         return new DelayedTextFieldWatcher(
@@ -55,6 +62,8 @@ public class TradingItemsPresenter {
                     @Override
                     public void run() {
                         Runnable itemSearch = createItemSearchProcessor();
+                        // make sure that the search will be started in the UI thread because UI
+                        // components will be updated (e.g. show progress)
                         mModel.getExecutorAccess().getUiThreadExecutor().execute(itemSearch);
                     }
                 }, TradingItemsModel.TRADING_ITEM_DELAY_MS);
@@ -62,31 +71,63 @@ public class TradingItemsPresenter {
 
 
     /**
+     * Creates a runnable that determines the item name, shows the progress and initiate the
+     * item search in a background thread.
      *
+     * @return the runnable to initiate the item search
      */
     private Runnable createItemSearchProcessor() {
         return () -> {
+            // the item name for the search
             String itemName = mView.getItemSearchName();
             mView.onShowProgress();
             Runnable itemSearchProcess = createItemSearchProcessor(itemName);
+            // uses a background thread to execute the item search
             mModel.getExecutorAccess().getBackgroundThreadExecutor().execute(itemSearchProcess);
         };
     }
 
 
     /**
-     * @param itemName
-     * @return
+     * Creates a runnable that uses the model to select all items to the given name. After the
+     * search, the progress will be hidden and the UI will be updated.
+     *
+     * @param itemName the name of the item
+     * @return the runnable.
      */
     private Runnable createItemSearchProcessor(final String itemName) {
         return () -> {
+            // all items that match to the name (no prices yet!)
             List<ItemEntity> foundItems = mModel.selectItemsToName(itemName);
             mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
-                mView.onHideProgress();
-                mView.updateFoundItems(foundItems);
+                mView.updatePossibleItems(foundItems);
+                // exactly one entry
+                if (foundItems.size() == 1) {
+                    onItemSelected(foundItems.get(0));
+                } else {
+                    mView.onHideProgress();
+                }
             });
         };
     }
 
 
+    private void onItemSelected(@Nonnull final ItemEntity selectedItem) {
+        mView.onShowProgress();
+        Runnable itemPriceProcessor = createItemPriceProcessor(selectedItem);
+        mModel.getExecutorAccess().getBackgroundThreadExecutor().execute(itemPriceProcessor);
+    }
+
+
+    private Runnable createItemPriceProcessor(@Nonnull final ItemEntity item) {
+        return () -> {
+            List<ItemPriceHistoryEntity> historyPrices = mModel.selectItemPriceHistory(item);
+            List<ItemPriceEntity> prices = mModel.selectItemPrices(item);
+            mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
+                mView.resetItemGraph();
+                mView.updateItemGraph(historyPrices, prices);
+                mView.onHideProgress();
+            });
+        };
+    }
 }
