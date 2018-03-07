@@ -112,7 +112,7 @@ public class TradingItemsPresenter {
     }
 
 
-    private void onItemSelected(@Nonnull final ItemEntity selectedItem) {
+    public void onItemSelected(@Nonnull final ItemEntity selectedItem) {
         mView.onShowProgress();
         Runnable itemPriceProcessor = createItemPriceProcessor(selectedItem);
         mModel.getExecutorAccess().getBackgroundThreadExecutor().execute(itemPriceProcessor);

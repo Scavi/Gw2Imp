@@ -20,6 +20,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -44,7 +45,8 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-public class TradingItemsFragment extends AbstractStatusFragment implements ITradingItemsView {
+public class TradingItemsFragment extends AbstractStatusFragment implements ITradingItemsView,
+        AdapterView.OnItemClickListener {
 
     @Inject
     TradingItemsPresenter mPresenter;
@@ -83,9 +85,18 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
         super.setupUiComponents(fragmentView);
         mTradingItemGraph = fragmentView.findViewById(R.id.item_price_chart);
         mSearchItemName = fragmentView.findViewById(R.id.search_trading_item_name);
+        mSearchItemName.setOnItemClickListener(this);
         mSearchItemName.addTextChangedListener(mPresenter.createTradingItemTextDelay());
     }
 
+
+    @Override
+    public void onItemClick(final AdapterView<?> adapterView,
+                            final View view,
+                            final int i,
+                            final long l) {
+        mPresenter.onItemSelected((ItemEntity)adapterView.getItemAtPosition(i));
+    }
 
     /**
      * @return the current name of the item we want to find
