@@ -42,7 +42,8 @@ public class ItemCollector extends Thread {
     // the constant defines the iteration until we wait before interact with the server again
     // while loading all prices / items
     private static final int ITEM_PROCESS_WAIT_COUNT = ITEM_PROCESS_SIZE * 10;
-    private static final long ITERATION_MS = 60 * 60 * 1000;
+    // item collector iteration timer
+    private static final long ITERATION_MS = 180 * 60 * 1000;
     // the wait time (give the server time to breath ;-))
     private static final int TOO_MANY_REQUEST_DELAY_MS = 60 * 1000;
     private final IDatabaseAccess mDatabaseAccess;
