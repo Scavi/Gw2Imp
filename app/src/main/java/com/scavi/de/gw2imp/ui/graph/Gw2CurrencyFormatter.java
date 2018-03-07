@@ -5,16 +5,19 @@ import android.content.Context;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.scavi.de.gw2imp.R;
 
+import java.text.DecimalFormat;
+
 public class Gw2CurrencyFormatter extends DefaultLabelFormatter {
     private enum MoneyType {G, S, K}
 
     private final int SILVER_LIMIT = 100;
     private final int GOLD_LIMIT = SILVER_LIMIT * 100;
-
     private final Context mContext;
+    private final DecimalFormat mFormat = new DecimalFormat();
 
     public Gw2CurrencyFormatter(final Context context) {
         mContext = context;
+        mFormat.setMaximumFractionDigits(2);
     }
 
     @Override
@@ -22,13 +25,13 @@ public class Gw2CurrencyFormatter extends DefaultLabelFormatter {
                               final boolean isValueX) {
         if (isValueX) {
             // show normal x values
-            return super.formatLabel(value, isValueX);
+            return null;
         } else {
             MoneyType type = typeFrom(value);
             value = createCurrencyString(type, value);
             // show currency for y values
             return String.format(mContext.getString(R.string.trading_items_currency_format),
-                    super.formatLabel(value, isValueX),
+                    mFormat.format(value),
                     type);
         }
     }
