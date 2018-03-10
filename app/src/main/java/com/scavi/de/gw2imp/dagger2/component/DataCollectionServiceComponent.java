@@ -17,9 +17,15 @@ package com.scavi.de.gw2imp.dagger2.component;
 import com.scavi.androidimp.util.ActivityScope;
 import com.scavi.de.gw2imp.background.DataCollectionService;
 import com.scavi.de.gw2imp.background.collector.ItemCollector;
+import com.scavi.de.gw2imp.background.collector.data.IDataProcessor;
+import com.scavi.de.gw2imp.background.collector.data.ItemDataProcessor;
+import com.scavi.de.gw2imp.communication.access.ICommerceAccess;
+import com.scavi.de.gw2imp.communication.access.IItemAccess;
 import com.scavi.de.gw2imp.dagger2.module.DataCollectionServiceModule;
+import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 
 import dagger.Component;
+import dagger.Provides;
 
 @ActivityScope
 @Component(dependencies = ApplicationComponent.class,
@@ -39,4 +45,10 @@ public interface DataCollectionServiceComponent {
      * item price history information
      */
     ItemCollector getItemPriceCollector();
+
+    /**
+     * @return the item price collector is responsible to select items, their prices and updates
+     * item price history information
+     */
+    IDataProcessor provideItemPriceProcessor();
 }

@@ -20,6 +20,9 @@ import android.arch.persistence.room.PrimaryKey;
 
 import com.scavi.de.gw2imp.data.util.DbConst;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 
@@ -117,5 +120,40 @@ public class ItemPriceHistoryEntity {
      */
     public int getAvgEndSell() {
         return mAvgEndSell;
+    }
+
+
+    /**
+     * @param itemId         the unique id of the item
+     * @param tsStartOfMonth the timestamp of the start of the month
+     * @param pricesInRange  all prices to the given item in the range
+     * @return the item price history
+     */
+    public static ItemPriceHistoryEntity from(final int itemId,
+                                              final long tsStartOfMonth,
+                                              @Nonnull final List<ItemPriceEntity> pricesInRange) {
+        int avgStartBuy = 0;
+        int avgStartSell = 0;
+        int avgEndBuy = 0;
+        int avgEndSell = 0;
+
+        int split = pricesInRange.size() / 2;
+        for (int i = 0; i < split; ++i) {
+            ItemPriceEntity price = pricesInRange.get(i);
+            avgStartBuy += price.getBuyPrice();
+            avgStartSell += price.getSellPrice();
+        }
+        for (int i = split; i < pricesInRange.size(); ++i) {
+            ItemPriceEntity price = pricesInRange.get(i);
+            avgEndBuy += price.getBuyPrice();
+            avgEndSell += price.getSellPrice();
+        }
+        return new ItemPriceHistoryEntity(
+                itemId,
+                tsStartOfMonth,
+                avgStartBuy / split,
+                avgEndBuy / split,
+                avgStartSell / split,
+                avgEndSell / split);
     }
 }

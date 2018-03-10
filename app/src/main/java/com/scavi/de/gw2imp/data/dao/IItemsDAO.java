@@ -54,6 +54,15 @@ public interface IItemsDAO {
 
 
     /**
+     * Select all known item ids
+     *
+     * @return all item ids
+     */
+    @Query("SELECT id FROM " + DbConst.TABLE_ITEMS)
+    List<Integer> selectAllItemIds();
+
+
+    /**
      * @param name the name of the item. Wildcard can be used
      * @return the item to the given id from the DAO
      */
@@ -78,19 +87,50 @@ public interface IItemsDAO {
 
 
     /**
-     * @return the item to the given id from the DAO
+     * @return the count of items in the item price table
      */
     @Query("SELECT COUNT(*) FROM " + DbConst.TABLE_ITEM_PRICES)
     int selectItemPriceCount();
 
 
     /**
+     * Selects all prices to a given item ID
+     *
      * @param id all prices to the given ID
      * @return the item to the given id from the DAO
      */
     @Query("SELECT * FROM " + DbConst.TABLE_ITEM_PRICES + " WHERE id = :id")
     List<ItemPriceEntity> selectItemPrices(final int id);
 
+
+    /**
+     * Selects all item prices that are in the given range to the given id
+     *
+     * @param id    the id of the item which the prices belong to
+     * @param start the start time of the interval to select
+     * @param end   the end time of the interval to select
+     * @return the items in the range
+     */
+    @Query("SELECT * FROM " + DbConst.TABLE_ITEM_PRICES +
+            " WHERE id = :id AND time >= :start AND time <= :end")
+    List<ItemPriceEntity> selectItemPricesInRange(final int id,
+                                                  final long start,
+                                                  final long end);
+
+
+    /**
+     * Delete all item prices that are in the given range to the given id
+     *
+     * @param id    the id of the item which the prices belong to
+     * @param start the start time of the interval to select
+     * @param end   the end time of the interval to select
+     * @return the items in the range
+     */
+    @Query("DELETE FROM " + DbConst.TABLE_ITEM_PRICES +
+            " WHERE id = :id AND time >= :start AND time <= :end")
+    void deleteItemPricesInRange(final int id,
+                                 final long start,
+                                 final long end);
 
     /**
      * Inserts the given item price history into the table
@@ -100,6 +140,12 @@ public interface IItemsDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertItemPriceHistory(final ItemPriceHistoryEntity item);
 
+
+    /**
+     * @return the count of items in the history item price table
+     */
+    @Query("SELECT COUNT(*) FROM " + DbConst.TABLE_ITEM_PRICE_HISTORY)
+    int selectItemPriceHistoryCount();
 
     /**
      * @param id the id of the item

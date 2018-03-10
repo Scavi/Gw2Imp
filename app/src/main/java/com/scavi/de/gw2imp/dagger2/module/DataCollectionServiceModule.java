@@ -17,6 +17,8 @@ package com.scavi.de.gw2imp.dagger2.module;
 import android.content.Context;
 
 import com.scavi.de.gw2imp.background.collector.ItemCollector;
+import com.scavi.de.gw2imp.background.collector.data.IDataProcessor;
+import com.scavi.de.gw2imp.background.collector.data.ItemDataProcessor;
 import com.scavi.de.gw2imp.communication.access.ICommerceAccess;
 import com.scavi.de.gw2imp.communication.access.IItemAccess;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
@@ -28,6 +30,17 @@ import dagger.Provides;
 @Module
 public class DataCollectionServiceModule {
     /**
+     * @param itemDataProcessor the item data processor that will determine and process all data
+     * @return the item price collector is responsible to select items, their prices and updates
+     * item price history information
+     */
+    @Provides
+    public ItemCollector provideItemPriceCollector(final IDataProcessor itemDataProcessor) {
+        return new ItemCollector(itemDataProcessor);
+    }
+
+
+    /**
      * @param databaseAccess the access to the database
      * @param itemAccess     the server side access to the general
      *                       items
@@ -37,9 +50,9 @@ public class DataCollectionServiceModule {
      * item price history information
      */
     @Provides
-    public ItemCollector provideItemPriceCollector(final IDatabaseAccess databaseAccess,
-                                                   final IItemAccess itemAccess,
-                                                   final ICommerceAccess commerceAccess) {
-        return new ItemCollector(databaseAccess, itemAccess, commerceAccess);
+    public IDataProcessor provideItemPriceProcessor(final IDatabaseAccess databaseAccess,
+                                                    final IItemAccess itemAccess,
+                                                    final ICommerceAccess commerceAccess) {
+        return new ItemDataProcessor(databaseAccess, itemAccess, commerceAccess);
     }
 }
