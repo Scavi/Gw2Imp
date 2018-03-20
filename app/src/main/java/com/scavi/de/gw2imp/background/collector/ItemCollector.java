@@ -27,7 +27,7 @@ public class ItemCollector extends Thread {
     private static final String TAG = "ItemPriceCollector";
 
     // item collector iteration timer
-    private static final long ITERATION_MS = 180 * 60 * 1000;
+    private static final long ITERATION_MS = 120 * 60 * 1000;
     private final IDataProcessor mItemDataProcessor;
 
     /**
