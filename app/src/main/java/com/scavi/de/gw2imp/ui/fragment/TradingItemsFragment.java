@@ -14,6 +14,7 @@
 package com.scavi.de.gw2imp.ui.fragment;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
@@ -24,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -38,6 +40,7 @@ import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
 import com.scavi.de.gw2imp.presenter.TradingItemsPresenter;
 import com.scavi.de.gw2imp.ui.adapter.TradingItemAdapter;
 import com.scavi.de.gw2imp.ui.graph.Gw2CurrencyFormatter;
+import com.scavi.de.gw2imp.ui.util.ActivityHelper;
 import com.scavi.de.gw2imp.ui.view.ITradingItemsView;
 
 import java.util.List;
@@ -73,7 +76,11 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
     public View onCreateView(final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        injectComponent(((IApplication) getActivity().getApplicationContext()).getComponent());
+        Context context = getActivity() != null ? getActivity().getApplicationContext() : null;
+        if (context == null) {
+            return null;
+        }
+        injectComponent(((IApplication) context).getComponent());
         View view = inflater.inflate(R.layout.fragment_trading_item, container, false);
         setupUiComponents(view);
         return view;
@@ -84,6 +91,9 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
     protected void setupUiComponents(final View fragmentView) {
         super.setupUiComponents(fragmentView);
         mTradingItemGraph = fragmentView.findViewById(R.id.item_price_chart);
+        mTradingItemGraph.getViewport().setScalable(true);
+        mTradingItemGraph.getViewport().setScalableY(true);
+        mTradingItemGraph.getViewport().setMaxX(Gw2CurrencyFormatter.HORIZONTAL_MAX_VIEW);
         mSearchItemName = fragmentView.findViewById(R.id.search_trading_item_name);
         mSearchItemName.setOnItemClickListener(this);
         mSearchItemName.addTextChangedListener(mPresenter.createTradingItemTextDelay());
@@ -95,7 +105,7 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
                             final View view,
                             final int i,
                             final long l) {
-        mPresenter.onItemSelected((ItemEntity)adapterView.getItemAtPosition(i));
+        mPresenter.onItemSelected((ItemEntity) adapterView.getItemAtPosition(i));
     }
 
     /**
@@ -122,7 +132,7 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
             return;
         }
         TradingItemAdapter adapter = new TradingItemAdapter(context,
-                android.R.layout.simple_dropdown_item_1line,
+                android.R.layout.simple_list_item_1,
                 foundItems.toArray(new ItemEntity[foundItems.size()]));
         adapter.setNotifyOnChange(true);
         mSearchItemName.setAdapter(adapter);
@@ -130,25 +140,40 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
 
 
     /**
-     * Updates the graph with the prices
+     * Updates the graph with the prices of the merged history item prices and the item prices of
+     * the current month.
      *
      * @param itemHistoryPrices the history prices
-     * @param itemPrices        the current prices
+     * @param itemPrices        the current prices (within the month)
      */
     @Override
     public void updateItemGraph(@Nonnull final List<ItemPriceHistoryEntity> itemHistoryPrices,
                                 @Nonnull final List<ItemPriceEntity> itemPrices) {
+
+        int itemCount = itemHistoryPrices.size() + itemPrices.size();
+        if (getActivity() != null && itemCount < 2) {
+            String warning = getString(R.string.trading_items_data_count_warning);
+            ActivityHelper.showMessageInDialog(getActivity(), String.format(warning, itemCount));
+            return;
+        }
+
+        // the legend (which color means what)
         mTradingItemGraph.getLegendRenderer().setVisible(true);
         mTradingItemGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-        mTradingItemGraph.getLegendRenderer().setTextColor(
-                ResourcesCompat.getColor(getResources(), R.color.core_title_text_color, null));
-        mTradingItemGraph.getGridLabelRenderer().setLabelFormatter(
-                new Gw2CurrencyFormatter(getContext()));
-        mTradingItemGraph.getGridLabelRenderer().setHorizontalLabelsColor(
-                ResourcesCompat.getColor(getResources(), R.color.core_background_color, null));
-        mTradingItemGraph.getGridLabelRenderer().setVerticalLabelsColor(
-                ResourcesCompat.getColor(getResources(), R.color.core_highlight_text_color, null));
+        int legendColor = ResourcesCompat.getColor(getResources(), R.color.core_title_text_color,
+                null);
+        mTradingItemGraph.getLegendRenderer().setTextColor(legendColor);
+        // set the grid label renderer. Set the item prices, the horizontal and vertical labels
+        int labelColor = ResourcesCompat.getColor(getResources(), R.color
+                .core_highlight_text_color, null);
+        Gw2CurrencyFormatter gwTradingItemFormatter = new Gw2CurrencyFormatter(
+                getContext(),
+                itemHistoryPrices.size());
+        mTradingItemGraph.getGridLabelRenderer().setLabelFormatter(gwTradingItemFormatter);
+        mTradingItemGraph.getGridLabelRenderer().setHorizontalLabelsColor(labelColor);
+        mTradingItemGraph.getGridLabelRenderer().setVerticalLabelsColor(labelColor);
 
+        // the graph points for the seller prices
         LineGraphSeries<DataPoint> sellerSeries = createGraphSeries(false,
                 itemHistoryPrices,
                 itemPrices);
@@ -156,14 +181,18 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
                 null));
         sellerSeries.setAnimated(true);
         sellerSeries.setTitle(getString(R.string.trading_items_sell));
+
+        // the graph points for the buyer prices
         LineGraphSeries<DataPoint> buyerSeries = createGraphSeries(true,
                 itemHistoryPrices,
                 itemPrices);
-        buyerSeries.setColor(ResourcesCompat.getColor(getResources(), R.color.core_highlight_1,
+        buyerSeries.setColor(ResourcesCompat.getColor(getResources(),
+                R.color.core_highlight_1,
                 null));
         buyerSeries.setAnimated(true);
         buyerSeries.setTitle(getString(R.string.trading_items_buy));
 
+        // all seller and buyer series to the graph
         mTradingItemGraph.addSeries(sellerSeries);
         mTradingItemGraph.addSeries(buyerSeries);
     }
@@ -177,24 +206,26 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
         DataPoint[] graphPoints = new DataPoint[(itemHistoryPrices.size() * 2) + itemPrices.size()];
         int pos = 0;
         double price;
+        int offset = 0;
         // average start & end price of the history prices
         for (ItemPriceHistoryEntity itemHistoryPrice : itemHistoryPrices) {
             // avg start price of the period
             price = isBuyPrice ? itemHistoryPrice.getAvgStartBuy() :
                     itemHistoryPrice.getAvgStartSell();
-            graphPoints[pos] = new DataPoint(pos, price);
+            graphPoints[pos] = new DataPoint(pos + offset, price);
             pos++;
+            offset += Gw2CurrencyFormatter.ONE_GRID_LENGTH;
             // avg end price of the period
             price = isBuyPrice ? itemHistoryPrice.getAvgEndBuy() :
                     itemHistoryPrice.getAvgEndSell();
-            graphPoints[pos] = new DataPoint(pos, price);
+            graphPoints[pos] = new DataPoint(pos + offset, price);
             pos++;
         }
         // item prices
         for (ItemPriceEntity itemPrice : itemPrices) {
             price = isBuyPrice ? itemPrice.getBuyPrice() :
                     itemPrice.getSellPrice();
-            graphPoints[pos] = new DataPoint(pos, price);
+            graphPoints[pos] = new DataPoint(pos + offset, price);
             pos++;
         }
         return new LineGraphSeries<>(graphPoints);

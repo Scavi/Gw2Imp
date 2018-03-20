@@ -34,11 +34,8 @@
             android:layout_marginStart="@dimen/trading_items_search_item_name_margin_left"
             android:layout_marginTop="@dimen/trading_items_search_item_name_margin_top"
             android:completionThreshold="1"
-
             android:hint="@string/trading_items_search"
-
-
-            android:popupBackground="#ffffff" />
+            android:popupBackground="@color/core_drop_down_background_color" />
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/item_price_chart"
