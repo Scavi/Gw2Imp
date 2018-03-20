@@ -22,6 +22,7 @@ import android.view.View;
 
 import com.scavi.de.gw2imp.R;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -49,6 +50,19 @@ public class ActivityHelper {
 
 
     /**
+     * Shows the message in the given dialog
+     *
+     * @param activity the hosting activity
+     * @param message  the message
+     */
+    @Nonnull
+    public static void showMessageInDialog(@Nonnull final Activity activity,
+                                  @Nonnull final String message) {
+        AlertDialog dialog = createSimpleOkDialog(activity, message);
+        dialog.show();
+    }
+
+    /**
      * Creates a simple ok dialog to the given message (without a title)
      *
      * @param activity the hosting activity
@@ -56,8 +70,8 @@ public class ActivityHelper {
      * @return the {@link AlertDialog} or <code>null</code> if no host activity is passed
      */
     @NonNull
-    public static AlertDialog createSimpleOkDialog(final Activity activity,
-                                                   final String message) {
+    public static AlertDialog createSimpleOkDialog(@Nonnull final Activity activity,
+                                                   @Nonnull final String message) {
         AlertDialog.Builder dialogCreator = new AlertDialog.Builder(activity);
         dialogCreator.setMessage(message);
         dialogCreator.setPositiveButton(android.R.string.ok,
