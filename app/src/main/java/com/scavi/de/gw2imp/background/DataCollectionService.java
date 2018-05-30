@@ -27,6 +27,7 @@ import com.scavi.androidimp.util.AndroidVersionHelper;
 import com.scavi.de.gw2imp.R;
 import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.background.collector.ItemCollector;
+import com.scavi.de.gw2imp.background.collector.ItemHistoryCollector;
 import com.scavi.de.gw2imp.dagger2.component.DaggerDataCollectionServiceComponent;
 import com.scavi.de.gw2imp.ui.activity.KeepAliveActivity;
 
@@ -45,6 +46,8 @@ public class DataCollectionService extends Service {
     @Inject
     protected ItemCollector mItemPriceCollector;
     @Inject
+    protected ItemHistoryCollector mItemHistoryCollector;
+    @Inject
     protected INotificationManagerAccess mNotificationManagerAccess;
 
     private Notification mNotification;
@@ -57,6 +60,7 @@ public class DataCollectionService extends Service {
                 .build()
                 .inject(this);
         mItemPriceCollector.start();
+        mItemHistoryCollector.start();
     }
 
     @Override
