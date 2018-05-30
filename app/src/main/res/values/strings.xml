@@ -31,6 +31,8 @@
     <string name="core_navigation_dailies_tomorrow">Tägliche events morgen</string>
     <string name="core_navigation_event_timer">Event timer</string>
     <string name="core_navigation_world_boss_event_timer">Weltbosse</string>
+    <string name="core_navigation_license">Lizenzen</string>
+    <string name="core_navigation_settings">Einstellungen</string>
 
     <string name="account_raid_uncompleted">OFFEN</string>
     <string name="account_raid_completed">VOLLSTÄNDIG</string>
@@ -55,13 +57,17 @@
 
     <string name="trading_items_getting_your_data">Deine Handels-Informationen werden ermittelt</string>
     <string name="trading_items_data_access_error">Bei der Ermittlung der Handels-Informationen ist ein Fehler aufgetreten: %s</string>
-    <string name="trading_items_data_count_warning">Bisher liegen noch nicht genug Preise vor (%d). Versuche es zu einem späteren Zeitpunkt noch einmal.</string>
+    <string name="trading_items_data_count_warning">Bisher liegen noch nicht genug Preise vor. Versuche es zu einem späteren Zeitpunkt noch einmal.</string>
     <string name="trading_items_search">Suche</string>
     <string name="trading_items_buy">Kaufspreis</string>
     <string name="trading_items_sell">Verkaufspreis</string>
     <string name="trading_items_currency_format">%s %s</string>
+    <string name="trading_items_last_update">Letztes update</string>
+    <string name="trading_items_sell_min_price">Minimaler Verkaufspreis</string>
+    <string name="trading_items_sell_max_price">Maximaler Verkaufspreis</string>
+    <string name="trading_items_buy_min_price">Minimaler Kaufpreis</string>
+    <string name="trading_items_buy_max_price">Maximaler Kaufpreis</string>
 
-    <string name="core_license">Lizenzen</string>
     <string name="core_license_gw2_header">Guild Wars 2 Bilder</string>
     <string name="core_license_gw2_text">Das Copyright der genutzten Bilder gehört einzig und alleine ArenaNet. Für den privaten Einsatz hat ArenaNet freundlicherweise die Verwendung der Bilder gestattet. Für genauere Informationen siehe:\n\nhttps://www.guildwars2.com/en/legal/guild-wars-2-content-terms-of-use/</string>
     <string name="core_license_gw2_copyright">© 2015 ArenaNet, LLC. All rights reserved. NCSOFT, the interlocking NC logo, ArenaNet, Guild Wars, Guild Wars Factions, Guild Wars Nightfall, Guild Wars: Eye of the North, Guild Wars 2, Heart of Thorns, and all associated logos and designs are trademarks or registered trademarks of NCSOFT Corporation. All other trademarks are the property of their respective owners.</string>

@@ -94,12 +94,11 @@
     <dimen name="world_boss_list_view_row_height">96dp</dimen>
     <dimen name="world_boss_list_view_row_divider_height">4dp</dimen>
 
-    <!-- account world boss fragment -->
+    <!-- trading items fragment -->
     <dimen name="trading_items_search_item_name_margin_top">12dp</dimen>
     <dimen name="trading_items_search_item_name_margin_right">16dp</dimen>
     <dimen name="trading_items_search_item_name_margin_left">16dp</dimen>
     <dimen name="trading_items_search_item_name_margin_bottom">8dp</dimen>
-
     <dimen name="trading_items_list_view_margin_top">2dp</dimen>
     <dimen name="trading_items_list_view_margin_right">8dp</dimen>
     <dimen name="trading_items_list_view_margin_left">8dp</dimen>
@@ -108,8 +107,25 @@
     <dimen name="trading_items_progress_bar_margin_right">16dp</dimen>
     <dimen name="trading_items_progress_bar_margin_left">16dp</dimen>
     <dimen name="trading_items_progress_bar_margin_bottom">8dp</dimen>
+    <dimen name="trading_items_grid_item_details_top">32dp</dimen>
+    <dimen name="trading_items_grid_item_details_right">80dp</dimen>
+    <dimen name="trading_items_grid_item_details_left">16dp</dimen>
+    <dimen name="trading_items_grid_item_details_bottom">8dp</dimen>
+    <dimen name="trading_items_item_name_top">0dp</dimen>
+    <dimen name="trading_items_item_name_right">4dp</dimen>
+    <dimen name="trading_items_item_name_left">4dp</dimen>
+    <dimen name="trading_items_item_name_bottom">8dp</dimen>
+    <dimen name="trading_items_item_details_top">0dp</dimen>
+    <dimen name="trading_items_item_details_right">4dp</dimen>
+    <dimen name="trading_items_item_details_left">4dp</dimen>
+    <dimen name="trading_items_item_details_bottom">0dp</dimen>
     <dimen name="trading_items_list_view_row_height">96dp</dimen>
     <dimen name="trading_items_list_view_row_divider_height">4dp</dimen>
+
+    <!-- TODO: -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
 
     <!-- account world boss list view row -->
     <dimen name="world_boss_row_text_margin_top">8dp</dimen>
@@ -134,7 +150,6 @@
     <dimen name="world_boss_row_picture_margin_bottom">0dp</dimen>
 
 
-
     <!-- license -->
     <dimen name="license_gw2_header_margin_top">24dp</dimen>
     <dimen name="license_gw2_header_margin_right">32dp</dimen>
@@ -144,7 +159,6 @@
     <dimen name="license_gw2_info_margin_right">32dp</dimen>
     <dimen name="license_gw2_info_margin_left">32dp</dimen>
     <dimen name="license_gw2_info_margin_bottom">0dp</dimen>
-
 
 
     <!-- overall app dimensions -->

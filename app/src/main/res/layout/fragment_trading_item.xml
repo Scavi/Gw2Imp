@@ -13,35 +13,158 @@
   ~
   -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.scavi.de.gw2imp.ui.fragment.WorldBossEventTimerFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <AutoCompleteTextView
-            android:id="@+id/search_trading_item_name"
-            style="@style/Gw2ImpTheme.EditText"
+        <LinearLayout
+            android:id="@+id/trading_item_details"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/trading_items_search_item_name_margin_bottom"
-            android:layout_marginEnd="@dimen/trading_items_search_item_name_margin_right"
-            android:layout_marginStart="@dimen/trading_items_search_item_name_margin_left"
-            android:layout_marginTop="@dimen/trading_items_search_item_name_margin_top"
-            android:completionThreshold="1"
-            android:hint="@string/trading_items_search"
-            android:popupBackground="@color/core_drop_down_background_color" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="invisible">
 
-        <com.jjoe64.graphview.GraphView
-            android:id="@+id/item_price_chart"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_gravity="center" />
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/item_price_chart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_gravity="center" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/trading_items_grid_item_details_bottom"
+                android:layout_marginEnd="@dimen/trading_items_grid_item_details_right"
+                android:layout_marginStart="@dimen/trading_items_grid_item_details_left"
+                android:layout_marginTop="@dimen/trading_items_grid_item_details_top"
+                android:columnCount="2">
+
+                <TextView
+                    android:id="@+id/trading_item_name"
+                    style="Gw2ImpTheme.Text.Category"
+                    android:layout_columnSpan="2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_name_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_name_right"
+                    android:layout_marginStart="@dimen/trading_items_item_name_left"
+                    android:layout_marginTop="@dimen/trading_items_item_name_top"
+                    android:text="" />
+
+                <TextView
+                    style="Gw2ImpTheme.Section"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_item_details_top"
+                    android:text="@string/trading_items_last_update" />
+
+                <TextView
+                    android:id="@+id/trading_items_latest_update"
+                    style="Gw2ImpTheme.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_item_details_top"
+                    android:text="" />
+
+                <TextView
+                    style="Gw2ImpTheme.Section"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_item_details_top"
+                    android:text="@string/trading_items_buy_min_price" />
+
+                <TextView
+                    android:id="@+id/trading_item_buy_min_price"
+                    style="Gw2ImpTheme.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_item_details_top"
+                    android:text="" />
+
+                <TextView
+                    style="Gw2ImpTheme.Section"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_item_details_top"
+                    android:text="@string/trading_items_buy_max_price" />
+
+                <TextView
+                    android:id="@+id/trading_item_buy_max_price"
+                    style="Gw2ImpTheme.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_item_details_top"
+                    android:text="" />
+
+                <TextView
+                    style="Gw2ImpTheme.Section"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_item_details_top"
+                    android:text="@string/trading_items_sell_min_price" />
+
+                <TextView
+                    android:id="@+id/trading_item_sell_min_price"
+                    style="Gw2ImpTheme.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_item_details_top"
+                    android:text="" />
+
+                <TextView
+                    style="Gw2ImpTheme.Section"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_item_details_top"
+                    android:text="@string/trading_items_sell_max_price" />
+
+                <TextView
+                    android:id="@+id/trading_item_sell_max_price"
+                    style="Gw2ImpTheme.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_item_details_top"
+                    android:text="" />
+
+            </GridLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/trading_items_error_container"
@@ -86,5 +209,115 @@
                 android:backgroundTint="@color/core_progressbar_color"
                 android:indeterminate="true" />
         </LinearLayout>
-    </LinearLayout>
+
+        <View
+            android:id="@+id/trading_items_reveal_filter"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/core_filter_background_color"
+            android:visibility="invisible" />
+
+        <!-- this container represents the main content for the current filter -->
+        <LinearLayout
+            android:id="@+id/trading_items_filter_possibilities_container"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/core_background_color"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <AutoCompleteTextView
+                android:id="@+id/search_trading_item_name"
+                style="@style/Gw2ImpTheme.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/trading_items_search_item_name_margin_bottom"
+                android:layout_marginEnd="@dimen/trading_items_search_item_name_margin_right"
+                android:layout_marginStart="@dimen/trading_items_search_item_name_margin_left"
+                android:layout_marginTop="@dimen/trading_items_search_item_name_margin_top"
+                android:completionThreshold="1"
+                android:hint="@string/trading_items_search"
+                android:popupBackground="@color/core_drop_down_background_color" />
+        </LinearLayout>
+
+        <!-- not yet required - only one filter
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/trading_items_reveal_filter">
+                <View
+                    android:id="@+id/trading_item_tab_sheet"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:background="@color/sheetDark"
+                    android:transformPivotY="64dp"
+                    android:visibility="invisible" />
+
+                <HorizontalScrollView
+                    android:id="@+id/trading_items_tab_scroller"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:scrollbars="none"
+                    android:visibility="invisible">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:layout_width="150dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="@dimen/activity_horizontal_margin"
+                            android:background="@drawable/blank_space" />
+
+                        <View
+                            android:id="@+id/view2"
+                            android:layout_width="150dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="@dimen/activity_horizontal_margin"
+                            android:background="@drawable/blank_space" />
+
+                        <View
+                            android:layout_width="150dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="@dimen/activity_horizontal_margin"
+                            android:background="@drawable/blank_space" />
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </FrameLayout>
+        -->
+
+        <View
+            android:id="@+id/trading_items_filter_actions"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:alpha="0"
+            android:background="@drawable/filter_actions_background" />
+
+        <Button
+            android:id="@+id/trading_items_cancel_filters"
+            style="@style/Gw2ImpTheme.BottomButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_bottom_height"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:text="@string/api_account_key_skip"
+            android:visibility="invisible" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/trading_item_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="32dp"
+            android:src="@drawable/ic_search_black_24dp"
+            app:fabSize="normal" />
+    </RelativeLayout>
 </ScrollView>

@@ -1,8 +1,7 @@
 <resources>
 
     <!-- Base application theme. parent="MaterialDrawerTheme.Light.DarkToolbar.ActionBar -->
-    <style name="Gw2ImpTheme" parent="MaterialDrawerTheme">
-
+    <style name="Gw2ImpTheme" parent="MaterialDrawerTheme.Light.DarkToolbar.ActionBar">
         <item name="android:windowBackground">@color/core_background_color</item>
         <item name="colorControlNormal">@color/core_toolbar_icon_color</item>
         <item name="android:textColorSecondary">@color/core_toolbar_icon_color</item>
@@ -10,7 +9,6 @@
         <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
         <item name="colorAccent">@color/material_drawer_accent</item>
         <item name="drawerArrowStyle">@style/Gw2ImpTheme.DrawerArrowStyle</item>
-
         <item name="material_drawer_background">@color/material_drawer_background</item>
         <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>
         <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon</item>
@@ -50,6 +48,11 @@
     <style name="Gw2ImpTheme.Section" parent="Base.TextAppearance.AppCompat">
         <item name="android:textColor">@color/core_highlight_2</item>
         <item name="android:textSize">@dimen/medium_text_size</item>
+    </style>
+
+    <style name="Gw2ImpTheme.Text.Category" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">@color/core_title_text_color</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
     </style>
 
     <style name="Gw2ImpTheme.Text.Highlight" parent="Base.TextAppearance.AppCompat">
