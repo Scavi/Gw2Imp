@@ -9,16 +9,16 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class Gw2CurrencyFormatter extends DefaultLabelFormatter {
-    private enum MoneyType {G, S, K}
+    public enum MoneyType {G, S, K}
 
-    public static final int ONE_GRID_LENGTH = 19;
-    public static final int HORIZONTAL_MAX_VIEW = 50;
+    public static final int ONE_GRID_LENGTH = 18;
 
-    private final int SILVER_LIMIT = 100;
-    private final int GOLD_LIMIT = SILVER_LIMIT * 100;
+    private static final int SILVER_LIMIT = 100;
+    private static final int GOLD_LIMIT = SILVER_LIMIT * 100;
     private final Context mContext;
-    private final DecimalFormat mFormat = new DecimalFormat();
+    private static final DecimalFormat mFormat = new DecimalFormat();
     private final int mHistoryDataSetCount;
+    private int mHorizontalStep;
 
     /**
      * Constructor
@@ -50,14 +50,17 @@ public class Gw2CurrencyFormatter extends DefaultLabelFormatter {
      * @return the horizontal label
      */
     private String createHorizontalLabel(final double value) {
-        int step = (int) (value / (ONE_GRID_LENGTH + 1));
-        int monthDifference = step - mHistoryDataSetCount;
+        if (value == 0) {
+            mHorizontalStep = 0;
+        }
+        int monthDifference = mHorizontalStep - mHistoryDataSetCount;
         if (monthDifference <= 0) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.MONTH, monthDifference);
             String date = String.format("%s/%s",
                     calendar.get(Calendar.MONTH) + 1,
                     String.valueOf(calendar.get(Calendar.YEAR)).substring(2));
+            mHorizontalStep++;
             return date;
         } else {
             return null;
@@ -72,14 +75,27 @@ public class Gw2CurrencyFormatter extends DefaultLabelFormatter {
      * @param value the value
      * @return the vertical label
      */
-    private String createVerticalLabel(double value) {
+    private String createVerticalLabel(final double value) {
+        return createCurrencyString(mContext, value);
+    }
+
+
+    /**
+     * @param context the context to global information about the application
+     *                environment
+     * @param value   the value
+     * @return the converted currency string with the ending
+     */
+    public static String createCurrencyString(final Context context,
+                                              double value) {
         MoneyType type = typeFrom(value);
-        value = createCurrencyString(type, value);
+        value = valueFrom(type, value);
         // show currency for y values
-        return String.format(mContext.getString(R.string.trading_items_currency_format),
+        return String.format(context.getString(R.string.trading_items_currency_format),
                 mFormat.format(value),
                 type);
     }
+
 
     /**
      * Since all money values are specified by copper, this method will calculate the
@@ -89,8 +105,8 @@ public class Gw2CurrencyFormatter extends DefaultLabelFormatter {
      * @param value the current value (in copper)
      * @return the new value
      */
-    private double createCurrencyString(final MoneyType type,
-                                        double value) {
+    private static double valueFrom(final MoneyType type,
+                                    double value) {
         switch (type) {
             case K:
                 // nothing to do
@@ -113,7 +129,7 @@ public class Gw2CurrencyFormatter extends DefaultLabelFormatter {
      * @param value the copper value
      * @return the type of money
      */
-    private MoneyType typeFrom(final double value) {
+    private static MoneyType typeFrom(final double value) {
         if (value < SILVER_LIMIT) {
             return MoneyType.K;
         } else if (value < GOLD_LIMIT) {
@@ -121,5 +137,18 @@ public class Gw2CurrencyFormatter extends DefaultLabelFormatter {
         } else {
             return MoneyType.G;
         }
+    }
+
+
+    /**
+     * Determines the money type from the given value and determines the real value in it's
+     * corresponding money type (e.g. 100 copper = 1 silver)
+     *
+     * @param value the current value
+     * @return the real value
+     */
+    public static double realValue(final double value) {
+        MoneyType type = typeFrom(value);
+        return valueFrom(type, value);
     }
 }
