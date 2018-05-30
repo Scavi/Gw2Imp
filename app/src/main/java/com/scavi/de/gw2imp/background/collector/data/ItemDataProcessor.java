@@ -168,21 +168,15 @@ public class ItemDataProcessor implements IDataProcessor {
         long processTs = System.currentTimeMillis();
         long startLastMonth;
         long endLastMonth;
-        boolean hasProcessed;
-        do {
-            // reset the processed flag.
-            hasProcessed = false;
-            // determine the last month depending from the process timestamp. In the first iteration
-            // the process timestamp is the current timestamp. With the second iteration,
-            startLastMonth = DateHelper.startOfLastMonth(processTs);
-            endLastMonth = DateHelper.endOfLastMonth(processTs);
-            // iterate through all known IDs
-            for (int itemId : allItemIds) {
-                hasProcessed |= updatePriceHistory(itemId, startLastMonth, endLastMonth);
-            }
-            processTs = startLastMonth;
-
-        } while (hasProcessed);
+        // determine the last month depending from the process timestamp. In the first iteration
+        // the process timestamp is the current timestamp. With the second iteration,
+        startLastMonth = DateHelper.startOfLastMonth(processTs);
+        endLastMonth = DateHelper.endOfLastMonth(processTs);
+        // iterate through all known IDs. This is required because we want to create a history entry
+        // for each item
+        for (int itemId : allItemIds) {
+            updatePriceHistory(itemId, startLastMonth, endLastMonth);
+        }
     }
 
 
@@ -212,13 +206,10 @@ public class ItemDataProcessor implements IDataProcessor {
      * @param itemId the current item id
      * @param from   the timestamp from
      * @param till   the timestamp to
-     * @return <code>true</code> an item was processed without an error<br/>
-     * <code>false</code> no item was processed (an error has occurred)
      */
-    private boolean updatePriceHistory(final int itemId,
-                                       final long from,
-                                       final long till) {
-        boolean wasProcessed = false;
+    private void updatePriceHistory(final int itemId,
+                                    final long from,
+                                    final long till) {
         try {
             // select all item prices to the given id in the range
             List<ItemPriceEntity> prices = mDatabaseAccess.itemsDAO().
@@ -231,14 +222,15 @@ public class ItemDataProcessor implements IDataProcessor {
                 mDatabaseAccess.itemsDAO().insertItemPriceHistory(history);
                 // delete all prices in the time range
                 mDatabaseAccess.itemsDAO().deleteItemPricesInRange(itemId, from, till);
-                wasProcessed = true;
+
+                Log.v(TAG, "Remaining to delete: " + mDatabaseAccess.itemsDAO()
+                        .selectPricesInRange(from, till));
             } else {
                 //Log.v(TAG, "The history prices for the itemId " + itemId + " are up to date.");
             }
         } catch (Exception ex) {
             Log.e(TAG, ex.getMessage(), ex); // TODO
         }
-        return wasProcessed;
     }
 
 
@@ -250,7 +242,9 @@ public class ItemDataProcessor implements IDataProcessor {
     private void waitMs(final long toWait) {
         synchronized (this) {
             try {
-                wait(toWait);
+                if (toWait > 0) {
+                    wait(toWait);
+                }
             } catch (InterruptedException ex) {
                 Log.e(TAG, ex.getMessage(), ex); // TODO
             }
