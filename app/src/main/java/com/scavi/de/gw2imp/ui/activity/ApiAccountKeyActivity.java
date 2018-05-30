@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -77,8 +78,21 @@ public class ApiAccountKeyActivity extends AppCompatActivity implements IApiAcco
         mApiKeyInfoContainer = findViewById(R.id.account_api_key_information_container);
         mApiKeyValidatingContainer = findViewById(R.id.account_api_key_validating_container);
         mApiKeyButtonContainer = findViewById(R.id.account_api_key_button_container);
+        setupActionBar(getSupportActionBar());
     }
 
+    /**
+     * Setups the actionbar for the activity
+     *
+     * @param actionBar the actionbar to setup
+     */
+    protected void setupActionBar(@Nullable final ActionBar actionBar) {
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setHomeButtonEnabled(false);
+        }
+    }
 
     /**
      * This method will be called to setup the dagger module of the current activity
