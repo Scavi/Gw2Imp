@@ -17,6 +17,7 @@ package com.scavi.de.gw2imp.dagger2.component;
 import com.scavi.androidimp.util.ActivityScope;
 import com.scavi.de.gw2imp.background.DataCollectionService;
 import com.scavi.de.gw2imp.background.collector.ItemCollector;
+import com.scavi.de.gw2imp.background.collector.ItemHistoryCollector;
 import com.scavi.de.gw2imp.background.collector.data.IDataProcessor;
 import com.scavi.de.gw2imp.background.collector.data.ItemDataProcessor;
 import com.scavi.de.gw2imp.communication.access.ICommerceAccess;
@@ -45,6 +46,12 @@ public interface DataCollectionServiceComponent {
      * item price history information
      */
     ItemCollector getItemPriceCollector();
+
+    /**
+     * @return the item price history collector is responsible to create history entries from the
+     * last month and delete the item prices (to save memory on the device)
+     */
+    ItemHistoryCollector getItemPriceHistoryCollector();
 
     /**
      * @return the item price collector is responsible to select items, their prices and updates
