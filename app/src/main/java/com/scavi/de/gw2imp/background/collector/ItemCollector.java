@@ -52,7 +52,6 @@ public class ItemCollector extends Thread {
         while (!isInterrupted()) {
             List<Integer> allCommerceItemIds = mItemDataProcessor.loadAllIds();
             mItemDataProcessor.loadData(allCommerceItemIds);
-            mItemDataProcessor.updateHistory();
             waitMs(ITERATION_MS);
         }
     }
