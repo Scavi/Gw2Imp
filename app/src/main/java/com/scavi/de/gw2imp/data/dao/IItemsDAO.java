@@ -106,6 +106,19 @@ public interface IItemsDAO {
     /**
      * Selects all item prices that are in the given range to the given id
      *
+     * @param start the start time of the interval to select
+     * @param end   the end time of the interval to select
+     * @return the count of items in that range
+     */
+    @Query("SELECT count(*) FROM " + DbConst.TABLE_ITEM_PRICES +
+            " WHERE time >= :start AND time <= :end LIMIT 10")
+    int selectPricesInRange(final long start,
+                            final long end);
+
+
+    /**
+     * Selects all item prices that are in the given range to the given id
+     *
      * @param id    the id of the item which the prices belong to
      * @param start the start time of the interval to select
      * @param end   the end time of the interval to select
