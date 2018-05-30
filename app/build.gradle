@@ -7,8 +7,8 @@ android {
         applicationId "com.scavi.de.gw2imp"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 10000
-        versionName "0.1.1.0"
+        versionCode 20000
+        versionName "0.2.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -86,5 +86,5 @@ dependencies {
     // Chart and Graph Library for Android
     compile 'com.jjoe64:graphview:4.2.1'
 
-    compile 'com.scavi.androidimp:android-imp:0.0.4.0@aar'
+    compile 'com.scavi.androidimp:android-imp:0.1.0.0@aar'
 }
