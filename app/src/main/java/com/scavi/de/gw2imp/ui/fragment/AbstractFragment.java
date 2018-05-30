@@ -41,6 +41,18 @@ public abstract class AbstractFragment extends Fragment implements IStatusView {
 
 
     /**
+     * A helper method to verify if the fragment can be updated (e.g. by the presenter)
+     *
+     * @return <code>true</code> the fragment can be updated <br>
+     * <code>false</code> the fragment can not be updated
+     */
+    protected boolean isUpdateable() {
+        return getView() != null && getContext() != null && getActivity() != null &&
+                !getActivity().isFinishing();
+    }
+
+
+    /**
      * @return the layout adapter controller to fade in the adapter items
      */
     protected LayoutAnimationController createLayoutAdapterController() {

@@ -22,6 +22,7 @@ import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
+import com.scavi.de.gw2imp.model.so.TradingItemData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class TradingItemsModel extends AbstractModel {
     public static final int TRADING_ITEM_DELAY_MS = 400;
     private final IDatabaseAccess mImpDatabase;
     private final IExecutorAccess mExecutorAccess;
+    private final String WILD_CARD = "%";
 
     /**
      * Constructor
@@ -50,6 +52,23 @@ public class TradingItemsModel extends AbstractModel {
 
 
     /**
+     * Determines the item prices and the item history prices and creates a new trading item object
+     *
+     * @param item the selected item
+     * @return the object containing all data
+     */
+    @WorkerThread
+    public TradingItemData determineTradingItemData(@Nonnull final ItemEntity item) {
+        List<ItemPriceHistoryEntity> historyPrices = selectItemPriceHistory(item);
+        List<ItemPriceEntity> prices = selectItemPrices(item);
+        return new TradingItemData.Builder()
+                .setItemHistoryPrices(historyPrices)
+                .setItemPrices(prices)
+                .setSelectedItem(item).build();
+    }
+
+
+    /**
      * Selects all items by name
      *
      * @param name the name
@@ -61,7 +80,8 @@ public class TradingItemsModel extends AbstractModel {
             return new ArrayList<>(0);
         }
         name = name.trim();
-        name = name.endsWith("%") ? name : name + "%";
+        name = name.startsWith(WILD_CARD) ? name : WILD_CARD + name;
+        name = name.endsWith(WILD_CARD) ? name : name + WILD_CARD;
         return mImpDatabase.itemsDAO().selectItems(name);
     }
 

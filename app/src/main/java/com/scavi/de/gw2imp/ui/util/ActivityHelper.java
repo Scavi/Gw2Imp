@@ -19,10 +19,14 @@ import android.content.DialogInterface;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.TextView;
 
 import com.scavi.de.gw2imp.R;
 
+import java.util.Optional;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -50,6 +54,24 @@ public class ActivityHelper {
 
 
     /**
+     * Determines
+     *
+     * @param activity   the source activity to determine the {@link TextView}
+     * @param textViewId the id of the text view
+     * @param text       the text to set
+     */
+    public static <T extends Activity> void setTextOnTextView(@Nullable final T activity,
+                                                              @IdRes final int textViewId,
+                                                              final Object text) {
+        if (activity == null) {
+            return;
+        }
+        TextView textView = activity.findViewById(textViewId);
+        textView.setText(text.toString());
+    }
+
+
+    /**
      * Shows the message in the given dialog
      *
      * @param activity the hosting activity
@@ -57,7 +79,7 @@ public class ActivityHelper {
      */
     @Nonnull
     public static void showMessageInDialog(@Nonnull final Activity activity,
-                                  @Nonnull final String message) {
+                                           @Nonnull final String message) {
         AlertDialog dialog = createSimpleOkDialog(activity, message);
         dialog.show();
     }

@@ -17,6 +17,7 @@ package com.scavi.de.gw2imp.ui.view;
 import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
+import com.scavi.de.gw2imp.model.so.TradingItemData;
 
 import java.util.List;
 
@@ -37,17 +38,41 @@ public interface ITradingItemsView extends IStatusView {
 
 
     /**
-     * Updates the graph with the prices
-     *
-     * @param itemHistoryPrices the history prices
-     * @param itemPrices        the current prices
+     * Closes the current search
      */
-    void updateItemGraph(@Nonnull final List<ItemPriceHistoryEntity> itemHistoryPrices,
-                         @Nonnull final List<ItemPriceEntity> itemPrices);
+    void closeSearch();
 
 
     /**
-     * This method resets the item graph from previous searches
+     * Shows the UI components that will contain the data (set the components to visible)
      */
-    void resetItemGraph();
+    void showComponents();
+
+    /**
+     * Updates the graph with the prices
+     *
+     * @param tradingItemData the trading item data containing the history, the current price and
+     *                        the item information
+     */
+    void updateGraph(@Nonnull final TradingItemData tradingItemData);
+
+
+    /**
+     * Updates the details of the presented trading item
+     *
+     * @param tradingItemData the trading item data containing the history, the current price and
+     *                        the item information
+     */
+    void updateItemDetails(@Nonnull final TradingItemData tradingItemData);
+
+    /**
+     * This method resets the screen (e.g. item graph, data) from previous searches
+     */
+    void resetScreen();
+
+
+    /**
+     * In case no prices exists, a message will be presented to the user
+     */
+    void showNoItemPricesFound();
 }

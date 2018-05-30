@@ -20,6 +20,7 @@ import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
 import com.scavi.de.gw2imp.model.TradingItemsModel;
+import com.scavi.de.gw2imp.model.so.TradingItemData;
 import com.scavi.de.gw2imp.ui.util.DelayedTextFieldWatcher;
 import com.scavi.de.gw2imp.ui.view.ITradingItemsView;
 
@@ -80,10 +81,15 @@ public class TradingItemsPresenter {
         return () -> {
             // the item name for the search
             String itemName = mView.getItemSearchName();
-            mView.onShowProgress();
-            Runnable itemSearchProcess = createItemSearchProcessor(itemName);
-            // uses a background thread to execute the item search
-            mModel.getExecutorAccess().getBackgroundThreadExecutor().execute(itemSearchProcess);
+
+            // at least 3 characters long.
+            if (itemName != null && itemName.length() >= 3) {
+                mView.onShowProgress();
+                Runnable itemSearchProcess = createItemSearchProcessor(itemName);
+                // uses a background thread to execute the item search
+                mModel.getExecutorAccess().getBackgroundThreadExecutor().execute(itemSearchProcess);
+
+            }
         };
     }
 
@@ -121,11 +127,18 @@ public class TradingItemsPresenter {
 
     private Runnable createItemPriceProcessor(@Nonnull final ItemEntity item) {
         return () -> {
-            List<ItemPriceHistoryEntity> historyPrices = mModel.selectItemPriceHistory(item);
-            List<ItemPriceEntity> prices = mModel.selectItemPrices(item);
+            TradingItemData tradingItemData = mModel.determineTradingItemData(item);
             mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
-                mView.resetItemGraph();
-                mView.updateItemGraph(historyPrices, prices);
+                mView.resetScreen();
+                mView.closeSearch();
+
+                if (tradingItemData.count() < 2) {
+                    mView.showNoItemPricesFound();
+                } else {
+                    mView.showComponents();
+                    mView.updateGraph(tradingItemData);
+                    mView.updateItemDetails(tradingItemData);
+                }
                 mView.onHideProgress();
             });
         };
