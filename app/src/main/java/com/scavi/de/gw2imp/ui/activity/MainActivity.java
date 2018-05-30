@@ -19,10 +19,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.View;
+import android.view.MenuItem;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -37,11 +35,10 @@ import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
 import com.scavi.de.gw2imp.dagger2.component.DaggerMainComponent;
 import com.scavi.de.gw2imp.dagger2.module.MainModule;
 import com.scavi.de.gw2imp.presenter.MainPresenter;
-import com.scavi.de.gw2imp.ui.adapter.WorldBossesAdapter;
 import com.scavi.de.gw2imp.ui.fragment.AccountAchievementsFragment;
 import com.scavi.de.gw2imp.ui.fragment.AccountCharacterFragment;
-import com.scavi.de.gw2imp.ui.fragment.DailyFragment;
 import com.scavi.de.gw2imp.ui.fragment.AccountRaidFragment;
+import com.scavi.de.gw2imp.ui.fragment.DailyFragment;
 import com.scavi.de.gw2imp.ui.fragment.DailyTomorrowFragment;
 import com.scavi.de.gw2imp.ui.fragment.LicenseFragment;
 import com.scavi.de.gw2imp.ui.fragment.OverviewFragment;
@@ -52,6 +49,7 @@ import com.scavi.de.gw2imp.ui.view.IMainView;
 
 import java.util.Random;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
 
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         injectComponent(((IApplication) getApplication()).getComponent());
-        setupUiComponents();
+        setupUiComponents(savedInstanceState);
         routeAccountOverview();
         mPresenter.onCreate();
     }
@@ -98,15 +96,27 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     /**
      * Create the navigation drawer and set the selection for the overview
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it
+     *                           most recently supplied  in this method. Note: Otherwise it is null.
      */
-    protected void setupUiComponents() {
+    protected void setupUiComponents(@Nullable final Bundle savedInstanceState) {
         setupActionBar(getSupportActionBar());
-        setupNavigationDrawer();
+        setupNavigationDrawer(savedInstanceState);
     }
 
-    private void setupNavigationDrawer() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        mNavigationDrawer = createDrawerMenu(toolbar);
+    /**
+     * savedInstanceState If the activity is being re-initialized after previously being shut
+     * down then this Bundle contains the data it most recently supplied
+     * in this method. Note: Otherwise it is null.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it
+     *                           most recently supplied  in this method. Note: Otherwise it is null.
+     */
+    private void setupNavigationDrawer(@Nullable final Bundle savedInstanceState) {
+        mNavigationDrawer = createDrawerMenu(savedInstanceState);
         mNavigationDrawer.setSelection(NavigationClickListener.OVERVIEW_ID);
     }
 
@@ -114,10 +124,12 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     /**
      * Creates the navigation drawer menu
      *
-     * @param toolbar the toolbar
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it
+     *                           most recently supplied  in this method. Note: Otherwise it is null.
      * @return the created drawer of the menu
      */
-    private Drawer createDrawerMenu(final Toolbar toolbar) {
+    private Drawer createDrawerMenu(@Nullable final Bundle savedInstanceState) {
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(background())
@@ -126,8 +138,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         DrawerBuilder drawerBuilder = new DrawerBuilder()
                 .withActivity(this)
                 .withAccountHeader(headerResult)
+                .withSavedInstance(savedInstanceState)
+                .withDisplayBelowStatusBar(false)
+                .withDrawerLayout(R.layout.material_drawer_fits_not)
                 .withTranslucentStatusBar(false)
-                .withToolbar(toolbar)
                 .withActionBarDrawerToggle(true)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(drawerItems)
@@ -135,6 +149,20 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         return drawerBuilder.buildForFragment();
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (android.R.id.home == item.getItemId() && mNavigationDrawer != null) {
+            if (mNavigationDrawer.isDrawerOpen()) {
+                mNavigationDrawer.closeDrawer();
+            } else {
+                mNavigationDrawer.openDrawer();
+            }
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
 
     /**
      * Determines a random background
@@ -168,8 +196,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     protected void setupActionBar(@Nullable final ActionBar actionBar) {
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setHomeButtonEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.toolbar_icon);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(false);
         }
     }
 
@@ -246,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         .withIcon(R.drawable.ic_explore_black_24dp),
                 new SecondaryDrawerItem()
                         .withIdentifier(NavigationClickListener.LICENSE_ID)
-                        .withName(getString(R.string.core_license))
+                        .withName(getString(R.string.core_navigation_license))
                         .withIcon(R.drawable.ic_info_black_24dp),
 
         };
@@ -259,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeAccountOverview() {
         OverviewFragment fragment = new OverviewFragment();
-        show(fragment);
+        show(fragment, getString(R.string.core_navigation_account_overview));
     }
 
 
@@ -269,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeAccountCharacter() {
         AccountCharacterFragment fragment = new AccountCharacterFragment();
-        show(fragment);
+        show(fragment, getString(R.string.core_navigation_account_character));
     }
 
 
@@ -279,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeAccountRaid() {
         AccountRaidFragment fragment = new AccountRaidFragment();
-        show(fragment);
+        show(fragment, getString(R.string.core_navigation_account_raid));
     }
 
 
@@ -289,7 +318,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeAccountAchievements() {
         AccountAchievementsFragment fragment = new AccountAchievementsFragment();
-        show(fragment);
+        show(fragment, getString(R.string.core_navigation_account_achievements));
     }
 
 
@@ -317,7 +346,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeTradingItems() {
         TradingItemsFragment fragment = new TradingItemsFragment();
-        show(fragment);
+        show(fragment, getString(R.string.core_navigation_account_trading));
     }
 
 
@@ -327,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeWorldBossEventTimer() {
         WorldBossEventTimerFragment fragment = new WorldBossEventTimerFragment();
-        show(fragment);
+        show(fragment, getString(R.string.core_navigation_world_boss_event_timer));
     }
 
     /**
@@ -336,7 +365,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeDailiesToday() {
         DailyFragment fragment = new DailyFragment();
-        show(fragment);
+        show(fragment, getString(R.string.core_navigation_dailies_today));
     }
 
 
@@ -346,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeDailiesTomorrow() {
         DailyTomorrowFragment fragment = new DailyTomorrowFragment();
-        show(fragment);
+        show(fragment, getString(R.string.core_navigation_dailies_tomorrow));
     }
 
 
@@ -356,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeToLicense() {
         LicenseFragment fragment = new LicenseFragment();
-        show(fragment);
+        show(fragment, getString(R.string.core_navigation_license));
     }
 
 
@@ -364,11 +393,16 @@ public class MainActivity extends AppCompatActivity implements IMainView {
      * Shows the given fragment and closes the navigation drawer if open
      *
      * @param fragment the fragment to show
+     * @param title    the fragment title
      */
-    private void show(final Fragment fragment) {
+    private void show(@Nonnull final Fragment fragment,
+                      final String title) {
         mNavigationDrawer.closeDrawer();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_fragment_container, fragment)
                 .commit();
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
     }
 }
