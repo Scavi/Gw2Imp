@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.samples.vision.barcodereader.BarcodeCapture;
@@ -79,7 +80,23 @@ public class ApiKeyQrCaptureActivity extends AppCompatActivity implements IApiKe
                 .findFragmentById(R.id.api_key_qr);
         BarcodeRetriever bcRetriever = mPresenter.determineBarcodeReceiver();
         barcodeCapture.setRetrieval(bcRetriever);
+        setupActionBar(getSupportActionBar());
     }
+
+
+    /**
+     * Setups the actionbar for the activity
+     *
+     * @param actionBar the actionbar to setup
+     */
+    protected void setupActionBar(@Nullable final ActionBar actionBar) {
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setHomeButtonEnabled(false);
+        }
+    }
+
 
 
     /**
