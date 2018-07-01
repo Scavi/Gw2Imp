@@ -18,6 +18,7 @@ import android.content.Context;
 
 import com.scavi.de.gw2imp.background.collector.ItemCollector;
 import com.scavi.de.gw2imp.background.collector.ItemHistoryCollector;
+import com.scavi.de.gw2imp.background.collector.SearchIndexUpdater;
 import com.scavi.de.gw2imp.background.collector.data.IDataProcessor;
 import com.scavi.de.gw2imp.background.collector.data.ItemDataProcessor;
 import com.scavi.de.gw2imp.communication.access.ICommerceAccess;
@@ -51,6 +52,23 @@ public class DataCollectionServiceModule {
     public ItemHistoryCollector provideItemPriceHistoryCollector(
             final IDataProcessor itemDataProcessor) {
         return new ItemHistoryCollector(itemDataProcessor);
+    }
+
+
+    /**
+     * @param context           the context to global information about the application environment
+     * @param itemDataProcessor the item data processor that will determine and process all data
+     * @param databaseAccess    the access to the database
+     * @param preferences       the access to the preferences of the application
+     * @return the search index updater that creates tokens from the item names and allows to search
+     * accurate for items
+     */
+    @Provides
+    public SearchIndexUpdater provideSearchIndexUpdater(final Context context,
+                                                        final IDataProcessor itemDataProcessor,
+                                                        final IDatabaseAccess databaseAccess,
+                                                        final IPreferenceAccess preferences) {
+        return new SearchIndexUpdater(context, itemDataProcessor, databaseAccess, preferences);
     }
 
 
