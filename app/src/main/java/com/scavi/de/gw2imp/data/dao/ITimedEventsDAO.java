@@ -37,7 +37,7 @@ public interface ITimedEventsDAO {
     @Query("SELECT * FROM " + DbConst.TABLE_WORLD_BOSSES +
             " WHERE startMinutes >= :from AND startMinutes <= :till ORDER BY startMinutes ASC")
     List<WorldBossEntity> selectWorldBossesInInterval(final int from,
-                                                       final int till);
+                                                      final int till);
 
     /**
      * Inserts the given world bosses into the table
