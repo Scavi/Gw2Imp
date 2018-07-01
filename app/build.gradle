@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.0"
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.scavi.de.gw2imp"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 20000
-        versionName "0.2.0.0"
+        versionCode 20100
+        versionName "0.2.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -74,7 +74,7 @@ dependencies {
     // reactivex rxjava2
     //compile 'io.reactivex.rxjava2:rxjava:2.1.5'
     // guava
-    compile group: 'com.google.guava', name: 'guava', version: '22.0-android'
+    compile group: 'com.google.guava', name: 'guava', version: '22.0'
     // material drawer
     compile 'com.mikepenz:google-material-typeface:3.0.1.1.original@aar'
     compile('com.mikepenz:materialdrawer:5.9.5@aar') {
