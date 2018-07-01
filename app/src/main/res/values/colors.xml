@@ -19,6 +19,7 @@
 
     <color name="core_highlight_1">#FFDA2622</color>
     <color name="core_highlight_2">#FF51014E</color>
+    <color name="core_highlight_3">#FF51AE4E</color>
 
     <!-- material drawer -->
     <color name="material_drawer_primary">#FF702F6E</color>
