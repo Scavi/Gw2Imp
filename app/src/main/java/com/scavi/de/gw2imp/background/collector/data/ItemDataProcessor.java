@@ -1,24 +1,26 @@
 package com.scavi.de.gw2imp.background.collector.data;
 
-import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 import com.scavi.androidimp.util.DateHelper;
 import com.scavi.androidimp.util.RestHelper;
 import com.scavi.de.gw2imp.communication.access.ICommerceAccess;
 import com.scavi.de.gw2imp.communication.access.IItemAccess;
-import com.scavi.de.gw2imp.communication.error.ResponseException;
 import com.scavi.de.gw2imp.communication.response.commerce.Price;
 import com.scavi.de.gw2imp.communication.response.items.Item;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
+import com.scavi.de.gw2imp.data.entity.item.ItemSearchEntity;
+import com.scavi.de.gw2imp.data.entity.item.TrendEntity;
+import com.scavi.de.gw2imp.data.util.TrendType;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ItemDataProcessor implements IDataProcessor {
@@ -63,7 +65,8 @@ public class ItemDataProcessor implements IDataProcessor {
         try {
             allCommerceItemIds = mCommerceAccess.getAllCommerceItemsWithWifi();
         } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage(), ex); // TODO
+            Log.e(TAG, "A general failure has occurred while trying to load all item IDs.",
+                    ex);
         }
         return allCommerceItemIds;
     }
@@ -104,26 +107,37 @@ public class ItemDataProcessor implements IDataProcessor {
                     waitMs(TOO_MANY_REQUEST_DELAY_MS);
                 }
             } catch (Exception ex) {
-                Log.e(TAG, ex.getMessage(), ex); // TODO
+                Log.e(TAG, "A general failure has occurred while trying to load commerce data.",
+                        ex);
             }
         }
     }
 
     /**
-     * Verifies, if the general item information (id, name, icon) already exists. If not, the item
-     * information will be loaded. After that, the price will be inserted into the database.
-     * Since the item prices will be loaded via REST GET, the commercial item IDs must be split into
-     * groups (<code>ITEM_PROCESS_SIZE</code>)
-     *
      * @param prices the loaded prices to process.
      */
-    @VisibleForTesting
-    protected void processPrices(@Nullable final List<Price> prices)
-            throws IOException, ResponseException {
+    private void processPrices(@Nullable final List<Price> prices) {
         if (prices == null || prices.size() == 0) {
             return;
         }
         for (Price price : prices) {
+            insertItemPrice(price);
+            saveItemPriceTrend(price);
+        }
+    }
+
+
+    /**
+     * Verifies, if the general item information (id, name, icon) already exists. If not, the item
+     * information will be loaded. After that, the price will be inserted into the database.
+     * Since the item prices will be loaded via REST GET, the commercial item IDs must be split into
+     * groups (<code>ITEM_PROCESS_SIZE</code>).
+     * Catches all exceptions to make sure that an error won't affect processing the prices
+     *
+     * @param price the new price
+     */
+    private void insertItemPrice(final Price price) {
+        try {
             boolean isItemExisting = false;
             ItemEntity knownItem = mDatabaseAccess.itemsDAO().selectItem(price.getId());
             // item is not known yet. Load the item via the REST API
@@ -150,8 +164,38 @@ public class ItemDataProcessor implements IDataProcessor {
                         "The Item to the price id '%d' doesn't exist and will be skipped",
                         price.getId()));
             }
+        } catch (Exception ex) {
+            Log.e(TAG, "Failed to process the item price with the ID: " + price.getId(), ex);
         }
     }
+
+
+    /**
+     * This method saves the seller and buyer item trends of the current given price
+     *
+     * @param price the new price
+     */
+    private void saveItemPriceTrend(final Price price) {
+        try {
+            ItemPriceEntity itemPrice = mDatabaseAccess.itemsDAO().selectLastItemPrice(
+                    price.getId());
+            double sellPercentage = 0;
+            double buyPercentage = 0;
+            // calculates the sell and buy percentage if a price already exists
+            if (itemPrice != null) {
+                sellPercentage = 1 - (price.getSells().getUnitPrice() / itemPrice.getSellPrice());
+                buyPercentage = 1 - (price.getBuys().getUnitPrice() / itemPrice.getBuyPrice());
+            }
+            // insert the data
+            mDatabaseAccess.trendDAO().insertTrend(
+                    new TrendEntity(price.getId(), TrendType.BuyItems, buyPercentage));
+            mDatabaseAccess.trendDAO().insertTrend(
+                    new TrendEntity(price.getId(), TrendType.SellItems, sellPercentage));
+        } catch (Exception ex) {
+            Log.e(TAG, "Failed to process the item trend with the ID: " + price.getId(), ex);
+        }
+    }
+
 
     /**
      * This method will be used to update older prices.
@@ -190,7 +234,8 @@ public class ItemDataProcessor implements IDataProcessor {
         try {
             ids = mDatabaseAccess.itemsDAO().selectAllItemIds();
         } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage(), ex); // TODO
+            Log.e(TAG, "A general failure has occurred while trying to determine all item IDs.",
+                    ex);
         }
         return ids;
     }
@@ -226,11 +271,77 @@ public class ItemDataProcessor implements IDataProcessor {
                 Log.v(TAG, "Remaining to delete: " + mDatabaseAccess.itemsDAO()
                         .selectPricesInRange(from, till));
             } else {
-                //Log.v(TAG, "The history prices for the itemId " + itemId + " are up to date.");
+                //Log.d(TAG, "The history prices for the itemId " + itemId + " are up to date.");
             }
         } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage(), ex); // TODO
+            Log.e(TAG, "A general failure has occurred while trying to update the price history.",
+                    ex);
         }
+    }
+
+
+    /**
+     * This method determines all missing IDs for the search index that are known yet.
+     */
+    @Override
+    public void updateItemSearchIndex() {
+        try {
+            // all item IDs that don't have a search index yet
+            int[] allMissingIds = mDatabaseAccess.itemsDAO().selectMissingSearchIndexIds();
+            // Selects the item to the id, extract all parts of the item name to create the
+            // search index (all ItemSearchEntity's) and insert them into the database
+            for (int missingId : allMissingIds) {
+                try {
+                    ItemEntity item = mDatabaseAccess.itemsDAO().selectItem(missingId);
+                    List<ItemSearchEntity> searchEntities = createItemSearchIndex(item);
+                    mDatabaseAccess.itemsDAO().insertItemSearchParts(searchEntities);
+                } catch (Exception ex) {
+                    Log.e(TAG, "An error occurred trying to create the search index to the id" +
+                            missingId, ex);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "A general failure has occurred while trying to load and process all " +
+                    "item IDs to generate a search index", ex);
+        }
+    }
+
+
+    /**
+     * Replaces all letters except A-Z, 0-1 and german special characters ÄÖÜß with " " (lower
+     * and upper case). Then the remaining item name will be tokenized by " ".
+     *
+     * @param item the item for the search index
+     * @return all parts of the name
+     */
+    private String[] determineItemNameParts(@Nonnull final ItemEntity item) {
+        String cleanedName = item.getName().replaceAll("[^a-zA-Z1-9äÄöÖüÜß]", " ");
+        String[] allParts = cleanedName.split("\\s+");
+        List<String> cleanedParts = new ArrayList<>();
+        for (String part : allParts) {
+            // length of 2 to exclude one digit words. 2 is the lowest value, because we want to
+            // support values like "Ei"
+            if (part.length() >= 2) {
+                cleanedParts.add(part);
+            }
+        }
+        return cleanedParts.toArray(new String[cleanedParts.size()]);
+    }
+
+
+    /**
+     * Creates a search item index to the given item with all parts
+     *
+     * @param item the item for the search index
+     * @return all search index entities
+     */
+    private List<ItemSearchEntity> createItemSearchIndex(@Nonnull final ItemEntity item) {
+        String[] nameParts = determineItemNameParts(item);
+        List<ItemSearchEntity> itemSearch = new ArrayList<>(nameParts.length);
+        for (final String part : nameParts) {
+            itemSearch.add(new ItemSearchEntity(item.getItemId(), part));
+        }
+        return itemSearch;
     }
 
 
@@ -246,7 +357,7 @@ public class ItemDataProcessor implements IDataProcessor {
                     wait(toWait);
                 }
             } catch (InterruptedException ex) {
-                Log.e(TAG, ex.getMessage(), ex); // TODO
+                Log.e(TAG, ex.getMessage(), ex);
             }
         }
     }

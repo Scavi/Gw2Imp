@@ -24,4 +24,10 @@ public interface IDataProcessor {
      * This method will be used to update older items
      */
     void updateHistory();
+
+
+    /**
+     * This method will be used to update the item search index
+     */
+    void updateItemSearchIndex();
 }
