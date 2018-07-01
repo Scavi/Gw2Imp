@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">GW2Imp</string>
+    <string name="overview_information_title">Informationen</string>
+    <string name="overview_loaded_item_count">Artikelanzahl</string>
+    <string name="overview_loaded_price_count">Preise (im Monat)</string>
+    <string name="overview_history_count">Historie (Monate)</string>
+    <string name="overview_status_title">Status</string>
+    <string name="overview_index_sync">Suchindex</string>
+    <string name="overview_index_sync_incomplete">Unvollständig</string>
+    <string name="overview_index_sync_complete">Synchronisiert</string>
+    <string name="overview_status_in_progress">Wird ermittelt</string>
 
     <string name="app_notification_title">GW2 Imp</string>
     <string name="app_notification_text">Collecting treasures&#8230;</string>
@@ -25,6 +34,7 @@
     <string name="core_navigation_account_buy">Kaufen</string>
     <string name="core_navigation_account_sell">Verkaufen</string>
     <string name="core_navigation_account_trading_market">Handelsmarkt</string>
+    <string name="core_navigation_account_trend">Überwachung</string>
     <string name="core_navigation_account_trading">Waren</string>
     <string name="core_navigation_account_common">Allgemeine Informationen</string>
     <string name="core_navigation_dailies_today">Tägliche events heute</string>
@@ -55,6 +65,14 @@
     <string name="world_boss_reward_items_pattern">%d Gegenstände</string>
     <string name="world_boss_data_access_error">Bei der Ermittlung der Weltboss-Informationen ist ein Fehler aufgetreten: %s</string>
 
+    <string name="account_trend_getting_trend_data">Deine aktuellen Trend-Informationen werden ermittelt</string>
+    <string name="account_trend_data_access_error">Es trat ein Fehler beim Datenbankzugriff auf: %s</string>
+    <string name="account_trend_top_increasing_items">Gegenstände (steigend)</string>
+    <string name="account_trend_top_decreasing_items">Gegenstände (fallend)</string>
+    <string name="account_trend_top_increasing_my_items">Meine Gegenstände (steigend)</string>
+    <string name="account_trend_top_decreasing_my_items">Meine Gegenstände (fallend)</string>
+    <string name="account_trend_gem_course">Edelstein-Kurs</string>
+
     <string name="trading_items_getting_your_data">Deine Handels-Informationen werden ermittelt</string>
     <string name="trading_items_data_access_error">Bei der Ermittlung der Handels-Informationen ist ein Fehler aufgetreten: %s</string>
     <string name="trading_items_data_count_warning">Bisher liegen noch nicht genug Preise vor. Versuche es zu einem späteren Zeitpunkt noch einmal.</string>
@@ -62,11 +80,11 @@
     <string name="trading_items_buy">Kaufspreis</string>
     <string name="trading_items_sell">Verkaufspreis</string>
     <string name="trading_items_currency_format">%s %s</string>
-    <string name="trading_items_last_update">Letztes update</string>
-    <string name="trading_items_sell_min_price">Minimaler Verkaufspreis</string>
-    <string name="trading_items_sell_max_price">Maximaler Verkaufspreis</string>
-    <string name="trading_items_buy_min_price">Minimaler Kaufpreis</string>
-    <string name="trading_items_buy_max_price">Maximaler Kaufpreis</string>
+    <string name="trading_items_last_update">Letzte Aktualisierung</string>
+    <string name="trading_items_sell_min_price">Min. Verkaufspreis</string>
+    <string name="trading_items_sell_max_price">Max. Verkaufspreis</string>
+    <string name="trading_items_buy_min_price">Min. Einkaufpreis</string>
+    <string name="trading_items_buy_max_price">Max. Einkaufpreis</string>
 
     <string name="core_license_gw2_header">Guild Wars 2 Bilder</string>
     <string name="core_license_gw2_text">Das Copyright der genutzten Bilder gehört einzig und alleine ArenaNet. Für den privaten Einsatz hat ArenaNet freundlicherweise die Verwendung der Bilder gestattet. Für genauere Informationen siehe:\n\nhttps://www.guildwars2.com/en/legal/guild-wars-2-content-terms-of-use/</string>
