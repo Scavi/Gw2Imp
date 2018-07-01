@@ -15,25 +15,72 @@ package com.scavi.de.gw2imp.model;
 
 import android.content.Context;
 
+import com.scavi.de.gw2imp.async.IExecutorAccess;
+import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
+import com.scavi.de.gw2imp.data.db.routine.ItemRoutines;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.util.RoutingState;
 
-public class OverviewModel {
-    private final Context mContext;
-    private final IPreferenceAccess mPreferenceAccess;
+public class OverviewModel extends AbstractModel {
+    private final IDatabaseAccess mDatabaseAccess;
+    private final IExecutorAccess mExecutorAccess;
 
     /**
      * Constructor
      *
-     * @param context          the context to global information about the application environment
-     * @param preferenceAccess access to the shared preferences of this application
+     * @param context        the context to global information about the application environment
+     * @param databaseAccess the database access of this application
+     * @param executorAccess to access the main and background threads
      */
     public OverviewModel(final Context context,
-                         final IPreferenceAccess preferenceAccess) {
-        mContext = context;
-        mPreferenceAccess = preferenceAccess;
+                         final IDatabaseAccess databaseAccess,
+                         final IExecutorAccess executorAccess) {
+        super(context);
+        mDatabaseAccess = databaseAccess;
+        mExecutorAccess = executorAccess;
     }
 
 
+    /**
+     * @return the amount of distinct items in the database
+     */
+    public int selectItemCount() {
+        return mDatabaseAccess.itemsDAO().selectItemCount();
+    }
 
+
+    /**
+     * @return the count of items in the item price table
+     */
+    public int selectItemPriceCount() {
+        return mDatabaseAccess.itemsDAO().selectItemPriceCount();
+    }
+
+
+    /**
+     * @return the count of items in the history item price table
+     */
+    public int selectItemPriceHistoryCount() {
+        return mDatabaseAccess.itemsDAO().selectItemPriceHistoryCount();
+    }
+
+
+    /**
+     * This method determines the count of all items and the count of the indexed search items.
+     * Both needs to be equal to show that the search index is current
+     *
+     * @return <code>true</code> if the search index is complete <br>
+     * <code>false</code> if the update of the search index is still not complete
+     */
+    public boolean selectIsSearchIndexComplete() {
+        return ItemRoutines.isSearchIndexComplete(mDatabaseAccess);
+    }
+
+
+    /**
+     * @return to access the main and background threads
+     */
+    public IExecutorAccess getExecutorAccess() {
+        return mExecutorAccess;
+    }
 }

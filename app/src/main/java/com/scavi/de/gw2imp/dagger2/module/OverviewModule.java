@@ -16,6 +16,9 @@ package com.scavi.de.gw2imp.dagger2.module;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.scavi.de.gw2imp.async.IExecutorAccess;
+import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
+import com.scavi.de.gw2imp.model.TradingItemsModel;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.model.OverviewModel;
 import com.scavi.de.gw2imp.presenter.OverviewPresenter;
@@ -63,14 +66,16 @@ public class OverviewModule {
     }
 
     /**
-     * @param context          the context to global information about the application environment
-     * @param preferenceAccess access to the shared preferences of this application
+     * @param context        the context to global information about the application environment
+     * @param impDatabase    the database access of this application
+     * @param executorAccess to access the main and background threads
      * @return the model of the MVP pattern in the context of the application overview
      */
     @Provides
     @NonNull
     public OverviewModel provideModel(final Context context,
-                                      final IPreferenceAccess preferenceAccess) {
-        return new OverviewModel(context, preferenceAccess);
+                                      final IDatabaseAccess impDatabase,
+                                      final IExecutorAccess executorAccess) {
+        return new OverviewModel(context, impDatabase, executorAccess);
     }
 }
