@@ -28,6 +28,7 @@ import com.scavi.de.gw2imp.R;
 import com.scavi.de.gw2imp.application.IApplication;
 import com.scavi.de.gw2imp.background.collector.ItemCollector;
 import com.scavi.de.gw2imp.background.collector.ItemHistoryCollector;
+import com.scavi.de.gw2imp.background.collector.SearchIndexUpdater;
 import com.scavi.de.gw2imp.dagger2.component.DaggerDataCollectionServiceComponent;
 import com.scavi.de.gw2imp.ui.activity.KeepAliveActivity;
 
@@ -48,8 +49,10 @@ public class DataCollectionService extends Service {
     @Inject
     protected ItemHistoryCollector mItemHistoryCollector;
     @Inject
-    protected INotificationManagerAccess mNotificationManagerAccess;
+    protected SearchIndexUpdater mSearchIndexUpdater;
 
+    @Inject
+    protected INotificationManagerAccess mNotificationManagerAccess;
     private Notification mNotification;
 
     @Override
@@ -61,6 +64,7 @@ public class DataCollectionService extends Service {
                 .inject(this);
         mItemPriceCollector.start();
         mItemHistoryCollector.start();
+        mSearchIndexUpdater.start();
     }
 
     @Override
