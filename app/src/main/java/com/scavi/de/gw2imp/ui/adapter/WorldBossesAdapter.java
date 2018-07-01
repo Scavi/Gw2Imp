@@ -57,7 +57,7 @@ public class WorldBossesAdapter extends ArrayAdapter<WorldBossEntity> {
         View rowView = convertView;
         // inflate the rowView if necessary
         if (rowView == null) {
-            final LayoutInflater inflater =
+            LayoutInflater inflater =
                     (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(R.layout.world_boss_row, parent, false);
         }
@@ -71,7 +71,10 @@ public class WorldBossesAdapter extends ArrayAdapter<WorldBossEntity> {
      * @param rowView     the current row view
      */
     private void customizeView(final WorldBossEntity currentItem,
-                               final View rowView) {
+                               @Nullable final View rowView) {
+        if (rowView == null) {
+            return;
+        }
         ImageView worldBossPicture = rowView.findViewById(R.id.world_boss_location_picture);
         int drawableId = Gw2DataMapper.determineWorldBossDrawableId(currentItem);
         worldBossPicture.setImageDrawable(getContext().getDrawable(drawableId));
