@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.scavi.de.gw2imp.ui.fragment.AccountTrendFragment">
+
+    <LinearLayout
+        android:id="@+id/account_trend_information"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/account_raid_list_view_row_divider_height" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/account_trend_error_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/technical_fragment_data_setup_icon_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/quaggan_cry" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/account_trend_getting_things_done"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/Gw2ImpTheme.Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/account_trend_getting_trend_data" />
+
+        <ProgressBar
+            android:id="@+id/account_trend_data_progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/account_trend_progress_bar_margin_bottom"
+            android:layout_marginEnd="@dimen/account_trend_progress_bar_margin_right"
+            android:layout_marginStart="@dimen/account_trend_progress_bar_margin_left"
+            android:layout_marginTop="@dimen/account_trend_progress_bar_margin_top"
+            android:backgroundTint="@color/core_progressbar_color"
+            android:indeterminate="true" />
+    </LinearLayout>
+
+</LinearLayout>
