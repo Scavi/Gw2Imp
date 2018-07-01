@@ -55,7 +55,7 @@ public class DailyAdapter extends ArrayAdapter<Daily> {
         View rowView = convertView;
         // inflate the rowView if necessary
         if (rowView == null) {
-            final LayoutInflater inflater =
+            LayoutInflater inflater =
                     (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(R.layout.account_daily_row, parent, false);
         }
