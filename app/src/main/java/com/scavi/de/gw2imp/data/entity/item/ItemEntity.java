@@ -46,7 +46,7 @@ public class ItemEntity {
     /**
      * Constructor
      *
-     * @param item the laoded item that represents the item entity
+     * @param item the loaded item that represents the item entity
      */
     public ItemEntity(final Item item) {
         this(item.getId(), item.getName(), item.getIcon());
