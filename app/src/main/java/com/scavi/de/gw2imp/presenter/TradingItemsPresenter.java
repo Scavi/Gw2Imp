@@ -31,6 +31,7 @@ import javax.inject.Inject;
 
 @ParametersAreNonnullByDefault
 public class TradingItemsPresenter {
+    private static final int MIN_SEARCH_LENGTH = 3;
     private final ITradingItemsView mView;
     private final TradingItemsModel mModel;
 
@@ -80,8 +81,8 @@ public class TradingItemsPresenter {
             // the item name for the search
             String itemName = mView.getItemSearchName();
 
-            // must be at least 4 characters long
-            if (itemName != null && itemName.length() >= 4) {
+            // must be at least 3 characters long
+            if (itemName != null && itemName.length() >= MIN_SEARCH_LENGTH) {
                 mView.onShowProgress();
                 Runnable itemSearchProcess = createItemSearchProcessor(itemName);
                 // uses a background thread to execute the item search
@@ -148,6 +149,7 @@ public class TradingItemsPresenter {
                 mView.resetScreen();
                 mView.closeSearch();
 
+                // not enough items to show prices (from - to)
                 if (tradingItemData.count() < 2) {
                     mView.showNoItemPricesFound();
                 } else {

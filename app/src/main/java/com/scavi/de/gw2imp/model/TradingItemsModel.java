@@ -20,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Strings;
 import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
@@ -82,7 +83,7 @@ public class TradingItemsModel extends AbstractModel {
      */
     @WorkerThread
     public List<ItemEntity> selectItemsToName(String name) {
-        if (name == null || name.isEmpty()) { // TODO nullorempty remove boilerpalte
+        if (Strings.isNullOrEmpty(name)) {
             return new ArrayList<>(0);
         }
         name = name.trim();

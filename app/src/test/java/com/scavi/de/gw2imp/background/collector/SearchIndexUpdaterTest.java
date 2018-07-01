@@ -1,4 +1,4 @@
-package com.scavi.util;
+package com.scavi.de.gw2imp.background.collector;
 
 import com.scavi.de.gw2imp.background.collector.SearchIndexUpdater;
 import com.scavi.de.gw2imp.data.entity.item.ItemSearchEntity;
@@ -18,7 +18,7 @@ public class SearchIndexUpdaterTest {
      * another word that ends with the last character of the entity
      */
     @Test
-    public void testDictionarySearch() {
+    public void testDictionarySearchHasEntries() {
         // setup
         ItemSearchEntity searchItem = new ItemSearchEntity(1, "Eisenerz");
         Set<String> searchDictionary = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
@@ -27,9 +27,10 @@ public class SearchIndexUpdaterTest {
 
         // execute
         SearchIndexUpdater searchIndexer = new SearchIndexUpdater(null, null, null, null);
-        searchIndexer.searchWords(searchItem, searchDictionary, new StringBuilder(), foundWords, 0);
+        boolean hasEntries = searchIndexer.searchWords(searchItem, searchDictionary, foundWords);
 
         // verify
+        Assert.assertTrue(hasEntries);
         Assert.assertEquals(4, foundWords.size());
         Assert.assertTrue(foundWords.contains("eis"));
         Assert.assertTrue(foundWords.contains("en"));
@@ -41,7 +42,7 @@ public class SearchIndexUpdaterTest {
      * Tests that no item will be added if the the word is equal to the dictionary
      */
     @Test
-    public void testDictionarySearch2() {
+    public void testDictionarySearchHasNoNewEntry() {
         // setup
         ItemSearchEntity searchItem = new ItemSearchEntity(1, "Eisenerz");
         Set<String> searchDictionary = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
@@ -50,9 +51,32 @@ public class SearchIndexUpdaterTest {
 
         // execute
         SearchIndexUpdater searchIndexer = new SearchIndexUpdater(null, null, null, null);
-        searchIndexer.searchWords(searchItem, searchDictionary, new StringBuilder(), foundWords, 0);
+        boolean hasEntries = searchIndexer.searchWords(searchItem, searchDictionary, foundWords);
 
         // verify
+        Assert.assertFalse(hasEntries);
         Assert.assertEquals(0, foundWords.size());
     }
+
+// TODO: currently we will add all words
+//    /**
+//     * In this test, Eisener can't get completed. Due to this, no entries will be returned
+//     * because the given search item can't get completely translated into dictionary words
+//     */
+//    @Test
+//    public void testDictionarySearchHasIncompleteEntry() {
+//        // setup
+//        ItemSearchEntity searchItem = new ItemSearchEntity(1, "Eisener");
+//        Set<String> searchDictionary = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+//        searchDictionary.addAll(Arrays.asList("Eis", "en", "Erz", "Eisen"));
+//        Set<String> foundWords = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+//
+//        // execute
+//        SearchIndexUpdater searchIndexer = new SearchIndexUpdater(null, null, null, null);
+//        boolean hasEntries = searchIndexer.searchWords(searchItem, searchDictionary, foundWords);
+//
+//        // verify
+//        Assert.assertFalse(hasEntries);
+//        Assert.assertEquals(0, foundWords.size());
+//    }
 }

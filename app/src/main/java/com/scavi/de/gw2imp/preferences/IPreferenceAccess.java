@@ -41,51 +41,25 @@ public interface IPreferenceAccess {
 
 
     /**
-     * Writes the dictionary iteration key synchronized into the preferences of the application.
-     * The dictionary iteration defines how many times the application iterated through all known
-     * words.
+     * Writes the word index completion status synchronized into the preferences of the application.
      *
-     * @param context             the context to global information about the application
-     *                            environment
-     * @param dictionaryIteration the api key to write
+     * @param context    the context to global information about the application
+     *                   environment
+     * @param isComplete <code>true</code> the word index is complete and fully updated <br/>
+     *                   <code>false</code> the word index is not complete
      */
-    void writeDictionaryIteration(final Context context,
-                                  final int dictionaryIteration);
+    void writeIsWordIndexComplete(final Context context,
+                                  final boolean isComplete);
 
 
     /**
-     * Reads Writes the dictionary iteration key synchronized the preferences of the application.
-     * The dictionary iteration defines how many times the
-     * application iterated through all known words.
+     * Reads the word index completion state synchronized the preferences of the application.
      *
      * @param context the context to global information about the application environment
-     * @return the dictionary iteration or ß
+     * @return <code>true</code> the word index is complete and fully updated <br/>
+     * <code>false</code> the word index is not complete
      */
-    int readDictionaryIteration(final Context context);
-
-
-    /**
-     * Writes the word index key synchronized into the preferences of the application.
-     * The word index defines the current index while iterating through all known words to find
-     * new words
-     *
-     * @param context             the context to global information about the application
-     *                            environment
-     * @param dictionaryIteration the api key to write
-     */
-    void writeWordIndex(final Context context,
-                        final int dictionaryIteration);
-
-
-    /**
-     * Reads the word index key synchronized the preferences of the application.
-     * The word index defines the current index while iterating through all known words to find
-     * new words
-     *
-     * @param context the context to global information about the application environment
-     * @return the dictionary iteration or 0
-     */
-    int readWordIndex(final Context context);
+    boolean readIsWordIndexComplete(final Context context);
 
 
     /**

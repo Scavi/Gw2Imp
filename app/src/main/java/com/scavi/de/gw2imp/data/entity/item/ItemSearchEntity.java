@@ -7,7 +7,9 @@ import android.support.annotation.NonNull;
 import com.google.common.base.MoreObjects;
 import com.scavi.de.gw2imp.data.util.DbConst;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity(tableName = DbConst.TABLE_ITEM_PART_SEARCH,
@@ -67,6 +69,26 @@ public class ItemSearchEntity {
             allIds[i++] = itemSearch.getId();
         }
         return allIds;
+    }
+
+
+    /**
+     * Creates a list of {@link ItemSearchEntity} for all the found words with the ID of the
+     * <code>searchItem</code>
+     *
+     * @param searchItem the search item
+     * @param newWords   all words for the search item
+     * @return the item search list
+     */
+    @NonNull
+    public static List<ItemSearchEntity> from(@NonNull final ItemSearchEntity searchItem,
+                                              @NonNull final Set<String> newWords) {
+        List<ItemSearchEntity> newEntries = new ArrayList<>(newWords.size());
+        for (String word : newWords) {
+            ItemSearchEntity newEntry = new ItemSearchEntity(searchItem.getId(), word);
+            newEntries.add(newEntry);
+        }
+        return newEntries;
     }
 
 

@@ -15,7 +15,6 @@ package com.scavi.de.gw2imp.preferences;
 
 public interface IPreferences {
     String API_KEY = "ApiKey";
-    String DICTIONARY_ITERATION = "DictionaryIteration";
-    String WORD_INDEX = "WordIndex";
+    String IS_WORD_INDEX_COMPLETE = "IsWordIndexComplete";
     String ROUTING_STATE = "RoutingState";
 }

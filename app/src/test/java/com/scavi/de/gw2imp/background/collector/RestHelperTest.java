@@ -12,7 +12,7 @@
  * limitations under the License.
  *
  */
-package com.scavi.util;
+package com.scavi.de.gw2imp.background.collector;
 
 import com.scavi.androidimp.util.RestHelper;
 

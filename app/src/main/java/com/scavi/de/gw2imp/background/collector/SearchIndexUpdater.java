@@ -1,18 +1,18 @@
 package com.scavi.de.gw2imp.background.collector;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
-import com.google.common.base.MoreObjects;
+import com.google.common.base.Strings;
 import com.scavi.de.gw2imp.background.collector.data.IDataProcessor;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.data.db.routine.ItemRoutines;
-import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemSearchEntity;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -60,89 +60,116 @@ public class SearchIndexUpdater extends Thread {
     @Override
     public void run() {
         while (!isInterrupted()) {
-            //mDatabaseAccess.itemsDAO().deleteSearchIndex();
-            if (isDictionaryToUpdate()) {
-                updateDictionary();
-            }
-
+            updateDictionary(); // TODO remove and use it after the updateItemSearchIndex (currently only for test)
             while (!ItemRoutines.isSearchIndexComplete(mDatabaseAccess)) {
                 mItemDataProcessor.updateItemSearchIndex();
             }
+            updateDictionary();
             waitMs(ITERATION_MS);
         }
     }
 
     private void updateDictionary() {
-        //int id = mPreferences.readWordIndex(mContext);
-        //Set<String> searchDictionary = null;
-
-        Set<String> searchDictionary = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-        searchDictionary.addAll(mDatabaseAccess.itemsDAO().selectSearchItemDictionary());
-
-        for (int i = 0; i < 5; ++i) {
-            int id = 0;
-            ItemSearchEntity nextItem;
-
-            while ((nextItem = mDatabaseAccess.itemsDAO().selectNextSearchItemIndex(id)) != null) {
-                // lazy initialization of the search dictionary with the first iteration
-//                if (searchDictionary == null) {
-//                    searchDictionary = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-//                    searchDictionary.addAll(mDatabaseAccess.itemsDAO()
-// .selectSearchItemDictionary());
-//                }
-
-                Set<String> foundWords = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-                // search for all possible known words for the current search item with the given
-                // dictionary
-                searchWords(nextItem, searchDictionary, new StringBuilder(), foundWords, 0);
-                if (foundWords.size() > 0) {
-                    // updates the dictionary with the recent found words
-                    searchDictionary.addAll(foundWords);
-
-                    // TODO insert the found search words for all search items with the current
-                    // search item part name
-                } else {
-                    Log.v(TAG, "No dictionary update necessary from " + nextItem.getNamePart());
-                }
-
-                // item was processed, update the id / index
-                id = nextItem.getId();
-                mPreferences.writeWordIndex(mContext, id);
-            }
-        }
-        Log.v(TAG, "foo");
-    }
-
-    private boolean isDictionaryToUpdate() {
-        return mPreferences.readDictionaryIteration(mContext) < MAX_DICTIONARY_ITERATIONS;
-    }
-
-
-    private void updateDictionaryIteration() {
-        int currentIteration = mPreferences.readDictionaryIteration(mContext);
-        if (currentIteration < MAX_DICTIONARY_ITERATIONS) {
-            mPreferences.writeDictionaryIteration(mContext, currentIteration + 1);
-        }
-    }
-
-    public void searchWords(final ItemSearchEntity searchItem,
-                            final Set<String> searchDictionary,
-                            final StringBuilder currentWord,
-                            final Set<String> foundWords,
-                            int pos) {
-        if (pos == searchItem.getNamePart().length()) {
+        if (mPreferences.readIsWordIndexComplete(mContext)) {
             return;
         }
 
+        int countBefore = mDatabaseAccess.itemsDAO().selectItemSearchCount();
+        Set<String> searchDictionary = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        searchDictionary.addAll(mDatabaseAccess.itemsDAO().selectSearchItemDictionary());
+
+        int id = 0;
+        ItemSearchEntity nextItem;
+
+        while ((nextItem = mDatabaseAccess.itemsDAO().selectNextSearchItemIndex(id)) != null) {
+            Set<String> foundWords = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+            // search for all possible known words for the current search item with the given dic
+            searchWords(nextItem, searchDictionary, foundWords);
+            if (foundWords.size() > 0) {
+                List<ItemSearchEntity> toUpdate = ItemSearchEntity.from(nextItem, foundWords);
+                mDatabaseAccess.itemsDAO().insertItemSearchParts(toUpdate);
+            }
+            // item was processed, update the id / index
+            id = nextItem.getId();
+        }
+        int countAfter = mDatabaseAccess.itemsDAO().selectItemSearchCount();
+        boolean isUnchanged = countBefore == countAfter && countBefore > 0;
+        mPreferences.writeIsWordIndexComplete(mContext, isUnchanged);
+    }
+
+
+    /**
+     * This method searches recursively through the current search item and tries to find
+     * matching part names in the dictionary
+     *
+     * @param searchItem       the item part to search
+     * @param searchDictionary the dictionary with all known words
+     * @param foundWords       all words found so far that match a part of the given item part
+     *                         and dictionary entries
+     * @return <code>true</code> the item part completely translated into the dictionary<br>
+     * <code>false</code> the item part can not be translated into the dictionary
+     */
+
+    @VisibleForTesting
+    protected boolean searchWords(@NonNull final ItemSearchEntity searchItem,
+                                  @NonNull final Set<String> searchDictionary,
+                                  @NonNull Set<String> foundWords) {
+        if (Strings.isNullOrEmpty(searchItem.getNamePart())) {
+            return false;
+        }
+        searchWords(searchItem, searchDictionary, new StringBuilder(), foundWords, 0);
+        return true;
+        // TODO: lets start without this first to get more words into the dictionary and see how
+        // it goes
+//        boolean hasEntries = searchWords(searchItem, searchDictionary, new StringBuilder(),
+//                foundWords, 0);
+//        // the search item can't get completely translated (e.g. item="Eisener" and
+//        // dictionary="Eisen", "Erz"
+//        if (!hasEntries) {
+//            foundWords.clear();
+//        }
+//        return hasEntries;
+    }
+
+
+    /**
+     * This method searches recursively through the current search item and tries to find
+     * matching part names in the dictionary
+     *
+     * @param searchItem       the item part to search
+     * @param searchDictionary the dictionary with all known words
+     * @param currentWord      the current word during the lookup process
+     * @param foundWords       all words found so far that match a part of the given item part
+     *                         and dictionary entries
+     * @param pos              the current position of teh search item part
+     * @return <code>true</code> the item part completely translated into the dictionary<br>
+     * <code>false</code> the item part can not be translated into the dictionary
+     */
+    private void searchWords(@NonNull final ItemSearchEntity searchItem,
+                             @NonNull final Set<String> searchDictionary,
+                             @NonNull final StringBuilder currentWord,
+                             @NonNull final Set<String> foundWords,
+                             int pos) {
+        if (pos == searchItem.getNamePart().length()) {
+            // In case the current word buffer is empty a matching word was just found before.
+            // This means, that the word was found found complete
+            // TODO: for test purposes, just add everythign and not if it is complete
+            // return currentWord.length() == 0;
+            //return foundWords.size() > 0;
+        }
+
+        boolean isComplete = false;
         for (int i = pos; i < searchItem.getNamePart().length(); ++i) {
             currentWord.append(searchItem.getNamePart().charAt(i));
             boolean isExisting = searchDictionary.contains(currentWord.toString());
             // found a matching word, continue to look for further words from this point
             if (isExisting && !searchItem.getNamePart().equalsIgnoreCase(currentWord.toString())) {
                 foundWords.add(currentWord.toString());
-                searchWords(searchItem, searchDictionary, new StringBuilder(), foundWords, i + 1);
+                searchWords(searchItem, searchDictionary, new StringBuilder(),
+                        foundWords, i + 1);
             }
         }
+        //return isComplete;
     }
 
 

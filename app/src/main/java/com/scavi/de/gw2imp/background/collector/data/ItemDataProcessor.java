@@ -122,7 +122,7 @@ public class ItemDataProcessor implements IDataProcessor {
         }
         for (Price price : prices) {
             insertItemPrice(price);
-            saveItemPriceTrend(price);
+            // TODO: still to implement & test saveItemPriceTrend(price);
         }
     }
 
@@ -267,7 +267,6 @@ public class ItemDataProcessor implements IDataProcessor {
                 mDatabaseAccess.itemsDAO().insertItemPriceHistory(history);
                 // delete all prices in the time range
                 mDatabaseAccess.itemsDAO().deleteItemPricesInRange(itemId, from, till);
-
                 Log.v(TAG, "Remaining to delete: " + mDatabaseAccess.itemsDAO()
                         .selectPricesInRange(from, till));
             } else {

@@ -75,70 +75,36 @@ public class PreferenceManager implements IPreferenceAccess, IPreferences {
         }
     }
 
+
     /**
-     * Writes the dictionary iteration key synchronized into the shared preferences
+     * Writes the word index completion status synchronized into the preferences of the application
      * ({@link Activity#MODE_PRIVATE}.
      *
-     * @param context             the context to global information about the application
-     *                            environment
-     * @param dictionaryIteration the iteration defines how many times the
-     *                            application iterated through all known words.
+     * @param context    the context to global information about the application environment
+     * @param isComplete <code>true</code> the word index is complete and fully updated <br/>
+     *                   <code>false</code> the word index is not complete
      */
     @Override
-    public void writeDictionaryIteration(final Context context,
-                                         final int dictionaryIteration) {
+    public void writeIsWordIndexComplete(final Context context,
+                                         final boolean isComplete) {
         synchronized (mLock) {
-            getPreferences(context).edit().putInt(DICTIONARY_ITERATION, dictionaryIteration)
-                    .apply();
+            getPreferences(context).edit().putBoolean(IS_WORD_INDEX_COMPLETE, isComplete).apply();
         }
     }
 
 
     /**
-     * Reads the dictionary iteration key synchronized from the shared preferences
-     * ({@link Activity#MODE_PRIVATE}. The dictionary iteration defines how many times the
-     * application iterated through all known words.
-     *
-     * @param context the context to global information about the application environment
-     * @return the dictionary iteration or 0
-     */
-    @Override
-    public int readDictionaryIteration(final Context context) {
-        synchronized (mLock) {
-            return getPreferences(context).getInt(DICTIONARY_ITERATION, 0);
-        }
-    }
-
-
-    /**
-     * Writes the word index synchronized from the shared preferences
+     * Reads the word index completion state synchronized the preferences of the application.
      * ({@link Activity#MODE_PRIVATE}.
      *
      * @param context the context to global information about the application environment
-     * @param index   The word index defines the current index while iterating
-     *                through all known words to find new words
+     * @return <code>true</code> the word index is complete and fully updated <br/>
+     * <code>false</code> the word index is not complete
      */
     @Override
-    public void writeWordIndex(final Context context,
-                               final int index) {
+    public boolean readIsWordIndexComplete(final Context context) {
         synchronized (mLock) {
-            getPreferences(context).edit().putInt(WORD_INDEX, index).apply();
-        }
-    }
-
-
-    /**
-     * Reads the word index key synchronized from the shared preferences
-     * ({@link Activity#MODE_PRIVATE}. The word index defines the current index while iterating
-     * through all known words to find new words
-     *
-     * @param context the context to global information about the application environment
-     * @return the word index or 0 if the value doesn't exist
-     */
-    @Override
-    public int readWordIndex(final Context context) {
-        synchronized (mLock) {
-            return getPreferences(context).getInt(WORD_INDEX, 0);
+            return getPreferences(context).getBoolean(IS_WORD_INDEX_COMPLETE, false);
         }
     }
 

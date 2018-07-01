@@ -227,7 +227,7 @@ public interface IItemsDAO {
      *
      * @return the amount of item parts
      */
-    @Query("SELECT COUNT(distinct id) FROM " + DbConst.TABLE_ITEM_PART_SEARCH)
+    @Query("SELECT COUNT(id) FROM " + DbConst.TABLE_ITEM_PART_SEARCH)
     int selectItemSearchCount();
 
 
