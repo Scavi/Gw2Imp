@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:divider="@android:color/transparent"
-            android:dividerHeight="@dimen/account_daily_list_view_row_divider_height" />
+            android:dividerHeight="@dimen/account_daily_list_view_row_divider_height"
+            android:focusable="true" />
     </LinearLayout>
 
     <LinearLayout
