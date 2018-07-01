@@ -75,6 +75,73 @@ public class PreferenceManager implements IPreferenceAccess, IPreferences {
         }
     }
 
+    /**
+     * Writes the dictionary iteration key synchronized into the shared preferences
+     * ({@link Activity#MODE_PRIVATE}.
+     *
+     * @param context             the context to global information about the application
+     *                            environment
+     * @param dictionaryIteration the iteration defines how many times the
+     *                            application iterated through all known words.
+     */
+    @Override
+    public void writeDictionaryIteration(final Context context,
+                                         final int dictionaryIteration) {
+        synchronized (mLock) {
+            getPreferences(context).edit().putInt(DICTIONARY_ITERATION, dictionaryIteration)
+                    .apply();
+        }
+    }
+
+
+    /**
+     * Reads the dictionary iteration key synchronized from the shared preferences
+     * ({@link Activity#MODE_PRIVATE}. The dictionary iteration defines how many times the
+     * application iterated through all known words.
+     *
+     * @param context the context to global information about the application environment
+     * @return the dictionary iteration or 0
+     */
+    @Override
+    public int readDictionaryIteration(final Context context) {
+        synchronized (mLock) {
+            return getPreferences(context).getInt(DICTIONARY_ITERATION, 0);
+        }
+    }
+
+
+    /**
+     * Writes the word index synchronized from the shared preferences
+     * ({@link Activity#MODE_PRIVATE}.
+     *
+     * @param context the context to global information about the application environment
+     * @param index   The word index defines the current index while iterating
+     *                through all known words to find new words
+     */
+    @Override
+    public void writeWordIndex(final Context context,
+                               final int index) {
+        synchronized (mLock) {
+            getPreferences(context).edit().putInt(WORD_INDEX, index).apply();
+        }
+    }
+
+
+    /**
+     * Reads the word index key synchronized from the shared preferences
+     * ({@link Activity#MODE_PRIVATE}. The word index defines the current index while iterating
+     * through all known words to find new words
+     *
+     * @param context the context to global information about the application environment
+     * @return the word index or 0 if the value doesn't exist
+     */
+    @Override
+    public int readWordIndex(final Context context) {
+        synchronized (mLock) {
+            return getPreferences(context).getInt(WORD_INDEX, 0);
+        }
+    }
+
 
     /**
      * Writes the routing state synchronized into the shared preferences
@@ -90,6 +157,7 @@ public class PreferenceManager implements IPreferenceAccess, IPreferences {
             getPreferences(context).edit().putInt(ROUTING_STATE, routingState.getValue()).apply();
         }
     }
+
 
     /**
      * Reads the current routing state from the shared preferences.

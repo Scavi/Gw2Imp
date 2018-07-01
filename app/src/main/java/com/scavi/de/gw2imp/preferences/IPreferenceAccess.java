@@ -22,7 +22,7 @@ public interface IPreferenceAccess {
 
 
     /**
-     * Writes the api key synchronized into the shared preferences ({@link Activity#MODE_PRIVATE}
+     * Writes the api key synchronized into the preferences of the application
      *
      * @param context the context to global information about the application environment
      * @param apiKey  the api key to write
@@ -32,17 +32,64 @@ public interface IPreferenceAccess {
 
 
     /**
-     * Reads the api key from teh shared preferences. If the key doesn't exist "" will be returned
+     * Reads the api key from the preferences. If the key doesn't exist "" will be returned
      *
      * @param context the context to global information about the application environment
-     * @return the api key from the shared preferences or ""
+     * @return the api key from the preferences or ""
      */
     String readApiKey(final Context context);
 
 
     /**
-     * Writes the routing state synchronized into the shared preferences
-     * ({@link Activity#MODE_PRIVATE}
+     * Writes the dictionary iteration key synchronized into the preferences of the application.
+     * The dictionary iteration defines how many times the application iterated through all known
+     * words.
+     *
+     * @param context             the context to global information about the application
+     *                            environment
+     * @param dictionaryIteration the api key to write
+     */
+    void writeDictionaryIteration(final Context context,
+                                  final int dictionaryIteration);
+
+
+    /**
+     * Reads Writes the dictionary iteration key synchronized the preferences of the application.
+     * The dictionary iteration defines how many times the
+     * application iterated through all known words.
+     *
+     * @param context the context to global information about the application environment
+     * @return the dictionary iteration or ß
+     */
+    int readDictionaryIteration(final Context context);
+
+
+    /**
+     * Writes the word index key synchronized into the preferences of the application.
+     * The word index defines the current index while iterating through all known words to find
+     * new words
+     *
+     * @param context             the context to global information about the application
+     *                            environment
+     * @param dictionaryIteration the api key to write
+     */
+    void writeWordIndex(final Context context,
+                        final int dictionaryIteration);
+
+
+    /**
+     * Reads the word index key synchronized the preferences of the application.
+     * The word index defines the current index while iterating through all known words to find
+     * new words
+     *
+     * @param context the context to global information about the application environment
+     * @return the dictionary iteration or 0
+     */
+    int readWordIndex(final Context context);
+
+
+    /**
+     * Writes the routing state synchronized into the preferences of the application
      *
      * @param context      the context to global information about the application environment
      * @param routingState the current routing state
@@ -52,7 +99,7 @@ public interface IPreferenceAccess {
 
 
     /**
-     * Reads the current routing state from the shared preferences.
+     * Reads the current routing state from the preferences.
      *
      * @param context the context to global information about the application environment
      * @return the current routing state. In case, the value is not  set,
