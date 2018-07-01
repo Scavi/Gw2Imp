@@ -31,6 +31,7 @@ public class NavigationClickListener implements Drawer.OnDrawerItemClickListener
     public static final int TRANSACTION_BUY_ID = 20;
     public static final int TRANSACTION_SELL_ID = 21;
     public static final int TRADING_ITEMS = 30;
+    public static final int PRICE_DEVELOPMENT = 31;
     public static final int WORLD_BOSS_EVENT_TIMER_ID = 40;
     public static final int DAILIES_TODAY_ID = 50;
     public static final int DAILIES_TOMORROW_ID = 51;
@@ -79,6 +80,9 @@ public class NavigationClickListener implements Drawer.OnDrawerItemClickListener
                 break;
             case TRADING_ITEMS:
                 mMainNavigator.onClickTradingItems();
+                break;
+            case PRICE_DEVELOPMENT:
+                mMainNavigator.onClickWatchPriceDevelopment();
                 break;
             case WORLD_BOSS_EVENT_TIMER_ID:
                 mMainNavigator.onClickWorldBossEventTimer();
