@@ -23,6 +23,8 @@ import android.view.ViewGroup;
 
 import com.scavi.de.gw2imp.R;
 
+import javax.annotation.Nonnull;
+
 public class LicenseFragment extends Fragment {
 
     /**
@@ -42,7 +44,7 @@ public class LicenseFragment extends Fragment {
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public View onCreateView(@Nonnull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_license, container, false);
