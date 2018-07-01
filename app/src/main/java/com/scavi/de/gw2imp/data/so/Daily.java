@@ -48,7 +48,7 @@ public class Daily {
      * @param type the type of the daily (e.g. pvp or wvw)
      * @param id   the id of the daily
      */
-    public Daily(final String type,
+    Daily(final String type,
                  final int id) {
         this(type, id, NOT_COMPLETED, NOT_COMPLETED);
     }
@@ -63,7 +63,7 @@ public class Daily {
      * @param max     The amount needed to complete the achievement. Most WvW achievements have
      *                this set to -1.
      */
-    public Daily(final String type,
+    Daily(final String type,
                  final int id,
                  final int current,
                  final int max) {
