@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- overview -->
+    <dimen name="overview_status_grid_top">0dp</dimen>
+    <dimen name="overview_status_grid_right">80dp</dimen>
+    <dimen name="overview_status_grid_left">32dp</dimen>
+    <dimen name="overview_status_grid_bottom">8dp</dimen>
+    <dimen name="overview_status_title_top">16dp</dimen>
+    <dimen name="overview_status_title_right">4dp</dimen>
+    <dimen name="overview_status_title_left">4dp</dimen>
+    <dimen name="overview_status_title_bottom">8dp</dimen>
+    <dimen name="overview_status_name_top">0dp</dimen>
+    <dimen name="overview_status_name_right">4dp</dimen>
+    <dimen name="overview_status_name_left">4dp</dimen>
+    <dimen name="overview_status_name_bottom">8dp</dimen>
+    <dimen name="overview_status_details_top">0dp</dimen>
+    <dimen name="overview_status_details_right">4dp</dimen>
+    <dimen name="overview_status_details_left">4dp</dimen>
+    <dimen name="overview_status_details_bottom">0dp</dimen>
+
     <!-- account api key -->
     <dimen name="account_api_key_text_margin_top">220dp</dimen>
     <dimen name="account_api_key_text_margin_right">32dp</dimen>
@@ -108,7 +126,7 @@
     <dimen name="trading_items_progress_bar_margin_left">16dp</dimen>
     <dimen name="trading_items_progress_bar_margin_bottom">8dp</dimen>
     <dimen name="trading_items_grid_item_details_top">32dp</dimen>
-    <dimen name="trading_items_grid_item_details_right">80dp</dimen>
+    <dimen name="trading_items_grid_item_details_right">32dp</dimen>
     <dimen name="trading_items_grid_item_details_left">16dp</dimen>
     <dimen name="trading_items_grid_item_details_bottom">8dp</dimen>
     <dimen name="trading_items_item_name_top">0dp</dimen>
@@ -119,8 +137,36 @@
     <dimen name="trading_items_item_details_right">4dp</dimen>
     <dimen name="trading_items_item_details_left">4dp</dimen>
     <dimen name="trading_items_item_details_bottom">0dp</dimen>
-    <dimen name="trading_items_list_view_row_height">96dp</dimen>
+    <dimen name="trading_items_list_view_row_height">60dp</dimen>
     <dimen name="trading_items_list_view_row_divider_height">4dp</dimen>
+
+    <!-- account trend fragment -->
+    <dimen name="account_trend_progress_bar_margin_top">8dp</dimen>
+    <dimen name="account_trend_progress_bar_margin_right">72dp</dimen>
+    <dimen name="account_trend_progress_bar_margin_left">72dp</dimen>
+    <dimen name="account_trend_progress_bar_margin_bottom">8dp</dimen>
+    <dimen name="account_trend_list_view_row_height">96dp</dimen>
+    <dimen name="account_trend_list_view_row_divider_height">4dp</dimen>
+
+    <!-- account trend list view row -->
+    <dimen name="account_trend_list_view_margin_top">2dp</dimen>
+    <dimen name="account_trend_list_view_margin_right">8dp</dimen>
+    <dimen name="account_trend_list_view_margin_left">8dp</dimen>
+    <dimen name="account_trend_list_view_margin_bottom">2dp</dimen>
+    <dimen name="account_trend_row_header_margin_top">0dp</dimen>
+    <dimen name="account_trend_row_header_margin_right">12dp</dimen>
+    <dimen name="account_trend_row_header_margin_left">32dp</dimen>
+    <dimen name="account_trend_row_header_margin_bottom">6dp</dimen>
+    <dimen name="account_trend_row_text_margin_top">16dp</dimen>
+    <dimen name="account_trend_row_text_margin_right">12dp</dimen>
+    <dimen name="account_trend_row_text_margin_left">24dp</dimen>
+    <dimen name="account_trend_row_text_margin_bottom">0dp</dimen>
+    <dimen name="account_trend_row_state_text_margin_top">16dp</dimen>
+    <dimen name="account_trend_row_state_text_margin_right">12dp</dimen>
+    <dimen name="account_trend_row_state_text_margin_left">24dp</dimen>
+    <dimen name="account_trend_row_state_text_margin_bottom">12dp</dimen>
+
+
 
     <!-- TODO: -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
