@@ -1,17 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.scavi.de.gw2imp.ui.fragment.OverviewFragment">
 
-    <ImageView
-        android:id="@+id/raid_picture"
-        android:layout_width="wrap_content"
+    <GridLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/quaggan_vacation" />
+        android:layout_marginBottom="@dimen/overview_status_grid_bottom"
+        android:layout_marginEnd="@dimen/overview_status_grid_right"
+        android:layout_marginStart="@dimen/overview_status_grid_left"
+        android:layout_marginTop="@dimen/overview_status_grid_top"
+        android:columnCount="2">
+
+        <TextView
+            style="@style/Gw2ImpTheme.Section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="2"
+            android:layout_marginBottom="@dimen/overview_status_title_bottom"
+            android:layout_marginEnd="@dimen/overview_status_title_right"
+            android:layout_marginStart="@dimen/overview_status_title_left"
+            android:layout_marginTop="@dimen/overview_status_title_top"
+            android:text="@string/overview_information_title" />
+
+        <TextView
+            style="@style/Gw2ImpTheme.Text.Highlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/overview_status_name_bottom"
+            android:layout_marginEnd="@dimen/overview_status_name_right"
+            android:layout_marginStart="@dimen/overview_status_name_left"
+            android:layout_marginTop="@dimen/overview_status_name_top"
+            android:text="@string/overview_loaded_item_count" />
+
+        <TextView
+            android:id="@+id/overview_loaded_item_count"
+            style="@style/Gw2ImpTheme.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/overview_status_details_bottom"
+            android:layout_marginEnd="@dimen/overview_status_details_right"
+            android:layout_marginStart="@dimen/overview_status_details_left"
+            android:layout_marginTop="@dimen/overview_status_details_top"
+            android:text="@string/overview_status_in_progress" />
+
+        <TextView
+            style="@style/Gw2ImpTheme.Text.Highlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/overview_status_name_bottom"
+            android:layout_marginEnd="@dimen/overview_status_name_right"
+            android:layout_marginStart="@dimen/overview_status_name_left"
+            android:layout_marginTop="@dimen/overview_status_name_top"
+            android:text="@string/overview_loaded_price_count" />
+
+        <TextView
+            android:id="@+id/overview_loaded_price_count"
+            style="@style/Gw2ImpTheme.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/overview_status_details_bottom"
+            android:layout_marginEnd="@dimen/overview_status_details_right"
+            android:layout_marginStart="@dimen/overview_status_details_left"
+            android:layout_marginTop="@dimen/overview_status_details_top"
+            android:text="@string/overview_status_in_progress" />
+
+        <TextView
+            style="@style/Gw2ImpTheme.Text.Highlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/overview_status_name_bottom"
+            android:layout_marginEnd="@dimen/overview_status_name_right"
+            android:layout_marginStart="@dimen/overview_status_name_left"
+            android:layout_marginTop="@dimen/overview_status_name_top"
+            android:text="@string/overview_history_count" />
+
+        <TextView
+            android:id="@+id/overview_history_count"
+            style="@style/Gw2ImpTheme.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/overview_status_details_bottom"
+            android:layout_marginEnd="@dimen/overview_status_details_right"
+            android:layout_marginStart="@dimen/overview_status_details_left"
+            android:layout_marginTop="@dimen/overview_status_details_top"
+            android:text="@string/overview_status_in_progress" />
+
+        <TextView
+            style="@style/Gw2ImpTheme.Section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="2"
+            android:layout_marginBottom="@dimen/overview_status_title_bottom"
+            android:layout_marginEnd="@dimen/overview_status_title_right"
+            android:layout_marginStart="@dimen/overview_status_title_left"
+            android:layout_marginTop="@dimen/overview_status_title_top"
+            android:text="@string/overview_status_title" />
+
+        <TextView
+            style="@style/Gw2ImpTheme.Text.Highlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/overview_status_name_bottom"
+            android:layout_marginEnd="@dimen/overview_status_name_right"
+            android:layout_marginStart="@dimen/overview_status_name_left"
+            android:layout_marginTop="@dimen/overview_status_name_top"
+            android:text="@string/overview_index_sync" />
+
+        <TextView
+            android:id="@+id/overview_search_index"
+            style="@style/Gw2ImpTheme.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/overview_status_details_bottom"
+            android:layout_marginEnd="@dimen/overview_status_details_right"
+            android:layout_marginStart="@dimen/overview_status_details_left"
+            android:layout_marginTop="@dimen/overview_status_details_top"
+            android:text="@string/overview_status_in_progress" />
+
+    </GridLayout>
 </LinearLayout>
