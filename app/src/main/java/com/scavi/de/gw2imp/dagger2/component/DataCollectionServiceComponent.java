@@ -18,6 +18,7 @@ import com.scavi.androidimp.util.ActivityScope;
 import com.scavi.de.gw2imp.background.DataCollectionService;
 import com.scavi.de.gw2imp.background.collector.ItemCollector;
 import com.scavi.de.gw2imp.background.collector.ItemHistoryCollector;
+import com.scavi.de.gw2imp.background.collector.SearchIndexUpdater;
 import com.scavi.de.gw2imp.background.collector.data.IDataProcessor;
 import com.scavi.de.gw2imp.background.collector.data.ItemDataProcessor;
 import com.scavi.de.gw2imp.communication.access.ICommerceAccess;
@@ -47,11 +48,20 @@ public interface DataCollectionServiceComponent {
      */
     ItemCollector getItemPriceCollector();
 
+
     /**
      * @return the item price history collector is responsible to create history entries from the
      * last month and delete the item prices (to save memory on the device)
      */
     ItemHistoryCollector getItemPriceHistoryCollector();
+
+
+    /**
+     * @return the search index updater that creates tokens from the item names and allows to search
+     * accurate for items
+     */
+    SearchIndexUpdater getSearchIndexUpdater();
+
 
     /**
      * @return the item price collector is responsible to select items, their prices and updates
