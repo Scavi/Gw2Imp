@@ -88,9 +88,7 @@ public class ApiAccountKeyActivity extends AppCompatActivity implements IApiAcco
      */
     protected void setupActionBar(@Nullable final ActionBar actionBar) {
         if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setHomeButtonEnabled(false);
+            actionBar.hide();
         }
     }
 
