@@ -23,6 +23,8 @@ public class DbConst {
     public static final String TABLE_ITEMS = "Items";
     public static final String TABLE_ITEM_PRICES = "ItemPrices";
     public static final String TABLE_ITEM_PRICE_HISTORY = "ItemPriceHistory";
+    public static final String TABLE_TRENDS = "Trends";
+    public static final String TABLE_ITEM_PART_SEARCH = "ItemPartSearch";
 
     private DbConst() {
 
