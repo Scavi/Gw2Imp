@@ -51,6 +51,12 @@ public interface IMainView {
 
 
     /**
+     * Switch the fragment to show the development of prices (e.g. prices, gems, ...)
+     */
+    void routeWatchPriceDevelopment();
+
+
+    /**
      * Show  the trading market information
      */
     void routeTradingItems();
