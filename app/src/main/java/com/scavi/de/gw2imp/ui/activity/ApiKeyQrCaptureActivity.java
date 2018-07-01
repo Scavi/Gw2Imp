@@ -91,9 +91,7 @@ public class ApiKeyQrCaptureActivity extends AppCompatActivity implements IApiKe
      */
     protected void setupActionBar(@Nullable final ActionBar actionBar) {
         if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setHomeButtonEnabled(false);
+            actionBar.hide();
         }
     }
 
