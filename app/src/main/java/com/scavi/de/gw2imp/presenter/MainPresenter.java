@@ -108,6 +108,13 @@ public class MainPresenter {
 
 
     /**
+     * The user clicked to show the development of prices (e.g. prices, gems, ...)
+     */
+    public void onClickWatchPriceDevelopment() {
+        mView.routeWatchPriceDevelopment();
+    }
+
+    /**
      * The user clicked on the world boss event timer
      */
     public void onClickWorldBossEventTimer() {

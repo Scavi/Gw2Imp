@@ -38,6 +38,7 @@ import com.scavi.de.gw2imp.presenter.MainPresenter;
 import com.scavi.de.gw2imp.ui.fragment.AccountAchievementsFragment;
 import com.scavi.de.gw2imp.ui.fragment.AccountCharacterFragment;
 import com.scavi.de.gw2imp.ui.fragment.AccountRaidFragment;
+import com.scavi.de.gw2imp.ui.fragment.AccountTrendFragment;
 import com.scavi.de.gw2imp.ui.fragment.DailyFragment;
 import com.scavi.de.gw2imp.ui.fragment.DailyTomorrowFragment;
 import com.scavi.de.gw2imp.ui.fragment.LicenseFragment;
@@ -196,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     protected void setupActionBar(@Nullable final ActionBar actionBar) {
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.toolbar_icon);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_reorder_white_24dp);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(false);
         }
@@ -257,6 +258,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         .withIdentifier(NavigationClickListener.TRADING_ITEMS)
                         .withName(getString(R.string.core_navigation_account_trading))
                         .withIcon(R.drawable.ic_trending_up_black_24dp),
+                new SecondaryDrawerItem()
+                        .withIdentifier(NavigationClickListener.PRICE_DEVELOPMENT)
+                        .withName(getString(R.string.core_navigation_account_trend))
+                        .withIcon(R.drawable.ic_trending_up_black_24dp), // TODO icon
                 new SectionDrawerItem().withDivider(true)
                         .withName(getString(R.string.core_navigation_event_timer)),
                 new SecondaryDrawerItem()
@@ -277,7 +282,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         .withIdentifier(NavigationClickListener.LICENSE_ID)
                         .withName(getString(R.string.core_navigation_license))
                         .withIcon(R.drawable.ic_info_black_24dp),
-
         };
     }
 
@@ -337,6 +341,16 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void routeAccountTransactionSell() {
         // TODO
+    }
+
+
+    /**
+     * Switch the fragment to show the development of prices (e.g. prices, gems, ...)
+     */
+    @Override
+    public void routeWatchPriceDevelopment() {
+        AccountTrendFragment fragment = new AccountTrendFragment();
+        show(fragment, getString(R.string.core_navigation_account_trend));
     }
 
 
