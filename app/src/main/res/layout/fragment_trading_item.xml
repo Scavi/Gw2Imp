@@ -18,152 +18,170 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.scavi.de.gw2imp.ui.fragment.WorldBossEventTimerFragment">
+    tools:context="com.scavi.de.gw2imp.ui.fragment.TradingItemsFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/trading_item_details"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="invisible">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/item_price_chart"
+            <LinearLayout
+                android:id="@+id/trading_item_details"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_gravity="center" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/trading_items_grid_item_details_bottom"
-                android:layout_marginEnd="@dimen/trading_items_grid_item_details_right"
-                android:layout_marginStart="@dimen/trading_items_grid_item_details_left"
-                android:layout_marginTop="@dimen/trading_items_grid_item_details_top"
-                android:columnCount="2">
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/item_price_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_gravity="center"
+                    android:visibility="invisible" />
 
-                <TextView
-                    android:id="@+id/trading_item_name"
-                    style="Gw2ImpTheme.Text.Category"
-                    android:layout_columnSpan="2"
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/trading_item_filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_name_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_name_right"
-                    android:layout_marginStart="@dimen/trading_items_item_name_left"
-                    android:layout_marginTop="@dimen/trading_items_item_name_top"
-                    android:text="" />
+                    android:layout_margin="32dp"
+                    android:src="@drawable/ic_search_black_24dp"
+                    android:layout_gravity="end"
+                    app:fabSize="normal" />
 
-                <TextView
-                    style="Gw2ImpTheme.Section"
-                    android:layout_width="wrap_content"
+                <GridLayout
+                    android:id="@+id/trading_item_information"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
-                    android:layout_marginStart="@dimen/trading_items_item_details_left"
-                    android:layout_marginTop="@dimen/trading_items_item_details_top"
-                    android:text="@string/trading_items_last_update" />
+                    android:layout_marginBottom="@dimen/trading_items_grid_item_details_bottom"
+                    android:layout_marginEnd="@dimen/trading_items_grid_item_details_right"
+                    android:layout_marginStart="@dimen/trading_items_grid_item_details_left"
+                    android:layout_marginTop="@dimen/trading_items_grid_item_details_top"
+                    android:visibility="invisible"
+                    android:columnCount="2">
 
-                <TextView
-                    android:id="@+id/trading_items_latest_update"
-                    style="Gw2ImpTheme.Text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
-                    android:layout_marginStart="@dimen/trading_items_item_details_left"
-                    android:layout_marginTop="@dimen/trading_items_item_details_top"
-                    android:text="" />
+                    <TextView
+                        android:id="@+id/trading_item_name"
+                        style="@style/Gw2ImpTheme.Text.Category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_marginBottom="@dimen/trading_items_item_name_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_name_right"
+                        android:layout_marginStart="@dimen/trading_items_item_name_left"
+                        android:layout_marginTop="@dimen/trading_items_item_name_top"
+                        android:text="" />
 
-                <TextView
-                    style="Gw2ImpTheme.Section"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
-                    android:layout_marginStart="@dimen/trading_items_item_details_left"
-                    android:layout_marginTop="@dimen/trading_items_item_details_top"
-                    android:text="@string/trading_items_buy_min_price" />
+                    <TextView
+                        style="@style/Gw2ImpTheme.Text.Highlight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/trading_items_item_name_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_name_right"
+                        android:layout_marginStart="@dimen/trading_items_item_name_left"
+                        android:layout_marginTop="@dimen/trading_items_item_name_top"
+                        android:text="@string/trading_items_last_update" />
 
-                <TextView
-                    android:id="@+id/trading_item_buy_min_price"
-                    style="Gw2ImpTheme.Text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
-                    android:layout_marginStart="@dimen/trading_items_item_details_left"
-                    android:layout_marginTop="@dimen/trading_items_item_details_top"
-                    android:text="" />
+                    <TextView
+                        android:id="@+id/trading_items_latest_update"
+                        style="@style/Gw2ImpTheme.Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                        android:layout_marginStart="@dimen/trading_items_item_details_left"
+                        android:layout_marginTop="@dimen/trading_items_item_details_top"
+                        android:text="" />
 
-                <TextView
-                    style="Gw2ImpTheme.Section"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
-                    android:layout_marginStart="@dimen/trading_items_item_details_left"
-                    android:layout_marginTop="@dimen/trading_items_item_details_top"
-                    android:text="@string/trading_items_buy_max_price" />
+                    <TextView
+                        style="@style/Gw2ImpTheme.Text.Highlight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/trading_items_item_name_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_name_right"
+                        android:layout_marginStart="@dimen/trading_items_item_name_left"
+                        android:layout_marginTop="@dimen/trading_items_item_name_top"
+                        android:text="@string/trading_items_buy_min_price" />
 
-                <TextView
-                    android:id="@+id/trading_item_buy_max_price"
-                    style="Gw2ImpTheme.Text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
-                    android:layout_marginStart="@dimen/trading_items_item_details_left"
-                    android:layout_marginTop="@dimen/trading_items_item_details_top"
-                    android:text="" />
+                    <TextView
+                        android:id="@+id/trading_item_buy_min_price"
+                        style="@style/Gw2ImpTheme.Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                        android:layout_marginStart="@dimen/trading_items_item_details_left"
+                        android:layout_marginTop="@dimen/trading_items_item_details_top"
+                        android:text="" />
 
-                <TextView
-                    style="Gw2ImpTheme.Section"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
-                    android:layout_marginStart="@dimen/trading_items_item_details_left"
-                    android:layout_marginTop="@dimen/trading_items_item_details_top"
-                    android:text="@string/trading_items_sell_min_price" />
+                    <TextView
+                        style="@style/Gw2ImpTheme.Text.Highlight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/trading_items_item_name_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_name_right"
+                        android:layout_marginStart="@dimen/trading_items_item_name_left"
+                        android:layout_marginTop="@dimen/trading_items_item_name_top"
+                        android:text="@string/trading_items_buy_max_price" />
 
-                <TextView
-                    android:id="@+id/trading_item_sell_min_price"
-                    style="Gw2ImpTheme.Text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
-                    android:layout_marginStart="@dimen/trading_items_item_details_left"
-                    android:layout_marginTop="@dimen/trading_items_item_details_top"
-                    android:text="" />
+                    <TextView
+                        android:id="@+id/trading_item_buy_max_price"
+                        style="@style/Gw2ImpTheme.Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                        android:layout_marginStart="@dimen/trading_items_item_details_left"
+                        android:layout_marginTop="@dimen/trading_items_item_details_top"
+                        android:text="" />
 
-                <TextView
-                    style="Gw2ImpTheme.Section"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
-                    android:layout_marginStart="@dimen/trading_items_item_details_left"
-                    android:layout_marginTop="@dimen/trading_items_item_details_top"
-                    android:text="@string/trading_items_sell_max_price" />
+                    <TextView
+                        style="@style/Gw2ImpTheme.Text.Highlight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/trading_items_item_name_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_name_right"
+                        android:layout_marginStart="@dimen/trading_items_item_name_left"
+                        android:layout_marginTop="@dimen/trading_items_item_name_top"
+                        android:text="@string/trading_items_sell_min_price" />
 
-                <TextView
-                    android:id="@+id/trading_item_sell_max_price"
-                    style="Gw2ImpTheme.Text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
-                    android:layout_marginEnd="@dimen/trading_items_item_details_right"
-                    android:layout_marginStart="@dimen/trading_items_item_details_left"
-                    android:layout_marginTop="@dimen/trading_items_item_details_top"
-                    android:text="" />
+                    <TextView
+                        android:id="@+id/trading_item_sell_min_price"
+                        style="@style/Gw2ImpTheme.Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                        android:layout_marginStart="@dimen/trading_items_item_details_left"
+                        android:layout_marginTop="@dimen/trading_items_item_details_top"
+                        android:text="" />
 
-            </GridLayout>
+                    <TextView
+                        style="@style/Gw2ImpTheme.Text.Highlight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/trading_items_item_name_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_name_right"
+                        android:layout_marginStart="@dimen/trading_items_item_name_left"
+                        android:layout_marginTop="@dimen/trading_items_item_name_top"
+                        android:text="@string/trading_items_sell_max_price" />
+
+                    <TextView
+                        android:id="@+id/trading_item_sell_max_price"
+                        style="@style/Gw2ImpTheme.Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/trading_items_item_details_bottom"
+                        android:layout_marginEnd="@dimen/trading_items_item_details_right"
+                        android:layout_marginStart="@dimen/trading_items_item_details_left"
+                        android:layout_marginTop="@dimen/trading_items_item_details_top"
+                        android:text="" />
+
+                </GridLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -310,14 +328,5 @@
             android:text="@string/api_account_key_skip"
             android:visibility="invisible" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/trading_item_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="32dp"
-            android:src="@drawable/ic_search_black_24dp"
-            app:fabSize="normal" />
     </RelativeLayout>
 </ScrollView>

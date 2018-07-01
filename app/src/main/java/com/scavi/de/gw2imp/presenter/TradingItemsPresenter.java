@@ -17,8 +17,6 @@ package com.scavi.de.gw2imp.presenter;
 import android.text.TextWatcher;
 
 import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
-import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
-import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
 import com.scavi.de.gw2imp.model.TradingItemsModel;
 import com.scavi.de.gw2imp.model.so.TradingItemData;
 import com.scavi.de.gw2imp.ui.util.DelayedTextFieldWatcher;
@@ -82,13 +80,15 @@ public class TradingItemsPresenter {
             // the item name for the search
             String itemName = mView.getItemSearchName();
 
-            // at least 3 characters long.
-            if (itemName != null && itemName.length() >= 3) {
+            // must be at least 4 characters long
+            if (itemName != null && itemName.length() >= 4) {
                 mView.onShowProgress();
                 Runnable itemSearchProcess = createItemSearchProcessor(itemName);
                 // uses a background thread to execute the item search
                 mModel.getExecutorAccess().getBackgroundThreadExecutor().execute(itemSearchProcess);
-
+            } else {
+                // reset the screen of there are not enough characters
+                mView.resetScreen();
             }
         };
     }
@@ -118,6 +118,11 @@ public class TradingItemsPresenter {
     }
 
 
+    /**
+     * This method will be called in case the user selects an item that he searched before.
+     *
+     * @param selectedItem the selected item.
+     */
     public void onItemSelected(@Nonnull final ItemEntity selectedItem) {
         mView.onShowProgress();
         Runnable itemPriceProcessor = createItemPriceProcessor(selectedItem);
@@ -125,9 +130,20 @@ public class TradingItemsPresenter {
     }
 
 
+    /**
+     * This method creates a runnable who does:
+     * 1.) Determines all trading item details (prices, history prices, ...) in the current process
+     * 2.) reset the UI (old graphs) in the UI process
+     * 3.) Updates graph and item details in the UI process
+     *
+     * @param item the selected item.
+     * @return the runnable to execute the steps
+     */
     private Runnable createItemPriceProcessor(@Nonnull final ItemEntity item) {
         return () -> {
+            // all prices and history prices of the item
             TradingItemData tradingItemData = mModel.determineTradingItemData(item);
+
             mModel.getExecutorAccess().getUiThreadExecutor().execute(() -> {
                 mView.resetScreen();
                 mView.closeSearch();

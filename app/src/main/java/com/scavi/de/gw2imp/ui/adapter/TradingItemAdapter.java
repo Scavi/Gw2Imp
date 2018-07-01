@@ -45,12 +45,15 @@ public class TradingItemAdapter extends ArrayAdapter<ItemEntity> {
         View rowView = convertView;
         // inflate the rowView if necessary
         if (rowView == null) {
-            final LayoutInflater inflater =
+            LayoutInflater inflater =
                     (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(android.R.layout.simple_dropdown_item_1line, parent, false);
+            rowView = inflater.inflate(android.R.layout.simple_dropdown_item_1line, parent,
+                    false);
         }
-        TextView textView = rowView.findViewById(android.R.id.text1);
-        textView.setText(currentItem.getName());
+        if (currentItem != null) {
+            TextView textView = rowView.findViewById(android.R.id.text1);
+            textView.setText(currentItem.getName());
+        }
         return rowView;
     }
 

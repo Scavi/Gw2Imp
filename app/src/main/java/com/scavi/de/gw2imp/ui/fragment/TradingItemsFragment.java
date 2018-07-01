@@ -78,7 +78,7 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public View onCreateView(@Nonnull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
         Context context = getActivity() != null ? getActivity().getApplicationContext() : null;
@@ -160,10 +160,6 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
         if (!isUpdateable()) {
             return;
         }
-        if (foundItems.size() == 0) {
-            return;
-        }
-
         Context context = getActivity() != null && getActivity().getApplicationContext() != null ?
                 getActivity().getApplicationContext() : getContext();
         if (context == null) {
@@ -201,7 +197,9 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
         if (!isUpdateable()) {
             return;
         }
-        requireNonNull(getActivity()).findViewById(R.id.trading_item_details)
+        requireNonNull(getActivity()).findViewById(R.id.item_price_chart)
+                .setVisibility(VISIBLE);
+        requireNonNull(getActivity()).findViewById(R.id.trading_item_information)
                 .setVisibility(VISIBLE);
         mTradingItemGraph.getLegendRenderer().setVisible(true);
     }
