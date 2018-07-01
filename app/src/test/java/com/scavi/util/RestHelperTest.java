@@ -14,7 +14,7 @@
  */
 package com.scavi.util;
 
-import com.scavi.de.gw2imp.util.RestHelper;
+import com.scavi.androidimp.util.RestHelper;
 
 import org.junit.Test;
 
@@ -24,6 +24,7 @@ import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 
+// TODO move to different project
 public class RestHelperTest {
 
     /**
