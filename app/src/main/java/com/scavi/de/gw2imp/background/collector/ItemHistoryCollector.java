@@ -42,7 +42,7 @@ public class ItemHistoryCollector extends Thread {
                     wait(toWait);
                 }
             } catch (InterruptedException ex) {
-                Log.e(TAG, ex.getMessage(), ex); // TODO
+                Log.e(TAG, "Interrupted: " + ex.getMessage(), ex);
             }
         }
     }
