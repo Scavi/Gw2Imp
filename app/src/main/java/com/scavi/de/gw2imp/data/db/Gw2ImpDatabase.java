@@ -28,13 +28,15 @@ import com.scavi.de.gw2imp.data.entity.event.WorldBossEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
+import com.scavi.de.gw2imp.data.entity.item.ItemSearchEntity;
+import com.scavi.de.gw2imp.data.entity.item.TrendEntity;
 import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
 
 @Database(entities =
         {RaidEntity.class, AchievementEntity.class, FlagsEntity.class, RewardEntity.class,
                 TierEntity.class, WorldBossEntity.class, ItemEntity.class, ItemPriceEntity.class,
-                ItemPriceHistoryEntity.class},
-        version = 2)
+                ItemPriceHistoryEntity.class, TrendEntity.class, ItemSearchEntity.class},
+        version = 3)
 public abstract class Gw2ImpDatabase extends RoomDatabase implements IDatabaseAccess {
 
     /**

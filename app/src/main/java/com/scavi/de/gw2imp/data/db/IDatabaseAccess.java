@@ -18,6 +18,7 @@ import com.scavi.de.gw2imp.data.dao.IAchievementDAO;
 import com.scavi.de.gw2imp.data.dao.IItemsDAO;
 import com.scavi.de.gw2imp.data.dao.IRaidDAO;
 import com.scavi.de.gw2imp.data.dao.ITimedEventsDAO;
+import com.scavi.de.gw2imp.data.dao.ITrendDAO;
 
 public interface IDatabaseAccess {
     /**
@@ -42,4 +43,10 @@ public interface IDatabaseAccess {
      * @return the access to the items
      */
     IItemsDAO itemsDAO();
+
+
+    /**
+     * @return the access to the trends (e.g. increasing and decreasing item prices)
+     */
+    ITrendDAO trendDAO();
 }
