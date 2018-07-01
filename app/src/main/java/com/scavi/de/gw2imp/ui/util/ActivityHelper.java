@@ -18,6 +18,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -54,7 +55,7 @@ public class ActivityHelper {
 
 
     /**
-     * Determines
+     * Determines the text view by id with the activity and sets the text
      *
      * @param activity   the source activity to determine the {@link TextView}
      * @param textViewId the id of the text view
@@ -72,12 +73,33 @@ public class ActivityHelper {
 
 
     /**
+     * Determines the text view by id with the activity and sets the color
+     *
+     * @param activity   the source activity to determine the {@link TextView}
+     * @param textViewId the id of the text view
+     * @param colorId    the color to set
+     */
+    public static <T extends Activity> void setColorOnTextView(@Nullable final T activity,
+                                                               @IdRes final int textViewId,
+                                                               final int colorId) {
+        if (activity == null) {
+            return;
+        }
+
+        TextView textView = activity.findViewById(textViewId);
+        textView.setTextColor(ResourcesCompat.getColor(
+                activity.getResources(),
+                colorId,
+                null));
+    }
+
+
+    /**
      * Shows the message in the given dialog
      *
      * @param activity the hosting activity
      * @param message  the message
      */
-    @Nonnull
     public static void showMessageInDialog(@Nonnull final Activity activity,
                                            @Nonnull final String message) {
         AlertDialog dialog = createSimpleOkDialog(activity, message);
