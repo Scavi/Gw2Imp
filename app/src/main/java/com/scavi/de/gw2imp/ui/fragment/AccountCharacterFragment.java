@@ -13,6 +13,7 @@
  */
 package com.scavi.de.gw2imp.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import com.scavi.de.gw2imp.dagger2.module.AccountCharacterModule;
 import com.scavi.de.gw2imp.presenter.AccountCharacterPresenter;
 import com.scavi.de.gw2imp.ui.view.IAccountCharacterView;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 public class AccountCharacterFragment extends AbstractFragment implements IAccountCharacterView {
@@ -51,10 +53,14 @@ public class AccountCharacterFragment extends AbstractFragment implements IAccou
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public View onCreateView(@Nonnull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        injectComponent(((IApplication) getContext().getApplicationContext()).getComponent());
+        Context context = getActivity() != null ? getActivity().getApplicationContext() : null;
+        if (context == null) {
+            return null;
+        }
+        injectComponent(((IApplication) context).getComponent());
         return inflater.inflate(R.layout.fragment_account_characters, container, false);
     }
 

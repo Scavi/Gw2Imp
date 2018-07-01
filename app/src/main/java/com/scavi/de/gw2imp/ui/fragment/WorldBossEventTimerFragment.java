@@ -34,6 +34,7 @@ import com.scavi.de.gw2imp.ui.view.IWorldBossEventTimerView;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 public class WorldBossEventTimerFragment extends AbstractStatusFragment implements
@@ -60,10 +61,14 @@ public class WorldBossEventTimerFragment extends AbstractStatusFragment implemen
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public View onCreateView(@Nonnull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        injectComponent(((IApplication) getContext().getApplicationContext()).getComponent());
+        Context context = getActivity() != null ? getActivity().getApplicationContext() : null;
+        if (context == null) {
+            return null;
+        }
+        injectComponent(((IApplication) context).getComponent());
         View view = inflater.inflate(R.layout.fragment_world_boss_event_timer, container, false);
         setupUiComponents(view);
         return view;

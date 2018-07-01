@@ -32,6 +32,7 @@ import com.scavi.de.gw2imp.ui.view.IDailyView;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 public abstract class AbstractDailyFragment extends AbstractFragment implements IDailyView {
@@ -60,7 +61,7 @@ public abstract class AbstractDailyFragment extends AbstractFragment implements 
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public View onCreateView(@Nonnull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
         injectComponent(((IApplication) getContext().getApplicationContext()).getComponent());

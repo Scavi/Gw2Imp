@@ -23,10 +23,11 @@ import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
 import com.scavi.de.gw2imp.dagger2.component.DaggerDailyComponent;
 import com.scavi.de.gw2imp.dagger2.module.DailyModule;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class DailyTomorrowFragment extends AbstractDailyFragment  {
+public class DailyTomorrowFragment extends AbstractDailyFragment {
     /**
      * Called to have the fragment instantiate its user interface view. This is optional, and
      * non-graphical fragments can return null (which is the default implementation). This will
@@ -44,7 +45,7 @@ public class DailyTomorrowFragment extends AbstractDailyFragment  {
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public View onCreateView(@Nonnull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);

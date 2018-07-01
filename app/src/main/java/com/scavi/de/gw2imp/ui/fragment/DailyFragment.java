@@ -23,6 +23,7 @@ import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
 import com.scavi.de.gw2imp.dagger2.component.DaggerDailyComponent;
 import com.scavi.de.gw2imp.dagger2.module.DailyModule;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -44,7 +45,7 @@ public class DailyFragment extends AbstractDailyFragment {
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public View onCreateView(@Nonnull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);

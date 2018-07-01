@@ -34,6 +34,7 @@ import com.scavi.de.gw2imp.ui.view.IAccountRaidView;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 public class AccountRaidFragment extends AbstractStatusFragment implements IAccountRaidView {
@@ -59,10 +60,14 @@ public class AccountRaidFragment extends AbstractStatusFragment implements IAcco
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public View onCreateView(@Nonnull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        injectComponent(((IApplication) getContext().getApplicationContext()).getComponent());
+        Context context = getActivity() != null ? getActivity().getApplicationContext() : null;
+        if (context == null) {
+            return null;
+        }
+        injectComponent(((IApplication) context).getComponent());
         View fragmentView = inflater.inflate(R.layout.fragment_account_raid, container, false);
         setupUiComponents(fragmentView);
         return fragmentView;

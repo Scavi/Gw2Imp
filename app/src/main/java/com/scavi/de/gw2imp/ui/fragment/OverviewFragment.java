@@ -1,7 +1,10 @@
 package com.scavi.de.gw2imp.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +16,13 @@ import com.scavi.de.gw2imp.dagger2.component.ApplicationComponent;
 import com.scavi.de.gw2imp.dagger2.component.DaggerOverviewComponent;
 import com.scavi.de.gw2imp.dagger2.module.OverviewModule;
 import com.scavi.de.gw2imp.presenter.OverviewPresenter;
+import com.scavi.de.gw2imp.ui.util.ActivityHelper;
 import com.scavi.de.gw2imp.ui.view.IOverviewView;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-public class OverviewFragment extends AbstractFragment implements IOverviewView {
+public class OverviewFragment extends Fragment implements IOverviewView {
     @Inject
     OverviewPresenter mPresenter;
 
@@ -39,10 +44,14 @@ public class OverviewFragment extends AbstractFragment implements IOverviewView 
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public View onCreateView(@Nonnull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        injectComponent(((IApplication) getContext().getApplicationContext()).getComponent());
+        Context context = getActivity() != null ? getActivity().getApplicationContext() : null;
+        if (context == null) {
+            return null;
+        }
+        injectComponent(((IApplication) context).getComponent());
         return inflater.inflate(R.layout.fragment_overview, container, false);
     }
 
@@ -63,28 +72,61 @@ public class OverviewFragment extends AbstractFragment implements IOverviewView 
 
 
     /**
-     *
+     * Currently, the status information are only updated during on resume.
+     * TODO: publish and subscribe for the information (currently not required)
      */
     @Override
-    public void onShowProgress() {
-        // TODO
+    public void onResume() {
+        super.onResume();
+        mPresenter.loadStatusData();
     }
 
 
     /**
+     * Updates the loaded item count in the view
      *
+     * @param itemCount the item count
      */
     @Override
-    public void onHideProgress() {
-        // TODO
+    public void updateItemCount(final int itemCount) {
+        ActivityHelper.setTextOnTextView(getActivity(), R.id.overview_loaded_item_count, itemCount);
     }
 
 
     /**
+     * Updates the count of loaded prices in the view
      *
+     * @param priceCount the price count
      */
     @Override
-    public void onHideProgressAfterError() {
-        // TODO
+    public void updateItemPriceCount(final int priceCount) {
+        ActivityHelper.setTextOnTextView(getActivity(), R.id.overview_loaded_price_count,
+                priceCount);
+    }
+
+
+    /**
+     * Updates the view to set the history count
+     *
+     * @param historyCount the history count
+     */
+    @Override
+    public void updateHistoryCount(final int historyCount) {
+        ActivityHelper.setTextOnTextView(getActivity(), R.id.overview_history_count, historyCount);
+    }
+
+
+    /**
+     * Updates the search index depending on the status
+     *
+     * @param resourceId the resource id
+     * @param color      the color of the field
+     */
+    @Override
+    public void updateSearchIndex(@StringRes final int resourceId,
+                                  @IdRes final int color) {
+        String text = getString(resourceId);
+        ActivityHelper.setTextOnTextView(getActivity(), R.id.overview_search_index, text);
+        ActivityHelper.setColorOnTextView(getActivity(), R.id.overview_search_index, color);
     }
 }

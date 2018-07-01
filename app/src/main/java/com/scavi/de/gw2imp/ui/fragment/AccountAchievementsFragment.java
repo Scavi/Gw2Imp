@@ -13,6 +13,7 @@
  */
 package com.scavi.de.gw2imp.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ import com.scavi.de.gw2imp.dagger2.module.AccountAchievementsModule;
 import com.scavi.de.gw2imp.presenter.AccountAchievementsPresenter;
 import com.scavi.de.gw2imp.ui.view.IAccountAchievementsView;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 public class AccountAchievementsFragment extends AbstractFragment implements
@@ -52,10 +54,14 @@ public class AccountAchievementsFragment extends AbstractFragment implements
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public View onCreateView(@Nonnull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        injectComponent(((IApplication) getContext().getApplicationContext()).getComponent());
+        Context context = getActivity() != null ? getActivity().getApplicationContext() : null;
+        if (context == null) {
+            return null;
+        }
+        injectComponent(((IApplication) context).getComponent());
         return inflater.inflate(R.layout.fragment_account_achievements, container, false);
     }
 
