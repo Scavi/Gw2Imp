@@ -19,11 +19,11 @@ import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.data.db.routine.ItemRoutines;
 import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
-import com.scavi.de.gw2imp.util.RoutingState;
 
 public class OverviewModel extends AbstractModel {
     private final IDatabaseAccess mDatabaseAccess;
     private final IExecutorAccess mExecutorAccess;
+    private final IPreferenceAccess mPreferenceAccess;
 
     /**
      * Constructor
@@ -34,10 +34,12 @@ public class OverviewModel extends AbstractModel {
      */
     public OverviewModel(final Context context,
                          final IDatabaseAccess databaseAccess,
-                         final IExecutorAccess executorAccess) {
+                         final IExecutorAccess executorAccess,
+                         final IPreferenceAccess preferenceAccess) {
         super(context);
         mDatabaseAccess = databaseAccess;
         mExecutorAccess = executorAccess;
+        mPreferenceAccess = preferenceAccess;
     }
 
 
@@ -76,6 +78,10 @@ public class OverviewModel extends AbstractModel {
         return ItemRoutines.isSearchIndexComplete(mDatabaseAccess);
     }
 
+
+    public boolean determineWordIndex() {
+        return mPreferenceAccess.readIsWordIndexComplete(mContext);
+    }
 
     /**
      * @return to access the main and background threads

@@ -66,16 +66,18 @@ public class OverviewModule {
     }
 
     /**
-     * @param context        the context to global information about the application environment
-     * @param impDatabase    the database access of this application
-     * @param executorAccess to access the main and background threads
+     * @param context          the context to global information about the application environment
+     * @param impDatabase      the database access of this application
+     * @param executorAccess   to access the main and background threads
+     * @param preferenceAccess to the shared preferences of this application
      * @return the model of the MVP pattern in the context of the application overview
      */
     @Provides
     @NonNull
     public OverviewModel provideModel(final Context context,
                                       final IDatabaseAccess impDatabase,
-                                      final IExecutorAccess executorAccess) {
-        return new OverviewModel(context, impDatabase, executorAccess);
+                                      final IExecutorAccess executorAccess,
+                                      final IPreferenceAccess preferenceAccess) {
+        return new OverviewModel(context, impDatabase, executorAccess, preferenceAccess);
     }
 }

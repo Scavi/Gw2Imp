@@ -123,10 +123,25 @@ public class OverviewFragment extends Fragment implements IOverviewView {
      * @param color      the color of the field
      */
     @Override
-    public void updateSearchIndex(@StringRes final int resourceId,
-                                  @IdRes final int color) {
+    public void updateSearchIndexStatus(@StringRes final int resourceId,
+                                        @IdRes final int color) {
         String text = getString(resourceId);
         ActivityHelper.setTextOnTextView(getActivity(), R.id.overview_search_index, text);
         ActivityHelper.setColorOnTextView(getActivity(), R.id.overview_search_index, color);
+    }
+
+
+    /**
+     * Updates the word index depending on the status
+     *
+     * @param resourceId the resource id
+     * @param color      the color of the field
+     */
+    @Override
+    public void updateWordIndexStatus(final int resourceId,
+                                      final int color) {
+        String text = getString(resourceId);
+        ActivityHelper.setTextOnTextView(getActivity(), R.id.overview_word_index, text);
+        ActivityHelper.setColorOnTextView(getActivity(), R.id.overview_word_index, color);
     }
 }

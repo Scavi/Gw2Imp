@@ -48,6 +48,16 @@ public interface IOverviewView {
      * @param resourceId the resource id
      * @param color      the color of the field
      */
-    void updateSearchIndex(@StringRes final int resourceId,
-                           @IdRes final int color);
+    void updateSearchIndexStatus(@StringRes final int resourceId,
+                                 @IdRes final int color);
+
+
+    /**
+     * Updates the word index depending on the status
+     *
+     * @param resourceId the resource id
+     * @param color      the color of the field
+     */
+    void updateWordIndexStatus(@StringRes final int resourceId,
+                               @IdRes final int color);
 }
