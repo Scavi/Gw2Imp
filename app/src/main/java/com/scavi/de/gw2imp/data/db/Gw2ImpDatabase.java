@@ -20,6 +20,7 @@ import com.scavi.de.gw2imp.data.dao.IAchievementDAO;
 import com.scavi.de.gw2imp.data.dao.IItemsDAO;
 import com.scavi.de.gw2imp.data.dao.IRaidDAO;
 import com.scavi.de.gw2imp.data.dao.ITimedEventsDAO;
+import com.scavi.de.gw2imp.data.dao.ITrendDAO;
 import com.scavi.de.gw2imp.data.entity.achievement.AchievementEntity;
 import com.scavi.de.gw2imp.data.entity.achievement.FlagsEntity;
 import com.scavi.de.gw2imp.data.entity.achievement.RewardEntity;
@@ -35,7 +36,7 @@ import com.scavi.de.gw2imp.data.entity.raid.RaidEntity;
 @Database(entities =
         {RaidEntity.class, AchievementEntity.class, FlagsEntity.class, RewardEntity.class,
                 TierEntity.class, WorldBossEntity.class, ItemEntity.class, ItemPriceEntity.class,
-                ItemPriceHistoryEntity.class, TrendEntity.class, ItemSearchEntity.class},
+                ItemPriceHistoryEntity.class , TrendEntity.class, ItemSearchEntity.class},
         version = 3)
 public abstract class Gw2ImpDatabase extends RoomDatabase implements IDatabaseAccess {
 
@@ -61,4 +62,11 @@ public abstract class Gw2ImpDatabase extends RoomDatabase implements IDatabaseAc
      * @return the access to all item information (e.g. id, name, url, icon)
      */
     public abstract IItemsDAO itemsDAO();
+
+
+    /**
+     *
+     * @return the access to the trends (e.g. increasing and decreasing item prices)
+     */
+    public abstract ITrendDAO trendDAO();
 }
