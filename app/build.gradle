@@ -7,8 +7,8 @@ android {
         applicationId "com.scavi.de.gw2imp"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 30000
-        versionName "0.3.0.0"
+        versionCode 30100
+        versionName "0.3.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,61 +30,61 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'xyz.belvi.mobilevision:barcodescanner:2.0.0'
+    api 'xyz.belvi.mobilevision:barcodescanner:2.0.0'
 
     // AndroidJUnitRunner, mockito and JUnit Rules
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test:runner:1.0.1'
-    androidTestCompile 'com.android.support.test:rules:1.0.1'
-    androidTestCompile 'com.android.support:support-annotations:27.0.2'
-    testCompile 'org.mockito:mockito-core:2.7.22'
-    androidTestCompile 'org.mockito:mockito-android:2.7.22'
+    testImplementation 'junit:junit:4.12'
+    //androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    //androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'com.android.support:support-annotations:27.1.1'
+    testImplementation 'org.mockito:mockito-core:2.7.22'
+    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
     // Espresso dependencies
-    //androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
-    //androidTestCompile 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
+    //androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //androidTestImplementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
     // truth
-    testCompile "com.google.truth:truth:0.39"
+    testImplementation "com.google.truth:truth:0.39"
     // room
-    compile 'android.arch.persistence.room:runtime:1.0.0'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
-    compile 'android.arch.lifecycle:extensions:1.0.0'
-    annotationProcessor 'android.arch.lifecycle:compiler:1.0.0'
-    compile 'android.arch.persistence.room:rxjava2:1.0.0'
+    api 'android.arch.persistence.room:runtime:1.1.1'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+    api 'android.arch.lifecycle:extensions:1.1.1'
+    annotationProcessor 'android.arch.lifecycle:compiler:1.1.1'
+    api 'android.arch.persistence.room:rxjava2:1.1.1'
     // dagger
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
-    compile 'com.google.dagger:dagger-android:2.11'
-    compile 'com.google.dagger:dagger-android-support:2.11'
+    api 'com.google.dagger:dagger-android:2.11'
+    api 'com.google.dagger:dagger-android-support:2.11'
     // gson
-    compile 'com.google.code.gson:gson:2.8.1'
+    api 'com.google.code.gson:gson:2.8.1'
     // android
-    compile 'com.android.support:appcompat-v7:27.0.2'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:27.0.2'
+    api 'com.android.support:appcompat-v7:27.1.1'
+    api 'com.android.support.constraint:constraint-layout:1.1.2'
+    api 'com.android.support:design:27.1.1'
     // google
-    compile 'com.google.code.findbugs:jsr305:3.0.2'
+    api 'com.google.code.findbugs:jsr305:3.0.2'
     // retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    api 'com.squareup.okhttp3:okhttp:3.8.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     // reactivex rxjava2
-    //compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+    //api 'io.reactivex.rxjava2:rxjava:2.1.5'
     // guava
-    compile group: 'com.google.guava', name: 'guava', version: '22.0'
+    api group: 'com.google.guava', name: 'guava', version: '22.0'
     // material drawer
-    compile 'com.mikepenz:google-material-typeface:3.0.1.1.original@aar'
-    compile('com.mikepenz:materialdrawer:5.9.5@aar') {
+    api 'com.mikepenz:google-material-typeface:3.0.1.1.original@aar'
+    api('com.mikepenz:materialdrawer:5.9.5@aar') {
         transitive = true
     }
     // EazeGraph
     //compile 'com.github.blackfizz:eazegraph:1.2.2@aar'
     //compile 'com.nineoldandroids:library:2.4.0'
     // Chart and Graph Library for Android
-    compile 'com.jjoe64:graphview:4.2.1'
+    api 'com.jjoe64:graphview:4.2.1'
 
-    compile 'com.scavi.androidimp:android-imp:0.1.0.0@aar'
+    api 'com.scavi.androidimp:android-imp:0.1.0.0@aar'
 }
