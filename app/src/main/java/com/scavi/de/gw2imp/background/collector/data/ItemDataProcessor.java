@@ -108,7 +108,8 @@ public class ItemDataProcessor implements IDataProcessor {
                     waitMs(TOO_MANY_REQUEST_DELAY_MS);
                 }
             } catch (ResponseException ex) {
-                Log.e(TAG, "An error has occurred while trying to load the commerce data from the server side!",
+                Log.e(TAG, "An error has occurred while trying to load the commerce data from the" +
+                                " server side!",
                         ex);
             } catch (Exception ex) {
                 Log.e(TAG, "A general failure has occurred while trying to load commerce data.",
@@ -285,7 +286,11 @@ public class ItemDataProcessor implements IDataProcessor {
 
 
     /**
-     * This method determines all missing IDs for the search index that are known yet.
+     * This method determines all missing IDs for the search index that are known yet. It
+     * determines all Item-IDs that are not known yet by the search index and then create search
+     * item entities by all possible name parts.
+     * Basically this method takes an item name and splits the name into all possible words to
+     * insert the words as item search entities
      */
     @Override
     public void updateItemSearchIndex() {
