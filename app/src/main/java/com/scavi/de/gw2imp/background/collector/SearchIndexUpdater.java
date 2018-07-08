@@ -25,7 +25,6 @@ public class SearchIndexUpdater extends Thread {
 
     // item collector iteration timer
     private static final long ITERATION_MS = 60 * 60 * 1000;
-    private static final int MAX_DICTIONARY_ITERATIONS = 3;
     private final IDataProcessor mItemDataProcessor;
     private final IDatabaseAccess mDatabaseAccess;
     private final IPreferenceAccess mPreferences;
@@ -118,17 +117,9 @@ public class SearchIndexUpdater extends Thread {
             return false;
         }
         searchWords(searchItem, searchDictionary, new StringBuilder(), foundWords, 0);
-        return true;
         // TODO: lets start without this first to get more words into the dictionary and see how
         // it goes
-//        boolean hasEntries = searchWords(searchItem, searchDictionary, new StringBuilder(),
-//                foundWords, 0);
-//        // the search item can't get completely translated (e.g. item="Eisener" and
-//        // dictionary="Eisen", "Erz"
-//        if (!hasEntries) {
-//            foundWords.clear();
-//        }
-//        return hasEntries;
+        return true;
     }
 
 
@@ -150,15 +141,6 @@ public class SearchIndexUpdater extends Thread {
                              @NonNull final StringBuilder currentWord,
                              @NonNull final Set<String> foundWords,
                              int pos) {
-        if (pos == searchItem.getNamePart().length()) {
-            // In case the current word buffer is empty a matching word was just found before.
-            // This means, that the word was found found complete
-            // TODO: for test purposes, just add everythign and not if it is complete
-            // return currentWord.length() == 0;
-            //return foundWords.size() > 0;
-        }
-
-        boolean isComplete = false;
         for (int i = pos; i < searchItem.getNamePart().length(); ++i) {
             currentWord.append(searchItem.getNamePart().charAt(i));
             boolean isExisting = searchDictionary.contains(currentWord.toString());
@@ -169,7 +151,6 @@ public class SearchIndexUpdater extends Thread {
                         foundWords, i + 1);
             }
         }
-        //return isComplete;
     }
 
 
