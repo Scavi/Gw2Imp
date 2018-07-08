@@ -227,9 +227,17 @@ public interface IItemsDAO {
      *
      * @return the amount of item parts
      */
+    @Query("SELECT COUNT(distinct id) FROM " + DbConst.TABLE_ITEM_PART_SEARCH)
+    int selectDistinctItemSearchCount();
+
+    /**
+     * Selects the amount of search item parts distinct by id because the correlation is ID to
+     * all parts of the name to the correlated ID
+     *
+     * @return the amount of item parts
+     */
     @Query("SELECT COUNT(id) FROM " + DbConst.TABLE_ITEM_PART_SEARCH)
     int selectItemSearchCount();
-
 
     /**
      * @return
