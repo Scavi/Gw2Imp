@@ -29,9 +29,10 @@ public class Migrate2To3 extends Migration {
     public void migrate(@NonNull final SupportSQLiteDatabase database) {
         // creates the table item search part
         database.execSQL("CREATE TABLE IF NOT EXISTS " + DbConst.TABLE_ITEM_PART_SEARCH + " (id " +
-                "INTEGER, namePart TEXT, PRIMARY KEY(id, namePart))");
+                "INTEGER NOT NULL, namePart TEXT NOT NULL, PRIMARY KEY(id, namePart))");
         // creates the table trends
-        database.execSQL("CREATE TABLE IF NOT EXISTS " + DbConst.TABLE_TRENDS + " (id INTEGER, " +
-                "type INTEGER, percentage DOUBLE, time LONG, PRIMARY KEY(id, type))");
+        database.execSQL("CREATE TABLE IF NOT EXISTS " + DbConst.TABLE_TRENDS + " (id INTEGER NOT" +
+                " NULL, type INTEGER NOT NULL, percentage REAL NOT NULL, time INTEGER NOT NULL, " +
+                "PRIMARY KEY(id, type))");
     }
 }

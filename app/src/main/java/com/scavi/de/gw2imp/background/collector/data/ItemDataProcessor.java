@@ -161,7 +161,7 @@ public class ItemDataProcessor implements IDataProcessor {
                 mDatabaseAccess.itemsDAO().insertItemPrice(newPrice);
             } else {
                 Log.w(TAG, String.format(
-                        "The Item to the price id '%d' doesn't exist and will be skipped",
+                        "The Item to the price id '%d' doesn't exist. the price will be skipped",
                         price.getId()));
             }
         } catch (Exception ex) {

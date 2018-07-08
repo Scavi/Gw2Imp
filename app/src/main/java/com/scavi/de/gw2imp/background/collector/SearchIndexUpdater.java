@@ -59,7 +59,6 @@ public class SearchIndexUpdater extends Thread {
     @Override
     public void run() {
         while (!isInterrupted()) {
-            updateDictionary(); // TODO remove and use it after the updateItemSearchIndex (currently only for test)
             while (!ItemRoutines.isSearchIndexComplete(mDatabaseAccess)) {
                 mItemDataProcessor.updateItemSearchIndex();
             }
