@@ -120,6 +120,11 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
                 .setButtonColor(R.color.core_floating_button_color)
                 .setOpenFilterDrawableId(R.drawable.ic_search_black_24dp)
                 .build();
+
+        if (!mPresenter.verifySearchIndexOptimal()) {
+            ActivityHelper.showMessageInDialog(requireNonNull(getActivity()),
+                    getString(R.string.trading_items_data_search_index_updating));
+        }
     }
 
 

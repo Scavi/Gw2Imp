@@ -50,6 +50,15 @@ public class TradingItemsPresenter {
 
 
     /**
+     * @return <code>true</code> optimal search index to find all words
+     * <code>false</code> still indexing
+     */
+    public boolean verifySearchIndexOptimal() {
+        return mModel.isSearchIndexOptimal();
+    }
+
+
+    /**
      * This method creates a text field watcher with a small delay. After the delay an item search
      * will be initiated against the database will be initiated to determine all items to the
      * entered name
