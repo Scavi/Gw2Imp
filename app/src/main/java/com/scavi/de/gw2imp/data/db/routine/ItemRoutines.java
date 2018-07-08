@@ -16,7 +16,7 @@ public class ItemRoutines {
      */
     public static boolean isSearchIndexComplete(@NonNull final IDatabaseAccess databaseAccess) {
         int itemCount = databaseAccess.itemsDAO().selectItemCount();
-        int indexCount = databaseAccess.itemsDAO().selectItemSearchCount();
+        int indexCount = databaseAccess.itemsDAO().selectDistinctItemSearchCount();
         return itemCount == indexCount;
     }
 }
