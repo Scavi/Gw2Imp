@@ -61,12 +61,14 @@ public class OverviewPresenter {
             int itemPriceCount = mModel.selectItemPriceCount();
             int itemHistoryCount = mModel.selectItemPriceHistoryCount();
             boolean isSearchIndexComplete = mModel.selectIsSearchIndexComplete();
-
+            boolean isWordIndexComplete = mModel.determineWordIndex();
             Runnable informationUiUpdater = createInformationUiUpdater(itemCount, itemPriceCount,
                     itemHistoryCount);
-            Runnable statusUiUpdater = createStatusUiUpdater(isSearchIndexComplete);
+            Runnable statusUiUpdater = createSearchStatusUiUpdater(isSearchIndexComplete);
+            Runnable wordUiUpdater = createWordStatusUiUpdater(isWordIndexComplete);
             mModel.getExecutorAccess().getUiThreadExecutor().execute(informationUiUpdater);
             mModel.getExecutorAccess().getUiThreadExecutor().execute(statusUiUpdater);
+            mModel.getExecutorAccess().getUiThreadExecutor().execute(wordUiUpdater);
         };
     }
 
@@ -98,7 +100,7 @@ public class OverviewPresenter {
      *                              not complete
      * @return the runnable to update the  status
      */
-    private Runnable createStatusUiUpdater(final boolean isSearchIndexComplete) {
+    private Runnable createSearchStatusUiUpdater(final boolean isSearchIndexComplete) {
         return () -> {
             int resourceId;
             int color;
@@ -110,7 +112,32 @@ public class OverviewPresenter {
                 resourceId = R.string.overview_index_sync_incomplete;
                 color = R.color.core_highlight_1;
             }
-            mView.updateSearchIndex(resourceId, color);
+            mView.updateSearchIndexStatus(resourceId, color);
+        };
+    }
+
+
+    /**
+     * Creates a runnable to update the UI with the status
+     *
+     * @param isWordIndexComplete <code>true</code> if the word index is complete <br>
+     *                            <code>false</code> if the update of the word index is still
+     *                            not complete
+     * @return the runnable to update the  status
+     */
+    private Runnable createWordStatusUiUpdater(final boolean isWordIndexComplete) {
+        return () -> {
+            int resourceId;
+            int color;
+            // determine text & color depending on the search index flag
+            if (isWordIndexComplete) {
+                resourceId = R.string.overview_index_sync_complete;
+                color = R.color.core_highlight_3;
+            } else {
+                resourceId = R.string.overview_index_sync_incomplete;
+                color = R.color.core_highlight_1;
+            }
+            mView.updateWordIndexStatus(resourceId, color);
         };
     }
 }
