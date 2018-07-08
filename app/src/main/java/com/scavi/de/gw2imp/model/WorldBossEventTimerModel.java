@@ -15,6 +15,7 @@
 package com.scavi.de.gw2imp.model;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
 import com.google.common.util.concurrent.FutureCallback;
@@ -22,10 +23,13 @@ import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.data.dao.ITimedEventsDAO;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.data.entity.event.WorldBossEntity;
+import com.scavi.de.gw2imp.ui.adapter.WorldBossesAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.Callable;
 
 public class WorldBossEventTimerModel extends AbstractModel {
@@ -61,7 +65,9 @@ public class WorldBossEventTimerModel extends AbstractModel {
     @WorkerThread
     public void determineUpcomingWorldBosses(final FutureCallback<List<WorldBossEntity>> callBack) {
         Callable<List<WorldBossEntity>> callable = () -> {
-            int from = getMinutesOfDay();
+            // TODO ugly hack
+            int daylightSaving = TimeZone.getDefault().inDaylightTime(new Date()) ? 60 : 0;
+            int from = getMinutesOfDay() + daylightSaving;
             int till = from + INTERVAL;
 
             // max 7 boss for each hour
@@ -76,9 +82,20 @@ public class WorldBossEventTimerModel extends AbstractModel {
                         DAY_MAX_MINUTES);
                 bosses.addAll(selectAndInsertIfNotExists(0, till % DAY_MAX_MINUTES));
             }
-            return bosses;
+            return adaptToSummerTime(bosses);
         };
         mExecutorAccess.executeBackgroundTask(callable, callBack);
+    }
+
+    // TODO ugly hack
+    private List<WorldBossEntity> adaptToSummerTime(@NonNull final List<WorldBossEntity> bosses) {
+        if (!TimeZone.getDefault().inDaylightTime(new Date())) {
+            return bosses;
+        }
+        for (WorldBossEntity worldBoss : bosses) {
+            worldBoss.changeToDailightSaving();
+        }
+        return bosses;
     }
 
 
@@ -109,6 +126,7 @@ public class WorldBossEventTimerModel extends AbstractModel {
         ITimedEventsDAO dao = mImpDatabase.timedEventsDAO();
         List<WorldBossEntity> worldBosses = dao.selectWorldBossesInInterval(from, till);
         if (toRefreshRequired(worldBosses)) {
+            // get all hard coded world bosses due to the missing functionality in the API
             List<WorldBossEntity> allBosses = WorldBossEntity.createWorldBossEventTimer();
             mImpDatabase.timedEventsDAO().insertWorldBosses(allBosses);
             worldBosses = dao.selectWorldBossesInInterval(from, till);
