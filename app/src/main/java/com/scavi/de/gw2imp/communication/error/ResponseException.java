@@ -15,6 +15,8 @@ package com.scavi.de.gw2imp.communication.error;
 
 import android.support.annotation.Nullable;
 
+import java.util.Locale;
+
 import okhttp3.ResponseBody;
 
 public class ResponseException extends Exception {
@@ -47,5 +49,12 @@ public class ResponseException extends Exception {
      */
     public int getResponseCode() {
         return mResponseCode;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.getDefault(),
+                "RC=%d, Body=%s", getResponseCode(), getResponseBody() != null ?
+                        getResponseBody().toString() : "<null>");
     }
 }

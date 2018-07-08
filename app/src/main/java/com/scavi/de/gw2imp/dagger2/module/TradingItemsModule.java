@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.scavi.de.gw2imp.async.IExecutorAccess;
 import com.scavi.de.gw2imp.data.db.IDatabaseAccess;
 import com.scavi.de.gw2imp.model.TradingItemsModel;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 import com.scavi.de.gw2imp.presenter.TradingItemsPresenter;
 import com.scavi.de.gw2imp.ui.view.ITradingItemsView;
 
@@ -53,16 +54,18 @@ public class TradingItemsModule {
 
 
     /**
-     * @param context        the context to global information about the application environment
-     * @param impDatabase    the database access of this application
-     * @param executorAccess to access the main and background threads
+     * @param context          the context to global information about the application environment
+     * @param impDatabase      the database access of this application
+     * @param executorAccess   to access the main and background threads
+     * @param preferenceAccess access to the shared preferences of this application
      * @return the model of the MVP pattern in the context  of all trading items and their prices
      */
     @Provides
     @NonNull
     public TradingItemsModel provideModel(final Context context,
                                           final IDatabaseAccess impDatabase,
-                                          final IExecutorAccess executorAccess) {
-        return new TradingItemsModel(context, impDatabase, executorAccess);
+                                          final IExecutorAccess executorAccess,
+                                          final IPreferenceAccess preferenceAccess) {
+        return new TradingItemsModel(context, impDatabase, executorAccess, preferenceAccess);
     }
 }

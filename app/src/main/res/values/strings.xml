@@ -77,6 +77,7 @@
     <string name="trading_items_getting_your_data">Deine Handels-Informationen werden ermittelt</string>
     <string name="trading_items_data_access_error">Bei der Ermittlung der Handels-Informationen ist ein Fehler aufgetreten: %s</string>
     <string name="trading_items_data_count_warning">Bisher liegen noch nicht genug Preise vor. Versuche es zu einem späteren Zeitpunkt noch einmal.</string>
+    <string name="trading_items_data_search_index_updating">Der Such- und Wortindex wird nachwievor aktualisiert. Die Suche steht nur eingeschränkt zur Verfügung.</string>
     <string name="trading_items_search">Suche</string>
     <string name="trading_items_buy">Kaufspreis</string>
     <string name="trading_items_sell">Verkaufspreis</string>

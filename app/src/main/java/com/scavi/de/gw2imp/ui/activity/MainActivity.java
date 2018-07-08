@@ -258,10 +258,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         .withIdentifier(NavigationClickListener.TRADING_ITEMS)
                         .withName(getString(R.string.core_navigation_account_trading))
                         .withIcon(R.drawable.ic_trending_up_black_24dp),
-                new SecondaryDrawerItem()
-                        .withIdentifier(NavigationClickListener.PRICE_DEVELOPMENT)
-                        .withName(getString(R.string.core_navigation_account_trend))
-                        .withIcon(R.drawable.ic_trending_up_black_24dp), // TODO icon
+//                new SecondaryDrawerItem()
+//                        .withIdentifier(NavigationClickListener.PRICE_DEVELOPMENT)
+//                        .withName(getString(R.string.core_navigation_account_trend))
+//                        .withIcon(R.drawable.ic_trending_up_black_24dp), // TODO icon
                 new SectionDrawerItem().withDivider(true)
                         .withName(getString(R.string.core_navigation_event_timer)),
                 new SecondaryDrawerItem()

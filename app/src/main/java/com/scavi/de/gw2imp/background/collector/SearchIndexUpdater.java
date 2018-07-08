@@ -24,7 +24,7 @@ public class SearchIndexUpdater extends Thread {
     private static final String TAG = "SearchIndexUpdater";
 
     // item collector iteration timer
-    private static final long ITERATION_MS = 60 * 60 * 1000;
+    private static final long ITERATION_MS = 60 * 60 * 60 * 1000;
     private final IDataProcessor mItemDataProcessor;
     private final IDatabaseAccess mDatabaseAccess;
     private final IPreferenceAccess mPreferences;
@@ -71,6 +71,10 @@ public class SearchIndexUpdater extends Thread {
         if (mPreferences.readIsWordIndexComplete(mContext)) {
             return;
         }
+        // search index is not yet completed. Only start if it is completed!
+        if (!ItemRoutines.isSearchIndexComplete(mDatabaseAccess)) {
+            return;
+        }
 
         int countBefore = mDatabaseAccess.itemsDAO().selectItemSearchCount();
         Set<String> searchDictionary = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
@@ -90,9 +94,13 @@ public class SearchIndexUpdater extends Thread {
             // item was processed, update the id / index
             id = nextItem.getId();
         }
+
+
         int countAfter = mDatabaseAccess.itemsDAO().selectItemSearchCount();
         boolean isUnchanged = countBefore == countAfter && countBefore > 0;
-        mPreferences.writeIsWordIndexComplete(mContext, isUnchanged);
+        // TODO currently fail save with 24000
+        mPreferences.writeIsWordIndexComplete(mContext, isUnchanged && mDatabaseAccess.itemsDAO()
+                .selectItemCount() > 24000);
     }
 
 

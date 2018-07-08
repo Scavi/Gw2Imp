@@ -28,6 +28,7 @@ import com.scavi.de.gw2imp.data.entity.item.ItemPriceEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemPriceHistoryEntity;
 import com.scavi.de.gw2imp.data.entity.item.ItemSearchEntity;
 import com.scavi.de.gw2imp.model.so.TradingItemData;
+import com.scavi.de.gw2imp.preferences.IPreferenceAccess;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -39,21 +40,25 @@ public class TradingItemsModel extends AbstractModel {
     public static final int TRADING_ITEM_DELAY_MS = 500;
     private final IDatabaseAccess mImpDatabase;
     private final IExecutorAccess mExecutorAccess;
+    private final IPreferenceAccess mPreferenceAccess;
     private final String WILD_CARD = "%";
 
     /**
      * Constructor
      *
-     * @param context        the context to global information about the application environment
-     * @param impDatabase    the database access of this application
-     * @param executorAccess to access the main and background threads
+     * @param context          the context to global information about the application environment
+     * @param impDatabase      the database access of this application
+     * @param executorAccess   to access the main and background threads
+     * @param preferenceAccess access to the shared preferences of this application
      */
     public TradingItemsModel(final Context context,
                              final IDatabaseAccess impDatabase,
-                             final IExecutorAccess executorAccess) {
+                             final IExecutorAccess executorAccess,
+                             final IPreferenceAccess preferenceAccess) {
         super(context);
         mImpDatabase = impDatabase;
         mExecutorAccess = executorAccess;
+        mPreferenceAccess = preferenceAccess;
     }
 
 
@@ -140,6 +145,14 @@ public class TradingItemsModel extends AbstractModel {
         return mImpDatabase.itemsDAO().selectItemPriceHistory(item.getItemId());
     }
 
+
+    /**
+     * @return <code>true</code> optimal search index to find all words
+     * <code>false</code> still indexing
+     */
+    public boolean isSearchIndexOptimal() {
+        return mPreferenceAccess.readIsWordIndexComplete(mContext);
+    }
 
     /**
      * @return to access the main and background threads
