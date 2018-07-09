@@ -98,9 +98,9 @@ public class SearchIndexUpdater extends Thread {
 
         int countAfter = mDatabaseAccess.itemsDAO().selectItemSearchCount();
         boolean isUnchanged = countBefore == countAfter && countBefore > 0;
-        // TODO currently fail save with 24000
+        // TODO currently fail save with 23400
         mPreferences.writeIsWordIndexComplete(mContext, isUnchanged && mDatabaseAccess.itemsDAO()
-                .selectItemCount() > 24000);
+                .selectItemCount() > 23400);
     }
 
 

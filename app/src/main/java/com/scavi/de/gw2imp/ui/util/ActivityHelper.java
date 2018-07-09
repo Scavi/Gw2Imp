@@ -18,6 +18,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.TextView;
@@ -87,10 +88,7 @@ public class ActivityHelper {
         }
 
         TextView textView = activity.findViewById(textViewId);
-        textView.setTextColor(ResourcesCompat.getColor(
-                activity.getResources(),
-                colorId,
-                null));
+        textView.setTextColor(ContextCompat.getColor(activity.getApplicationContext(), colorId));
     }
 
 
