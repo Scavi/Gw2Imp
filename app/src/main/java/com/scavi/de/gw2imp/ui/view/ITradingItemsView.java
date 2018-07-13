@@ -75,4 +75,10 @@ public interface ITradingItemsView extends IStatusView {
      * In case no prices exists, a message will be presented to the user
      */
     void showNoItemPricesFound();
+
+
+    /**
+     *Updates the clear button (e.g. visibility)
+     */
+    void updateClearButtonView(final String text);
 }

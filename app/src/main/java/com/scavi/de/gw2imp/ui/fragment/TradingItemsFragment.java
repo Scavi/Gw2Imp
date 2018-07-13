@@ -60,6 +60,7 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
     private AutoCompleteTextView mSearchItemName;
     private GraphView mTradingItemGraph;
     private TabFilter mItemGraphFilter;
+    private View mItemSearchClear;
 
     /**
      * Called to have the fragment instantiate its user interface view. This is optional, and
@@ -104,6 +105,8 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
         mSearchItemName.setOnItemClickListener(this);
         mSearchItemName.addTextChangedListener(mPresenter.createTradingItemTextDelay());
 
+        mItemSearchClear = fragmentView.findViewById(R.id.search_trading_item_clear);
+        mItemSearchClear.setOnClickListener(this);
 
         DimDisplayMetrics filterDimensions = new DimDisplayMetrics(requireNonNull(getContext()));
         mItemGraphFilter = new TabFilter.Builder(requireNonNull(getContext()), fragmentView, this)
@@ -136,6 +139,8 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
             mItemGraphFilter.acceptFilters();
         } */ else if (view.getId() == R.id.trading_items_cancel_filters) {
             mItemGraphFilter.closeFilters();
+        } else if (view.getId() == R.id.search_trading_item_clear) {
+            mSearchItemName.setText("");
         }
     }
 
@@ -358,6 +363,16 @@ public class TradingItemsFragment extends AbstractStatusFragment implements ITra
                 .tradingItemsModule(module)
                 .build()
                 .inject(this);
+    }
+
+
+    /**
+     *Updates the clear button (e.g. visibility)
+     */
+    @Override
+    public void updateClearButtonView(@Nonnull final String text) {
+        int visibility = text.length() > 0 ? View.VISIBLE : View.INVISIBLE;
+        mItemSearchClear.setVisibility(visibility);
     }
 
 

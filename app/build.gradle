@@ -8,7 +8,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 30200
-        versionName "0.3.2.0"
+        versionName "0.3.3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -87,4 +87,6 @@ dependencies {
     api 'com.jjoe64:graphview:4.2.1'
 
     api 'com.scavi.androidimp:android-imp:0.1.0.0@aar'
+    // Droid Parts
+    api 'org.droidparts:droidparts:3.2.5'
 }

@@ -46,12 +46,14 @@ public class ActivityHelper {
      *
      * @param activity the source activity and click listener
      * @param viewId   the id of the view
+     * @return the view
      */
-    public static <T extends Activity & View.OnClickListener> void setupClickableComponent(
+    public static <T extends Activity & View.OnClickListener> View setupClickableComponent(
             final T activity,
             @IdRes final int viewId) {
         final View targetView = activity.findViewById(viewId);
         targetView.setOnClickListener(activity);
+        return targetView;
     }
 
 

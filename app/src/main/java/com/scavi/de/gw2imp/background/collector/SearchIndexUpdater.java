@@ -95,7 +95,6 @@ public class SearchIndexUpdater extends Thread {
             id = nextItem.getId();
         }
 
-
         int countAfter = mDatabaseAccess.itemsDAO().selectItemSearchCount();
         boolean isUnchanged = countBefore == countAfter && countBefore > 0;
         // TODO currently fail save with 23400

@@ -44,14 +44,21 @@ public class DelayedTextFieldWatcher implements TextWatcher {
     @Override
     public void afterTextChanged(final Editable editable) {
         mTimer.cancel();
-        if (!editable.toString().isEmpty()) {
-            mTimer = new Timer();
-            mTimer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    mExecutor.run();
-                }
-            }, mDelay);
+        if (editable.toString().isEmpty()) {
+            execute();
+        } else {
+            execute();
         }
+    }
+
+    private void execute() {
+        // TODO pool
+        mTimer = new Timer();
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mExecutor.run();
+            }
+        }, mDelay);
     }
 }

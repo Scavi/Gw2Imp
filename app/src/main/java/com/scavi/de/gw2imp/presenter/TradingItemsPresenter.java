@@ -89,6 +89,7 @@ public class TradingItemsPresenter {
         return () -> {
             // the item name for the search
             String itemName = mView.getItemSearchName();
+            mView.updateClearButtonView(itemName);
 
             // must be at least 3 characters long
             if (itemName != null && itemName.length() >= MIN_SEARCH_LENGTH) {
