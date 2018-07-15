@@ -7,7 +7,7 @@ android {
         applicationId "com.scavi.de.gw2imp"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 30200
+        versionCode 30300
         versionName "0.3.3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
